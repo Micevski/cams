@@ -6,7 +6,7 @@ import javax.persistence.*
 @Table(name = "participants")
 class Participant(
         val type: String,
-        val model: String,
+        val model: String?,
         val make: String?,
         @Column(name = "production_year")
         val productionYear: Int?,

@@ -6,10 +6,6 @@ import javax.persistence.*
 @Entity
 @Table(name = "participant_passengers")
 class ParticipantPassengers(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
-
         @ManyToOne
         @JoinColumn(name = "participant_id")
         val participant: Participant,
@@ -24,6 +20,8 @@ class ParticipantPassengers(
         @Column(name = "injured_id")
         @Enumerated(EnumType.ORDINAL)
         val injuredLevel: InjuredLevel
-
-
-)
+) {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        val id: Long = 0;
+}

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 @Service
 class ParticipantService(val participantRepository: ParticipantRepository) {
 
-    fun createParticipant(type: String, model: String, make: String?, productionYear: Int?,
+    fun createParticipant(type: String, model: String?, make: String?, productionYear: Int?,
                                  registerPlate: String?, owner: Person?): Participant =
             participantRepository.save(Participant(type, model, make, productionYear, registerPlate, owner))
 
