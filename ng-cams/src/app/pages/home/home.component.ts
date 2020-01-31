@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AccidentService} from "../../service/accident.service";
-import {Observable} from "rxjs";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-home',
@@ -8,15 +8,19 @@ import {Observable} from "rxjs";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  accidents: any[];
 
-  accidents$: Observable<any[]>;
+  displayedColumns: string[] = ['Date', 'City', 'Area'];
+  dataSource = new MatTableDataSource<any>(this.accidents);
 
-  constructor(private service: AccidentService) { }
-
-  ngOnInit() {
-    this.accidents$ = this.service.findAllAccidents();
+  constructor(private service: AccidentService) {
   }
 
+  ngOnInit() {
+    this.service.findAllAccidents().subscribe(data => {
+      this.accidents = data;
+    });
+  }
 
 
 }
