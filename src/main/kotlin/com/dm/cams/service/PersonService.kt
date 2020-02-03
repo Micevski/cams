@@ -17,4 +17,9 @@ class PersonService(val personRepository: PersonRepository) {
                 Person(firstName, lastName, dateOfBirth, Gender.values()[genderId], placeOfBirth, placeOfLiving))
     }
 
+    fun findOrCreate(personId: Long?, firstName: String, lastName: String, dateOfBirth: LocalDateTime?, genderId: Int,
+                     placeOfBirth: String?, placeOfLiving: String?): Person {
+        return if(personId != null) findById(personId)
+        else save(firstName, lastName, dateOfBirth, genderId, placeOfBirth, placeOfLiving)
+    }
 }

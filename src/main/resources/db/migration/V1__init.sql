@@ -38,8 +38,7 @@ create table participants(
 create table participant_passengers(
     id bigserial primary key,
     participant_id bigint references participants(id),
-    person_id bigint references persons(id),
-    is_driver boolean,
+    passenger_person_id bigint references persons(id),
     seat_position_id bigint references seat_positions(id),
     injured_id int references injured_levels(id)
 );

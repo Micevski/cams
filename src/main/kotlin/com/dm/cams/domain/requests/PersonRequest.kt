@@ -3,7 +3,8 @@ package com.dm.cams.domain.requests
 import com.fasterxml.jackson.annotation.JsonCreator
 import java.time.LocalDateTime
 
-data class PersonRequest @JsonCreator constructor(val firstName: String,
+data class PersonRequest @JsonCreator constructor(val personId: Long?,
+                                                  val firstName: String,
                                                   val lastName: String,
                                                   val dateOfBirth: LocalDateTime?,
                                                   val genderId: Int,

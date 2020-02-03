@@ -20,16 +20,15 @@ class ParticipantController(val participantService: ParticipantService,
 
     @PostMapping("/add/{accidentId}")
     fun addParticipantToAccident(@PathVariable accidentId: Long,
-                                 @RequestBody request: ParticipantRequest) : AccidentParticipant {
+                                 @RequestBody request: ParticipantRequest): AccidentParticipant {
         val accident: Accident = accidentService.findById(accidentId)
-        val ownerId: Long? = request.ownerId
-        val owner: Person? =
-                if (ownerId != null) personService.findById(ownerId)
-                else request.ownerPerson?.let {
-                    personService.save(it.firstName, it.lastName, it.dateOfBirth, it.genderId, it.placeOfBirth, it.placeOfLiving)
-                }
+        val owner: Person? = request.ownerPerson?.let {
+            personService.findOrCreate(it.personId, it.firstName, it.lastName, it.dateOfBirth, it.genderId, it.placeOfBirth, it.placeOfLiving)
+        }
         val participant: Participant = participantService.createParticipant(
                 request.type, request.model, request.make, request.productionYear, request.registerPlate, owner)
         return accidentParticipantService.addParticipantToAccident(accident, participant)
     }
+
+
 }

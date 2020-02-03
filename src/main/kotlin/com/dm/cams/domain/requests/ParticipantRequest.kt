@@ -7,5 +7,4 @@ data class ParticipantRequest @JsonCreator constructor(val type: String,
                                                        val make: String?,
                                                        val productionYear: Int?,
                                                        val registerPlate: String?,
-                                                       val ownerId: Long?,
                                                        val ownerPerson: PersonRequest?)
