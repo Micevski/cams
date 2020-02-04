@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service
 class ParticipantService(val participantRepository: ParticipantRepository) {
 
     fun findById(id: Long) = participantRepository.getOne(id);
+
     fun createParticipant(type: String, model: String?, make: String?, productionYear: Int?,
                                  registerPlate: String?, owner: Person?): Participant =
             participantRepository.save(Participant(type, model, make, productionYear, registerPlate, owner))

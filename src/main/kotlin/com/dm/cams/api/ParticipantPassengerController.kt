@@ -8,17 +8,18 @@ import com.dm.cams.domain.requests.ParticipantPassengerRequest
 import com.dm.cams.service.ParticipantPassengerService
 import com.dm.cams.service.ParticipantService
 import com.dm.cams.service.PersonService
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
-@RestController("/api/passengers")
+@RestController
+@RequestMapping("/api/passengers")
 class ParticipantPassengerController(val participantPassengerService: ParticipantPassengerService,
                                      val participantService: ParticipantService,
                                      val personService: PersonService) {
 
+    @GetMapping("/{participantId}")
+    fun getAllPassengersForParticipant(@PathVariable participantId: Long): List<Person> = participantPassengerService.findAllForParticipant(participantId)
 
+    //TODO add multiple passengers in one request
     @PostMapping("/add/{participantId}")
     fun addPassengerToParticipant(@PathVariable participantId: Long,
                                   @RequestBody request: ParticipantPassengerRequest): ParticipantPassenger? {

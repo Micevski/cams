@@ -18,6 +18,11 @@ class ParticipantController(val participantService: ParticipantService,
                             val accidentService: AccidentService,
                             val personService: PersonService) {
 
+    @GetMapping("/{accidentId}")
+    fun getAllParticipantsForAccident(@PathVariable accidentId: Long): List<Participant> =
+            accidentParticipantService.findAllParticipantsForAccident(accidentId)
+
+    //TODO refactor this to add multiple Participants in list
     @PostMapping("/add/{accidentId}")
     fun addParticipantToAccident(@PathVariable accidentId: Long,
                                  @RequestBody request: ParticipantRequest): AccidentParticipant {

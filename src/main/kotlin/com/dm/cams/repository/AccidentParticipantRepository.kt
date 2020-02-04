@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface AccidentParticipantRepository : JpaRepository<AccidentParticipant, Long> {
+    fun findAllByAccident_Id(accidentId: Long) : List<AccidentParticipant>
 }
