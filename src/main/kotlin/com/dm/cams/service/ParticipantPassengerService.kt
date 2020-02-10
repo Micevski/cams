@@ -18,7 +18,7 @@ class ParticipantPassengerService(val repository: ParticipantPassengerRepository
         else throw NotFoundException("Person not found")
     }
 
-    fun findAllForParticipant(participantId: Long): List<Person> = repository.findAllByParticipant_Id(participantId)
+    fun findAllForParticipant(participantId: Long): List<Person> = repository.findAllByParticipantId(participantId)
             .stream()
             .map(ParticipantPassenger::passenger)
             .collect(Collectors.toList())

@@ -12,4 +12,8 @@ export class AccidentService {
   findAllAccidents() : Observable<any[]> {
     return this._http.get<any[]>('/api/accidents');
   }
+
+  saveService(accidentRequest: any) : Observable<any>{
+    return this._http.post<any>('/api/accidents', accidentRequest);
+  }
 }

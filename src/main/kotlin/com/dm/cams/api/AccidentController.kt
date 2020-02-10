@@ -17,10 +17,8 @@ class AccidentController(val accidentService: AccidentService,
 
     @PostMapping
     fun saveAccident(@RequestBody request: AccidentRequest): Accident? {
-        val locationId: Long? = request.locationId
         val location: Location =
-                if (locationId != null) locationService.findById(locationId)
-                else request.location!!.let {
+                request.location.let {
                     locationService.save(it.lat, it.lng, it.streetName, it.area, it.city, it.country, it.zipCode)
                 }
         accidentService.save(location, request.dateAccident, request.reason, request.description)

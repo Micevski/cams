@@ -1,0 +1,123 @@
+<layout></layout>
+<div class="page">
+
+  <h2> Add Accident</h2>
+
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Accident data
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+
+      <div class="create-accident">
+        <agm-map class="google-map"
+                 [latitude]=latitude
+                 [longitude]=longitude
+                 [zoom]="zoom">
+          <agm-marker [latitude]=latitude
+                      [longitude]=longitude
+                      [markerDraggable]="true"
+                      (dragEnd)="markerDragEnd($event)"></agm-marker>
+
+
+        </agm-map>
+
+        <form class="input-form" [formGroup]="createAccidents" (submit)="saveAccident()">
+
+          <mat-form-field class="mat-input-element">
+            <input #search (keydown.enter)="$event.preventDefault()" matInput formControlName="street">
+          </mat-form-field>
+
+
+          <mat-form-field class="mat-input-element">
+            <input matInput formControlName="area" placeholder="Area" required>
+          </mat-form-field>
+
+          <div class="latLng">
+            <mat-form-field class="mat-input-element">
+              <input  matInput formControlName="lat" placeholder="Latitude">
+            </mat-form-field>
+            <mat-form-field class="mat-input-element">
+              <input  matInput formControlName="lng" placeholder="Longitude">
+            </mat-form-field>
+          </div>
+
+
+          <mat-form-field class="mat-input-element">
+            <input matInput formControlName="reason" placeholder="Reason">
+          </mat-form-field>
+
+          <mat-form-field class="mat-input-element">
+      <textarea matInput formControlName="description"
+                placeholder="Description"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"></textarea>
+          </mat-form-field>
+
+          <mat-form-field class="mat-input-element">
+            <input matInput formControlName="dateAccident" [matDatepicker]="picker" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </form>
+      </div>
+
+      <mat-action-row>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Destination
+        </mat-panel-title>
+        <mat-panel-description>
+          Type the country name
+          <mat-icon>map</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-form-field>
+        <mat-label>Country</mat-label>
+        <input matInput>
+      </mat-form-field>
+
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Day of the trip
+        </mat-panel-title>
+        <mat-panel-description>
+          Inform the date you wish to travel
+          <mat-icon>date_range</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-form-field>
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="secondpicker" (focus)="picker.open()" readonly>
+      </mat-form-field>
+      <mat-datepicker #secondpicker></mat-datepicker>
+
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="primary" (click)="nextStep()">End</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+
+</div>
