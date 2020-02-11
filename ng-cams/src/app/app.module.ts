@@ -15,7 +15,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
-import { AccidentCreateComponent } from './pages/accident-create/accident-create.component';
+import { AccidentComponent } from './pages/accident/accident.component';
 import { AgmCoreModule } from "@agm/core"
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -23,13 +23,19 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatExpansionModule} from "@angular/material/expansion";
+import { AccidentCreateComponent } from './pages/accident/accident-create/accident-create.component';
+import { ParticipantsAddComponent } from './pages/accident/participants-add/participants-add.component';
+import { PassengersAddComponent } from './pages/accident/passengers-add/passengers-add.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
     HomeComponent,
-    AccidentCreateComponent
+    AccidentComponent,
+    AccidentCreateComponent,
+    ParticipantsAddComponent,
+    PassengersAddComponent
   ],
   imports: [
     BrowserModule,

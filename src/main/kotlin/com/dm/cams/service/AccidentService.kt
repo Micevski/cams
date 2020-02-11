@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 class AccidentService(val accidentRepository: AccidentRepository) {
 
     fun findById(id: Long): Accident = accidentRepository.getOne(id)
-    fun findAll(): List<Accident> = accidentRepository.findAll();
+    fun findAll(): List<Accident> = accidentRepository.findAll()
     fun save(location: Location, dateAccident: LocalDateTime?, reason: String?, description: String?): Accident =
             accidentRepository.save(Accident(location, dateAccident, reason, description))
 

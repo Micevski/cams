@@ -1,0 +1,58 @@
+<div class="create-accident">
+  <agm-map
+    [latitude]=latitude
+    [longitude]=longitude
+    [zoom]="zoom">
+    <agm-marker [latitude]=latitude
+                [longitude]=longitude
+                [markerDraggable]="true"
+                (dragEnd)="markerDragEnd($event)"></agm-marker>
+
+
+  </agm-map>
+
+  <form class="input-form" [formGroup]="createAccidentForm">
+
+    <mat-form-field class="mat-input-element">
+      <input #search (keydown.enter)="$event.preventDefault()" matInput formControlName="street">
+    </mat-form-field>
+
+
+    <mat-form-field class="mat-input-element">
+      <input matInput formControlName="area" placeholder="Area" required>
+    </mat-form-field>
+
+    <div class="latLng">
+      <mat-form-field class="mat-input-element">
+        <input matInput formControlName="lat" placeholder="Latitude">
+      </mat-form-field>
+      <mat-form-field class="mat-input-element">
+        <input matInput formControlName="lng" placeholder="Longitude">
+      </mat-form-field>
+    </div>
+
+
+    <mat-form-field class="mat-input-element">
+      <input matInput formControlName="reason" placeholder="Reason">
+    </mat-form-field>
+
+    <mat-form-field class="mat-input-element">
+      <textarea matInput formControlName="description"
+                placeholder="Description"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="mat-input-element">
+      <input matInput formControlName="dateAccident" [matDatepicker]="picker" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </form>
+</div>
+
+<mat-action-row>
+  <button mat-button color="primary" (click)="saveAccident()">Next</button>
+</mat-action-row>
