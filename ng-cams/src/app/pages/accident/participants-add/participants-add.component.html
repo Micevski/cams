@@ -1,1 +1,72 @@
-<p>participants-add works!</p>
+<mat-tab-group [selectedIndex]="selected.value"
+               (selectedIndexChange)="changeTab($event)">
+  <mat-tab *ngFor="let participant of participants; let index = index" [label]="participant.type || 'New participant'">
+    <div class="add-participant">
+      <form class="input-form" [formGroup]="participantForm">
+        <h4>Participant</h4>
+        <mat-form-field class="mat-input-element">
+          <input matInput formControlName="type" placeholder="Type">
+        </mat-form-field>
+
+        <mat-form-field class="mat-input-element">
+          <input matInput formControlName="model" placeholder="Model">
+        </mat-form-field>
+
+        <mat-form-field class="mat-input-element">
+          <input matInput formControlName="make" placeholder="Make">
+        </mat-form-field>
+
+        <mat-form-field class="mat-input-element">
+          <input matInput formControlName="productionYear" placeholder="Production year">
+        </mat-form-field>
+
+        <mat-form-field class="mat-input-element">
+          <input matInput formControlName="registerPlate" placeholder="Register Plate">
+        </mat-form-field>
+      </form>
+
+      <form class="input-form" [formGroup]="ownerForm">
+        <h4>Owner</h4>
+        <mat-form-field class="mat-input-element">
+          <input matInput formControlName="firstName" placeholder="First Name">
+        </mat-form-field>
+
+        <mat-form-field class="mat-input-element">
+          <input matInput formControlName="lastName" placeholder="Last Name">
+        </mat-form-field>
+
+        <mat-form-field class="mat-input-element">
+          <input matInput formControlName="dateOfBirth" [matDatepicker]="DOB" placeholder="Date of birth">
+          <mat-datepicker-toggle matSuffix [for]="DOB"></mat-datepicker-toggle>
+          <mat-datepicker #DOB></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="mat-input-element">
+          <input matInput formControlName="placeOfBirth" placeholder="Place of birth">
+        </mat-form-field>
+
+        <mat-form-field class="mat-input-element">
+          <input matInput formControlName="placeOfLiving" placeholder="Place of living">
+        </mat-form-field>
+      </form>
+
+    </div>
+
+    <div class="participants-actions">
+    <button mat-icon-button class="mat-warn"
+            (click)="removeTab(index)">
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+
+    <button mat-icon-button (click)="addTab()" [matTooltip]="'Add participant'">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+    </div>
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="primary" (click)="saveParticipants()">Next</button>
+    </mat-action-row>
+  </mat-tab>
+
+</mat-tab-group>

@@ -23,15 +23,8 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <mat-form-field>
-        <mat-label>Country</mat-label>
-        <input matInput>
-      </mat-form-field>
-
-      <mat-action-row>
-        <button mat-button color="warn" (click)="prevStep()">Previous</button>
-        <button mat-button color="primary" (click)="nextStep()">Next</button>
-      </mat-action-row>
+      <participants-add [participants]=participants
+                        (saveParticipantsEvent)="saveParticipants($event)"></participants-add>
     </mat-expansion-panel>
 
     <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
@@ -47,7 +40,7 @@
 
       <mat-form-field>
         <mat-label>Date</mat-label>
-        <input matInput [matDatepicker]="secondpicker" (focus)="picker.open()" readonly>
+        <input matInput [matDatepicker]="secondpicker" (focus)="secondpicker.open()" readonly>
       </mat-form-field>
       <mat-datepicker #secondpicker></mat-datepicker>
 

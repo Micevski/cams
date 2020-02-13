@@ -26,6 +26,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import { AccidentCreateComponent } from './pages/accident/accident-create/accident-create.component';
 import { ParticipantsAddComponent } from './pages/accident/participants-add/participants-add.component';
 import { PassengersAddComponent } from './pages/accident/passengers-add/passengers-add.component';
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { PassengersAddComponent } from './pages/accident/passengers-add/passenge
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTabsModule,
+    MatTooltipModule
   ],
   providers: [
     MatDatepickerModule

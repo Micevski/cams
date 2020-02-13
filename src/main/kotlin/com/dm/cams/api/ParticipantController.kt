@@ -13,26 +13,17 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("api/accident-participant")
-class ParticipantController(val participantService: ParticipantService,
-                            val accidentParticipantService: AccidentParticipantService,
-                            val accidentService: AccidentService,
-                            val personService: PersonService) {
+class ParticipantController(val accidentParticipantService: AccidentParticipantService) {
 
     @GetMapping("/{accidentId}")
     fun getAllParticipantsForAccident(@PathVariable accidentId: Long): List<Participant> =
             accidentParticipantService.findAllParticipantsForAccident(accidentId)
 
-    //TODO refactor this to add multiple Participants in list
     @PostMapping("/add/{accidentId}")
     fun addParticipantToAccident(@PathVariable accidentId: Long,
-                                 @RequestBody request: ParticipantRequest): AccidentParticipant {
-        val accident: Accident = accidentService.findById(accidentId)
-        val owner: Person? = request.ownerPerson?.let {
-            personService.findOrCreate(it.personId, it.firstName, it.lastName, it.dateOfBirth, it.genderId, it.placeOfBirth, it.placeOfLiving)
-        }
-        val participant: Participant = participantService.createParticipant(
-                request.type, request.model, request.make, request.productionYear, request.registerPlate, owner)
-        return accidentParticipantService.addParticipantToAccident(accident, participant)
+                                 @RequestBody participantsRequest: List<ParticipantRequest>): List<AccidentParticipant> {
+        return accidentParticipantService.addParticipantsToAccident(participantsRequest, accidentId);
+
     }
 
 

@@ -1,0 +1,25 @@
+.add-participant {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 45px;
+  margin-right: 15px;
+  width: 100%;
+}
+
+.input-form {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, .03);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, .2), 0 0 2px rgba(0, 0, 0, .1);
+  overflow: hidden;
+  margin: 10px;
+}
+
+.participants-actions{
+  display: flex;
+  justify-content: flex-end;
+}
+

@@ -21,8 +21,6 @@ class AccidentController(val accidentService: AccidentService,
                 request.location.let {
                     locationService.save(it.lat, it.lng, it.streetName, it.area, it.city, it.country, it.zipCode)
                 }
-        accidentService.save(location, request.dateAccident, request.reason, request.description)
-
-        return null
+        return accidentService.save(location, request.dateAccident, request.reason, request.description)
     }
 }
