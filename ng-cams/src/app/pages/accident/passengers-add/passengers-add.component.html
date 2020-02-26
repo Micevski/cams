@@ -1,1 +1,21 @@
-<p>passengers-add works!</p>
+<mat-tab-group [selectedIndex]="selected.value"
+               (selectedIndexChange)="changeTab($event)">
+  <mat-tab *ngFor="let participant of participants; let index = index" [label]="participant.model">
+    <div *ngFor="let person of passengersForSelectedParticipant()" class="passengers">
+      <h4>
+        <mat-icon>person</mat-icon>
+      </h4>
+      <h4>{{person.firstName}} {{person.lastName}}</h4>
+      <h4>{{person.dateOfBirth.toLocaleString()}}</h4>
+    </div>
+
+    <button mat-icon-button (click)="openPassengerDialog()" [matTooltip]="'Add participant'">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+  </mat-tab>
+</mat-tab-group>
+
+<mat-action-row>
+  <button mat-button color="warn" (click)="prevStep()">Previous</button>
+  <button mat-button color="primary" (click)="savePassengers()">Finish</button>
+</mat-action-row>

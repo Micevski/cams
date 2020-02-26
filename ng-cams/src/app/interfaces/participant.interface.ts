@@ -1,12 +1,4 @@
-export interface Owner {
-  id?: number;
-  firstName?: string
-  lastName?: string;
-  dateOfBirth?: Date;
-  genderId?: number;
-  placeOfBirth?: string;
-  placeOfLiving?: string;
-}
+import {Person} from "./person.interface";
 
 export interface Participant {
   id?: number;
@@ -15,6 +7,6 @@ export interface Participant {
   make?: string;
   productionYear?: string;
   registerPlate?: string;
-  owner?: Owner;
+  owner?: Person;
 }
 
