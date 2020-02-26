@@ -1,0 +1,45 @@
+<mat-icon [matTooltip]='"Close"' (click)='onCancel()'>close</mat-icon>
+<form class="input-form" [formGroup]="passenger" (ngSubmit)="onSave()">
+  <h4>Owner</h4>
+  <mat-form-field class="mat-input-element">
+    <input matInput formControlName="firstName" placeholder="First Name">
+  </mat-form-field>
+
+  <mat-form-field class="mat-input-element">
+    <input matInput formControlName="lastName" placeholder="Last Name">
+  </mat-form-field>
+
+  <mat-form-field class="mat-input-element">
+    <input matInput formControlName="dateOfBirth" [matDatepicker]="DOB" placeholder="Date of birth">
+    <mat-datepicker-toggle matSuffix [for]="DOB"></mat-datepicker-toggle>
+    <mat-datepicker #DOB></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="mat-input-element">
+    <input matInput formControlName="placeOfBirth" placeholder="Place of birth">
+  </mat-form-field>
+
+  <mat-form-field class="mat-input-element">
+    <input matInput formControlName="placeOfLiving" placeholder="Place of living">
+  </mat-form-field>
+
+  <mat-form-field class="mat-select">
+    <mat-select formControlName="injuredLevel" placeholder="Injured">
+      <mat-option *ngFor="let level of injuredLevels$ | async" [value]="level.id">
+        {{level.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="mat-select">
+    <mat-select formControlName="genderId" placeholder="gender">
+      <mat-option *ngFor="let gender of genders$ | async" [value]="gender.id">
+        {{gender.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-button type='button' class='mat-warn' (click)='onCancel()'>Cancel</button>
+  <button mat-button type='submit' class='mat-primary'>Save</button>
+
+</form>

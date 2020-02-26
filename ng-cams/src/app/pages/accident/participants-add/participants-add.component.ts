@@ -69,7 +69,6 @@ export class ParticipantsAddComponent implements OnInit {
     };
     this.selected.setValue($event);
     this.patchFormsValues(this.participants[$event]);
-    console.log(this.participants)
   }
 
   private patchFormsValues(participant: any) {
