@@ -27,7 +27,7 @@ class AccidentParticipantService(val accidentParticipantRepository: AccidentPart
     fun addParticipantsToAccident(participantsRequest: List<ParticipantRequest>, accidentId: Long): List<AccidentParticipant> {
         val accident: Accident = accidentService.findById(accidentId)
         val participantList: List<Participant> = participantsRequest.stream().map { request ->
-            val owner: Person? = request.ownerPerson?.let {
+            val owner: Person? = request.owner?.let {
                 personService.findOrCreate(it.personId, it.firstName, it.lastName, it.dateOfBirth, it.genderId, it.placeOfBirth, it.placeOfLiving)
             }
             participantService.createParticipant(

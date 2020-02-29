@@ -30,6 +30,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {PassengerCreateDialog} from "./dialogs/passenger-create-dialog/passenger-create-dialog";
 import {MatSelectModule} from "@angular/material/select";
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import {MatSelectModule} from "@angular/material/select";
         MatExpansionModule,
         MatTabsModule,
         MatTooltipModule,
-        MatSelectModule
+        MatSelectModule,
+        MatSortModule
     ],
   providers: [
     MatDatepickerModule

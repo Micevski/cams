@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Participant} from "../../../interfaces/participant.interface";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {PassengerCreateDialog} from "../../../dialogs/passenger-create-dialog/passenger-create-dialog";
 import {Passenger} from "../../../interfaces/passenger.interface";
+import {AccidentService} from "../../../service/accident.service";
 
 @Component({
   selector: 'passengers-add',
@@ -13,23 +14,29 @@ import {Passenger} from "../../../interfaces/passenger.interface";
 export class PassengersAddComponent implements OnInit {
 
   @Input() participants: Participant[];
-  passengers: Passenger[] = [];
+  @Input() passengers: Passenger[];
+  @Output() savePassengersEvent = new EventEmitter<Passenger>();
 
   selected = new FormControl(0);
 
   constructor(private _builder: FormBuilder,
-              private _dialog: MatDialog) {
+              private _dialog: MatDialog,
+              private _service: AccidentService) {
 
   }
 
   ngOnInit() {
   }
 
-  openPassengerDialog(){
+  openPassengerDialog() {
     const passengerDialogRef = this._dialog.open(PassengerCreateDialog);
     passengerDialogRef.afterClosed().subscribe(passenger => {
-      if(passenger)
-        this.passengers.push({participant:this.participants[this.selected.value], passenger: passenger, injuredLevel: passenger.injuredLevel});
+      if (passenger)
+        this.passengers.push({
+          participant: this.participants[this.selected.value],
+          passenger: passenger,
+          injuredLevel: passenger.injuredLevel
+        });
     });
   }
 
@@ -38,7 +45,7 @@ export class PassengersAddComponent implements OnInit {
   }
 
   savePassengers() {
-    //TODO Save all passengers per participant
+    this.savePassengersEvent.emit();
   }
 
   prevStep() {

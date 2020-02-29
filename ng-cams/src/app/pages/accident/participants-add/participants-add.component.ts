@@ -96,10 +96,10 @@ export class ParticipantsAddComponent implements OnInit {
       ...this.participantForm.getRawValue(),
       owner: this.ownerForm.getRawValue()
     };
-    this.saveParticipantsEvent.emit(this.participants);
+    this.saveParticipantsEvent.emit();
   }
 
   prevStep() {
-
+    //TODO Not implemented yet
   }
 }

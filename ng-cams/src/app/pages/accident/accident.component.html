@@ -24,7 +24,7 @@
       </mat-expansion-panel-header>
 
       <participants-add [participants]=participants
-                        (saveParticipantsEvent)="saveParticipants($event)"></participants-add>
+                        (saveParticipantsEvent)="saveParticipants()"></participants-add>
     </mat-expansion-panel>
 
     <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
@@ -34,7 +34,9 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <passengers-add [participants]="participants"></passengers-add>
+      <passengers-add [participants]="participants"
+                      [passengers]="passengers"
+                      (savePassengersEvent)="savePassengers()"></passengers-add>
     </mat-expansion-panel>
   </mat-accordion>
 
