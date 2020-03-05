@@ -19,7 +19,21 @@ class PersonService(val personRepository: PersonRepository) {
 
     fun findOrCreate(personId: Long?, firstName: String, lastName: String, dateOfBirth: LocalDateTime?, genderId: Int,
                      placeOfBirth: String?, placeOfLiving: String?): Person {
-        return if (personId != null) findById(personId)
+        return if (personId != null) updateExistingPerson(personId, firstName, lastName, dateOfBirth,
+                genderId, placeOfBirth, placeOfLiving)
         else save(firstName, lastName, dateOfBirth, genderId, placeOfBirth, placeOfLiving)
+    }
+
+    private fun updateExistingPerson(id: Long, firstName: String, lastName: String, dateOfBirth: LocalDateTime?,
+                                     genderId: Int, placeOfBirth: String?, placeOfLiving: String?): Person {
+        val person: Person = findById(id)
+        person.firstName = firstName
+        person.lastName = lastName
+        person.dateOfBirth = dateOfBirth
+        person.gender = Gender.values()[genderId]
+        person.placeOfBirth = placeOfBirth
+        person.placeOfLiving = placeOfLiving
+
+        return personRepository.save(person)
     }
 }

@@ -1,6 +1,12 @@
 <mat-icon [matTooltip]='"Close"' (click)='onCancel()'>close</mat-icon>
 <form class="input-form" [formGroup]="passenger" (ngSubmit)="onSave()">
-  <h4>Owner</h4>
+  <h4>Add passenger</h4>
+
+
+  <button *ngIf="!data.addOwner" mat-icon-button (click)="addOwnerAsPassenger()" [matTooltip]="ownerTooltip">
+    <mat-icon>person_add</mat-icon>
+  </button>
+
   <mat-form-field class="mat-input-element">
     <input matInput formControlName="firstName" placeholder="First Name">
   </mat-form-field>

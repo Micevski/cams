@@ -1,15 +1,19 @@
 <mat-tab-group [selectedIndex]="selected.value"
                (selectedIndexChange)="changeTab($event)">
   <mat-tab *ngFor="let p of participants; let index = index" [label]="p.model">
-    <div *ngFor="let person of passengersForSelectedParticipant()" class="passengers">
+    <div *ngFor="let passenger of passengersForSelectedParticipant()" class="passengers">
       <h4>
-        <mat-icon>person</mat-icon>
+        <button mat-icon-button (click)="openPassengerDialog(passenger)">
+          <mat-icon>person</mat-icon>
+        </button>
       </h4>
-      <h4>{{person.firstName}} {{person.lastName}}</h4>
-      <h4 *ngIf="person.dateOfBirth">{{person.dateOfBirth.toLocaleString()}}</h4>
+      <h4>{{passenger.person.firstName}} {{passenger.person.lastName}}</h4>
+      <h4 *ngIf="passenger.person.dateOfBirth">{{passenger.person.dateOfBirth.toLocaleString()}}</h4>
+      <h4>{{this.passenger.injuredLevel}}</h4>
+      <h4> <mat-icon>clear</mat-icon></h4>
     </div>
 
-    <button mat-icon-button (click)="openPassengerDialog()" [matTooltip]="'Add p'">
+    <button mat-icon-button (click)="openPassengerDialog(null)" [matTooltip]="'Add person'">
       <mat-icon>add_circle_outline</mat-icon>
     </button>
   </mat-tab>

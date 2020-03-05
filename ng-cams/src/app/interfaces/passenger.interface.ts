@@ -3,6 +3,6 @@ import {Person} from "./person.interface";
 
 export interface Passenger {
   participant?: Participant;
-  passenger?: Person;
+  person?: Person;
   injuredLevel?: number;
 }

@@ -93,7 +93,7 @@ export class AccidentComponent implements OnInit {
   savePassengers() {
     let request = this.passengers.map(it => ({
       participantId: it.participant.id,
-      passenger: it.passenger,
+      passenger: it.person,
       injuredLevel: it.injuredLevel
     }));
     this._service.savePassengers(request)

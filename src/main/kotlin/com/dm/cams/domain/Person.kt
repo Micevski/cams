@@ -8,21 +8,20 @@ import javax.persistence.*
 @Table(name = "persons")
 class Person(
         @Column(name = "first_name")
-        val firstName: String,
+        var firstName: String,
         @Column(name = "last_name")
-        val lastName: String,
+        var lastName: String,
         @Column(name = "date_of_birth")
-        val dateOfBirth: LocalDateTime?,
+        var dateOfBirth: LocalDateTime?,
         @Column(name = "gender_id")
         @Enumerated(EnumType.ORDINAL)
-        val gender: Gender,
+        var gender: Gender,
         @Column(name = "place_of_birth")
-        val placeOfBirth: String?,
+        var placeOfBirth: String?,
         @Column(name = "place_of_living")
-        val placeOfLiving: String?
+        var placeOfLiving: String?
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0;
-
 }

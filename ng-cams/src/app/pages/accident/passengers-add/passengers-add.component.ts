@@ -5,6 +5,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {PassengerCreateDialog} from "../../../dialogs/passenger-create-dialog/passenger-create-dialog";
 import {Passenger} from "../../../interfaces/passenger.interface";
 import {AccidentService} from "../../../service/accident.service";
+import {Person} from "../../../interfaces/person.interface";
 
 @Component({
   selector: 'passengers-add',
@@ -28,15 +29,29 @@ export class PassengersAddComponent implements OnInit {
   ngOnInit() {
   }
 
-  openPassengerDialog() {
-    const passengerDialogRef = this._dialog.open(PassengerCreateDialog);
+  openPassengerDialog(passenger: Passenger) {
+    if (!passenger) {
+      passenger = {
+        participant: this.participants[this.selected.value],
+        person: {} as Person,
+        injuredLevel: null
+      };
+      this.passengers.push(passenger);
+    }
+
+    let isOwnerAlreadyPassenger = this.passengersForSelectedParticipant().find(it => {
+      it.person.id = this.participants[this.selected.value].owner.id;
+    }) != null;
+    const passengerDialogRef = this._dialog.open(PassengerCreateDialog, {
+      data: {
+        owner: this.participants[this.selected.value].owner,
+        passenger: passenger,
+        addOwner: isOwnerAlreadyPassenger
+      }
+    });
     passengerDialogRef.afterClosed().subscribe(passenger => {
       if (passenger)
-        this.passengers.push({
-          participant: this.participants[this.selected.value],
-          passenger: passenger,
-          injuredLevel: passenger.injuredLevel
-        });
+        console.log("Passenger updated");
     });
   }
 
@@ -54,6 +69,5 @@ export class PassengersAddComponent implements OnInit {
 
   passengersForSelectedParticipant() {
     return this.passengers.filter(it => it.participant == this.participants[this.selected.value])
-      .map(it => it.passenger)
   }
 }
