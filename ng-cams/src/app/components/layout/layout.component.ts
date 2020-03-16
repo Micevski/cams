@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from "../../service/user.service";
 
 @Component({
   selector: 'layout',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _userService: UserService) {
+  }
 
   ngOnInit() {
+  }
+
+
+  logout() {
+    this._userService.logout().subscribe(() =>{
+      window.location.reload();
+    });
   }
 
 }

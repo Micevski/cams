@@ -31,6 +31,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {PassengerCreateDialog} from "./dialogs/passenger-create-dialog/passenger-create-dialog";
 import {MatSelectModule} from "@angular/material/select";
 import {MatSortModule} from "@angular/material/sort";
+import { LoginComponent } from './pages/login/login.component';
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -41,43 +43,45 @@ import {MatSortModule} from "@angular/material/sort";
     AccidentCreateComponent,
     ParticipantsAddComponent,
     PassengersAddComponent,
-    PassengerCreateDialog
+    PassengerCreateDialog,
+    LoginComponent
   ],
   entryComponents:[
     PassengerCreateDialog
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatMenuModule,
-        HttpClientModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        AppRoutingModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatButtonModule,
-        MatIconModule,
-        MatTableModule,
-        MatPaginatorModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyAIzG6TEQPJb38Me-SY8stxKnkv8aLOnNo',
-            libraries: ['places']
-        }),
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatExpansionModule,
-        MatTabsModule,
-        MatTooltipModule,
-        MatSelectModule,
-        MatSortModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatMenuModule,
+    HttpClientModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAIzG6TEQPJb38Me-SY8stxKnkv8aLOnNo',
+      libraries: ['places']
+    }),
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatExpansionModule,
+    MatTabsModule,
+    MatTooltipModule,
+    MatSelectModule,
+    MatSortModule,
+    MatCardModule
+  ],
   providers: [
     MatDatepickerModule
   ],

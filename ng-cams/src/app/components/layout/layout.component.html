@@ -2,8 +2,13 @@
   <mat-toolbar-row>
     <h1>CAMS</h1>
     <span class="menu-spacer"></span>
-    <div>
-      <a mat-button [routerLink]="'/home'"> Accidents </a>
+    <div class="layout-items">
+      <div>
+        <a mat-button [routerLink]="'/home'">Accidents</a>
+      </div>
+    </div>
+    <div class="logout">
+      <a mat-button (click)="logout()">Logout</a>
     </div>
   </mat-toolbar-row>
 

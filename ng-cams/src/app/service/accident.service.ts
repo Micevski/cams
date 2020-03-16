@@ -4,7 +4,6 @@ import {HttpClient} from "@angular/common/http";
 import {Participant} from "../interfaces/participant.interface";
 import {Option} from "../interfaces/option.interface";
 import {Passenger} from "../interfaces/passenger.interface";
-import {Accident} from "../interfaces/accident.interface";
 import {Page} from "../interfaces/page.interface";
 
 @Injectable({
