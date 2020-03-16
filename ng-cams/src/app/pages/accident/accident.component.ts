@@ -6,6 +6,7 @@ import {Accident} from "../../interfaces/accident.interface";
 import {Passenger} from "../../interfaces/passenger.interface";
 import {ActivatedRoute, Router, RouterOutlet} from "@angular/router";
 import {HomeComponent} from "../home/home.component";
+import {of} from "rxjs";
 
 @Component({
   selector: 'accident',
@@ -17,7 +18,7 @@ export class AccidentComponent implements OnInit {
   step = 0;
   participants: Participant[] = [];
   passengers: Passenger[] = [];
-  accident: Accident;
+  accident: Accident = {};
   createAccidentsForm: FormGroup;
 
 

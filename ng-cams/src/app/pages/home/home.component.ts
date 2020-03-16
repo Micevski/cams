@@ -4,6 +4,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {Accident} from "../../interfaces/accident.interface";
 import {MatSort} from "@angular/material/sort";
 import {PageEvent} from "@angular/material/paginator";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -13,7 +14,8 @@ import {PageEvent} from "@angular/material/paginator";
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private _service: AccidentService) {
+  constructor(private _service: AccidentService,
+              private _router: Router) {
   }
 
   displayedColumns: string[] = ['id', 'date', 'reason', 'description', 'location'];
@@ -46,5 +48,9 @@ export class HomeComponent implements OnInit {
         this.dataSource = new MatTableDataSource<any>(this.accidents);
 
       })
+  }
+
+  openAccidentDetails(row: any) {
+    this._router.navigate([`/accident/${row.id}`])
   }
 }

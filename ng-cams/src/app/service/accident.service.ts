@@ -5,6 +5,7 @@ import {Participant} from "../interfaces/participant.interface";
 import {Option} from "../interfaces/option.interface";
 import {Passenger} from "../interfaces/passenger.interface";
 import {Page} from "../interfaces/page.interface";
+import {Accident} from "../interfaces/accident.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class AccidentService {
 
   findAllAccidents(page: number, pageSize: number): Observable<Page> {
     return this._http.get<Page>(`/api/accidents/filter?page=${page}&pageSize=${pageSize}`);
+  }
+
+  findAccidentById(id: number): Observable<Accident> {
+    return this._http.get<Accident>(`/api/accidents/${id}`);
   }
 
   saveAccident(accidentRequest: any): Observable<any> {
