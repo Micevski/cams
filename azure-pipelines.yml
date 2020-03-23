@@ -30,3 +30,4 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'cams'
     publishLocation: FilePath
+    TargetPath: '$(Build.ArtifactStagingDirectory)'
