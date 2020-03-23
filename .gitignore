@@ -4,6 +4,7 @@ gradle*
 build/
 build*
 !gradle/wrapper/gradle-wrapper.jar
+!gradlew
 !**/src/main/**
 !**/src/test/**
 
