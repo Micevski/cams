@@ -25,8 +25,15 @@ steps:
     sourceFolder: $(Build.SourcesDirectory)
     targetFolder: $(Build.ArtifactStagingDirectory)
     
-- task: PublishBuildArtifacts@1
+- task: ArchiveFiles@2
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'cams'
-    publishLocation: 'Container'
+    rootFolderOrFile: ' $(Build.ArtifactStagingDirectory)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
+- upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+  displayName: 'Upload package'
+  artifact: drop
+
