@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, NgZone, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {MapsAPILoader, MouseEvent} from "@agm/core";
-import {Accident} from "../../../interfaces/accident.interface";
+import { Accident } from '../../interfaces/accident.interface';
 
 @Component({
   selector: 'accident-create',
