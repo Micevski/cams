@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {AccidentService} from "../../service/accident.service";
-import {Participant} from "../../interfaces/participant.interface";
-import {Accident} from "../../interfaces/accident.interface";
-import {Passenger} from "../../interfaces/passenger.interface";
-import {ActivatedRoute, Router, RouterOutlet} from "@angular/router";
-import {HomeComponent} from "../home/home.component";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AccidentService } from '../../service/accident.service';
+import { Participant } from '../../interfaces/participant.interface';
+import { Accident } from '../../interfaces/accident.interface';
+import { Passenger } from '../../interfaces/passenger.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'accident',
@@ -19,7 +18,6 @@ export class AccidentComponent implements OnInit {
   passengers: Passenger[] = [];
   accident: Accident;
   createAccidentsForm: FormGroup;
-
 
   constructor(private _service: AccidentService,
               private _builder: FormBuilder,
@@ -38,8 +36,8 @@ export class AccidentComponent implements OnInit {
       reason: [],
       description: [],
       street: [],
-      area: [],
-    })
+      area: []
+    });
   }
 
   setStep(index: number) {
@@ -55,14 +53,16 @@ export class AccidentComponent implements OnInit {
   }
 
   saveAccident() {
-    if (this.createAccidentsForm.invalid) return;
+    if (this.createAccidentsForm.invalid) {
+      return;
+    }
 
     let formValues = this.createAccidentsForm.getRawValue();
     let location = {
       lat: formValues.lat,
       lng: formValues.lng,
       streetName: formValues.street,
-      area: formValues.area,
+      area: formValues.area
     };
     let accidentRequest = {
       location: location,
@@ -77,7 +77,7 @@ export class AccidentComponent implements OnInit {
           this.accident = res;
           this.step = 1;
         },
-        () => console.log("Error occurred"));
+        () => console.log('Error occurred'));
   }
 
   saveParticipants() {
@@ -85,9 +85,9 @@ export class AccidentComponent implements OnInit {
       .subscribe(response => {
           this.participants = response;
           this.step = 2;
-          console.log("Participants saved", this.participants);
+          console.log('Participants saved', this.participants);
         },
-        () => console.log("Error occurred"));
+        () => console.log('Error occurred'));
   }
 
   savePassengers() {
@@ -99,7 +99,7 @@ export class AccidentComponent implements OnInit {
     this._service.savePassengers(request)
       .subscribe(response => {
           this.passengers = response;
-          console.log("Passengers saved", this.passengers);
+          console.log('Passengers saved', this.passengers);
           this._route.navigateByUrl('/home');
         },
         () => console.log("Error occurred"));

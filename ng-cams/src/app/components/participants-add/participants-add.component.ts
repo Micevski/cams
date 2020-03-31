@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {Participant} from "../../../interfaces/participant.interface";
+import {Participant} from "../../interfaces/participant.interface";
 
 @Component({
   selector: 'participants-add',
