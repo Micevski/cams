@@ -11,7 +11,7 @@
 
   </agm-map>
 
-  <form class="input-form" [formGroup]="createAccidentForm">
+  <form class="input-form" [formGroup]="accidentForm">
 
     <mat-form-field class="mat-input-element">
       <input #search (keydown.enter)="$event.preventDefault()" matInput formControlName="street">

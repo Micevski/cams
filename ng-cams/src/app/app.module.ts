@@ -34,6 +34,7 @@ import {MatSortModule} from "@angular/material/sort";
 import { LoginComponent } from './pages/login/login.component';
 import {MatCardModule} from "@angular/material/card";
 import { AdminComponent } from './pages/admin/admin.component';
+import { AccidentDetails } from './pages/accident-details/accident-details.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { AdminComponent } from './pages/admin/admin.component';
     PassengersAddComponent,
     PassengerCreateDialog,
     LoginComponent,
+    AccidentDetails,
     AdminComponent
   ],
   entryComponents:[

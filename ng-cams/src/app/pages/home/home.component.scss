@@ -16,3 +16,9 @@ th.mat-sort-header-sorted {
   justify-content: flex-end;
   margin: 15px;
 }
+
+.mat-row:hover{
+  cursor: pointer;
+  box-shadow: 9px 11px 5px 10px rgba(207,188,207,1);
+  background-color: #edebeb;
+}
