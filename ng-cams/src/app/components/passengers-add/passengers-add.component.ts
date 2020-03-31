@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Participant} from "../../../interfaces/participant.interface";
+import {Participant} from "../../interfaces/participant.interface";
 import {FormBuilder, FormControl} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
-import {PassengerCreateDialog} from "../../../dialogs/passenger-create-dialog/passenger-create-dialog";
-import {Passenger} from "../../../interfaces/passenger.interface";
-import {AccidentService} from "../../../service/accident.service";
-import {Person} from "../../../interfaces/person.interface";
+import {PassengerCreateDialog} from "../../dialogs/passenger-create-dialog/passenger-create-dialog";
+import {Passenger} from "../../interfaces/passenger.interface";
+import {AccidentService} from "../../service/accident.service";
+import {Person} from "../../interfaces/person.interface";
 
 @Component({
   selector: 'passengers-add',

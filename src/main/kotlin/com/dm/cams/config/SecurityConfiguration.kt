@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletResponse
 class SecurityConfiguration {
 
     @Configuration
-    @Order(1)
     class UserSecurity(
             val successHandler: AuthenticationSuccessHandler,
             val failureHandler: AuthenticationFailureHandler,
@@ -65,6 +64,8 @@ class SecurityConfiguration {
                     .disable()
 
             http.authorizeRequests()
+                    .antMatchers("/api/admin/**")
+                    .hasRole("ADMIN")
                     .anyRequest().authenticated()
 
         }
