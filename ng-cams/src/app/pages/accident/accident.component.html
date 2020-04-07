@@ -12,7 +12,7 @@
       </mat-expansion-panel-header>
 
       <accident-create [accident]="accident"
-                       (saveAccidentEvent)="saveAccident()"></accident-create>
+                       (saveAccidentEvent)="saveAccident($event)"></accident-create>
 
     </mat-expansion-panel>
 
@@ -24,7 +24,8 @@
       </mat-expansion-panel-header>
 
       <participants-add [participants]=participants
-                        (saveParticipantsEvent)="saveParticipants()"></participants-add>
+                        [accidentId]='accident.id'
+                        (saveParticipantsEvent)="saveParticipants($event)"></participants-add>
     </mat-expansion-panel>
 
     <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>

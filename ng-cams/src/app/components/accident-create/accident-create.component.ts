@@ -2,6 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, NgZone, OnInit, Output, View
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {MapsAPILoader, MouseEvent} from "@agm/core";
 import { Accident } from '../../interfaces/accident.interface';
+import { AccidentService } from '../../service/accident.service';
 
 @Component({
   selector: 'accident-create',
@@ -15,8 +16,10 @@ export class AccidentCreateComponent implements OnInit {
 
   @Input() set accident(accident: Accident) {
     if (accident && accident.id) {
+      this._accident = accident;
       this.populateForm(accident);
     } else {
+      this._accident = accident;
       this.setCurrentLocation();
     }
   }
@@ -24,7 +27,7 @@ export class AccidentCreateComponent implements OnInit {
   @Output() saveAccidentEvent = new EventEmitter<any>();
 
   accidentForm: FormGroup;
-
+  private _accident: Accident
   get latitude(): number {
     return this.accidentForm.controls.lat.value;
   }
@@ -40,7 +43,8 @@ export class AccidentCreateComponent implements OnInit {
 
   constructor(private _builder: FormBuilder,
               private mapsAPILoader: MapsAPILoader,
-              private ngZone: NgZone) {
+              private ngZone: NgZone,
+              private _service: AccidentService) {
   }
 
 
@@ -63,6 +67,7 @@ export class AccidentCreateComponent implements OnInit {
   }
 
   populateForm(accident: Accident) {
+    console.log('Populate data',accident);
     this.patchValues(this.accidentForm, accident);
     this.accidentForm.patchValue({
       lat: accident.location.lat,
@@ -137,7 +142,27 @@ export class AccidentCreateComponent implements OnInit {
   }
 
   saveAccident() {
-    this.saveAccidentEvent.emit(this.accidentForm);
+    if (this.accidentForm.invalid) {
+      return;
+    }
+    let formValues = this.accidentForm.getRawValue();
+    let location = {
+      lat: formValues.lat,
+      lng: formValues.lng,
+      streetName: formValues.street,
+      area: formValues.area
+    };
+    let accidentRequest = {
+      location: location,
+      dateAccident: formValues.dateAccident,
+      reason: formValues.reason,
+      description: formValues.description
+    };
+    this._service.saveAccident(accidentRequest)
+      .subscribe(res => {
+          this.saveAccidentEvent.emit(res);
+        },
+        () => console.log('Error occurred'));
   }
 
   patchValues(formGroup: FormGroup, values: any) {
@@ -147,6 +172,4 @@ export class AccidentCreateComponent implements OnInit {
     const keys = Object.keys(values);
     keys.forEach(key => formGroup.contains(key) && formGroup.patchValue({[key]: values[key]}));
   }
-
-
 }

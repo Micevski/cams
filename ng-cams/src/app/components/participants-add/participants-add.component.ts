@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Participant} from "../../interfaces/participant.interface";
+import { AccidentService } from '../../service/accident.service';
 
 @Component({
   selector: 'participants-add',
@@ -10,13 +11,15 @@ import {Participant} from "../../interfaces/participant.interface";
 export class ParticipantsAddComponent implements OnInit {
 
   @Input() participants: Participant[];
+  @Input() accidentId: number;
   @Output() saveParticipantsEvent = new EventEmitter<Participant[]>();
   participantForm: FormGroup;
   ownerForm: FormGroup;
 
   selected = new FormControl(0);
 
-  constructor(private _builder: FormBuilder) {
+  constructor(private _builder: FormBuilder,
+              private _service: AccidentService) {
   }
 
   ngOnInit() {
@@ -96,7 +99,13 @@ export class ParticipantsAddComponent implements OnInit {
       ...this.participantForm.getRawValue(),
       owner: this.ownerForm.getRawValue()
     };
-    this.saveParticipantsEvent.emit();
+
+    this._service.saveParticipants(this.participants, this.accidentId)
+      .subscribe(response => {
+          this.participants = response;
+          this.saveParticipantsEvent.emit(this.participants)
+        },
+        () => console.log('Error occurred'));
   }
 
   prevStep() {
