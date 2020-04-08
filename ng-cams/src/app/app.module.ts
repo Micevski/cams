@@ -17,15 +17,15 @@ import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {AccidentComponent} from './pages/accident/accident.component';
 import {AgmCoreModule} from "@agm/core"
-import {ReactiveFormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatExpansionModule} from "@angular/material/expansion";
-import {AccidentCreateComponent} from './pages/accident/accident-create/accident-create.component';
-import {ParticipantsAddComponent} from './pages/accident/participants-add/participants-add.component';
-import {PassengersAddComponent} from './pages/accident/passengers-add/passengers-add.component';
+import {AccidentCreateComponent} from './components/accident-create/accident-create.component';
+import {ParticipantsAddComponent} from './components/participants-add/participants-add.component';
+import {PassengersAddComponent} from './components/passengers-add/passengers-add.component';
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {PassengerCreateDialog} from "./dialogs/passenger-create-dialog/passenger-create-dialog";
@@ -33,6 +33,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatSortModule} from "@angular/material/sort";
 import { LoginComponent } from './pages/login/login.component';
 import {MatCardModule} from "@angular/material/card";
+import { AdminComponent } from './pages/admin/admin.component';
+import { AccidentDetails } from './pages/accident-details/accident-details.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import {MatCardModule} from "@angular/material/card";
     ParticipantsAddComponent,
     PassengersAddComponent,
     PassengerCreateDialog,
-    LoginComponent
+    LoginComponent,
+    AccidentDetails,
+    AdminComponent
   ],
   entryComponents:[
     PassengerCreateDialog
@@ -80,7 +84,8 @@ import {MatCardModule} from "@angular/material/card";
     MatTooltipModule,
     MatSelectModule,
     MatSortModule,
-    MatCardModule
+    MatCardModule,
+    FormsModule
   ],
   providers: [
     MatDatepickerModule
