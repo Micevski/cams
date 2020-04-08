@@ -20,6 +20,11 @@ class AccidentController(val accidentService: AccidentService) {
                 accidentFilterRequest.sortProperty, accidentFilterRequest.sortDirection)
     }
 
+    @GetMapping("{id}")
+    fun getAccidentById(@PathVariable id: Long): Accident {
+        return this.accidentService.findById(id)
+    }
+
     @PostMapping
     fun saveAccident(@RequestBody request: AccidentRequest): Accident? {
         return accidentService.save(request.location, request.dateAccident, request.reason, request.description)

@@ -10,7 +10,7 @@ class Location(
         val lng: BigDecimal,
         @Column(name = "street_name")
         val streetName: String?,
-        val area: String?,
+        val area: String,
         val city: String?,
         val country: String?,
         @Column(name = "zip_code")
