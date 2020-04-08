@@ -48,10 +48,11 @@ create table locations(
     lat decimal(9,6),
     lng decimal(9,6),
     street_name text,
+    street_number text,
     area text,
     city text,
     country text,
-    zip_code text
+    postcode text
 );
 
 create table accidents(

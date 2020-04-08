@@ -10,11 +10,12 @@ class Location(
         val lng: BigDecimal,
         @Column(name = "street_name")
         val streetName: String?,
-        val area: String,
+        @Column(name = "street_number")
+        val streetNumber: String?,
         val city: String?,
         val country: String?,
-        @Column(name = "zip_code")
-        val zipCode: String?
+        val area: String,
+        val postcode: String?
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
