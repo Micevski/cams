@@ -1,39 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from '../../service/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddUserDialog } from '../../dialogs/add-user-dialog/add-user-dialog';
 
 @Component({
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-  personForm: FormGroup;
-  passwordForm: FormGroup;
-  constructor(private _builder: FormBuilder,
+
+  constructor(private _dialog: MatDialog,
               private _userService: UserService) { }
 
-  ngOnInit() {
+  ngOnInit() {}
 
-    this.personForm = this._builder.group({
-      personId: [],
-      firstName: [],
-      lastName: [],
-      dateOfBirth: [],
-      genderId: [],
-      placeOfBirth: [],
-      placeOfLiving: []
+  createUser() {
+    const newUserDialogRef = this._dialog.open(AddUserDialog);
+    newUserDialogRef.afterClosed().subscribe(response => {
+      if (response) {
+        this._userService.createUser(response.password, response.user)
+          .subscribe(res => {
+            window.location.reload();
+          });
+      }
     });
 
-    this.passwordForm = this._builder.group({
-      password: ['',Validators.minLength(6)],
-    })
-  }
-
-  createUser($event: any) {
-    console.log(this.passwordForm.getRawValue());
-    this._userService.createUser(this.passwordForm.controls.password.value  , this.personForm.getRawValue())
-      .subscribe(res => {
-        console.log(res);
-      });
   }
 }

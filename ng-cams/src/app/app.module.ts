@@ -35,6 +35,10 @@ import { LoginComponent } from './pages/login/login.component';
 import {MatCardModule} from "@angular/material/card";
 import { AdminComponent } from './pages/admin/admin.component';
 import { AccidentDetails } from './pages/accident-details/accident-details.component';
+import { DatePipe } from '@angular/common';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { AddUserDialog } from './dialogs/add-user-dialog/add-user-dialog';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -48,10 +52,13 @@ import { AccidentDetails } from './pages/accident-details/accident-details.compo
     PassengerCreateDialog,
     LoginComponent,
     AccidentDetails,
-    AdminComponent
+    AdminComponent,
+    UserListComponent,
+    AddUserDialog
   ],
   entryComponents:[
-    PassengerCreateDialog
+    PassengerCreateDialog,
+    AddUserDialog
   ],
   imports: [
     BrowserModule,
@@ -85,10 +92,13 @@ import { AccidentDetails } from './pages/accident-details/accident-details.compo
     MatSelectModule,
     MatSortModule,
     MatCardModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
-    MatDatepickerModule
+    MatDatepickerModule,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

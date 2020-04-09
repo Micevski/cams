@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {UserService} from "../../service/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class LoginComponent implements OnInit {
 
   constructor(private _builder: FormBuilder, private _userService: UserService, private _router: Router,
-              private _route: ActivatedRoute) {
+              private _route: ActivatedRoute,
+              private _toast: ToastrService) {
   }
 
   form: FormGroup;
@@ -28,9 +30,12 @@ export class LoginComponent implements OnInit {
       .subscribe(res => {
         if (res) {
           let url = this.getRedirectUrl();
-          this._router.navigate([url])
+          this._router.navigate([url]);
         }
-      })
+      },
+        error => {
+        this._toast.error('Username or password is incorect', 'Rejected');
+        });
   }
 
   getRedirectUrl() {

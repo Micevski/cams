@@ -5,6 +5,7 @@ import {Accident} from "../../interfaces/accident.interface";
 import {MatSort} from "@angular/material/sort";
 import {PageEvent} from "@angular/material/paginator";
 import {Router} from "@angular/router";
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -15,10 +16,11 @@ import {Router} from "@angular/router";
 export class HomeComponent implements OnInit {
 
   constructor(private _service: AccidentService,
-              private _router: Router) {
+              private _router: Router,
+              private _datepipe: DatePipe) {
   }
 
-  displayedColumns: string[] = ['id', 'date', 'reason', 'description', 'location'];
+  displayedColumns: string[] = ['id', 'date', 'reason', 'description', 'streetName', 'city' , 'area'];
   page: number = 1;
   length: number;
   pageSize: number = 10;
@@ -52,5 +54,10 @@ export class HomeComponent implements OnInit {
 
   openAccidentDetails(row: any) {
     this._router.navigate([`/accident/${row.id}`])
+  }
+
+  dateFormatted(dateAccident: string) {
+    var date =  new Date(dateAccident)
+    return this._datepipe.transform(date, "dd MMM yyyy HH:mm")
   }
 }

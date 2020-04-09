@@ -15,27 +15,34 @@
       <td mat-cell *matCellDef="let element; let i = index;"> {{i + 1}} </td>
     </ng-container>
 
-    <!-- Name Column -->
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Date</th>
-      <td mat-cell *matCellDef="let element"> {{element.dateAccident}} </td>
+      <td mat-cell *matCellDef="let element"> {{dateFormatted(element.dateAccident)}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="reason">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason</th>
       <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
     </ng-container>
 
-    <!-- Symbol Column -->
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
       <td mat-cell *matCellDef="let element" style="overflow: auto"> {{element.description}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="location">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Location</th>
+    <ng-container matColumnDef="streetName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Street </th>
       <td mat-cell *matCellDef="let element"> {{element.location.streetName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+      <td mat-cell *matCellDef="let element"> {{element.location.city}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="area">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Area </th>
+      <td mat-cell *matCellDef="let element"> {{element.location.area}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Person } from '../interfaces/person.interface';
+import { Page } from '../interfaces/page.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -33,4 +34,9 @@ export class UserService {
       password: password
     });
   }
+
+  findAllUsers(page: number, pageSize: number): Observable<Page> {
+    return this._http.get<Page>(`/api/admin/users/filter?page=${page}&pageSize=${pageSize}`);
+  }
+
 }

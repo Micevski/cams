@@ -3,8 +3,9 @@ export interface CamsLocation {
   lat: number;
   lng: number;
   streetName: string;
+  streetNumber: string
   area: string;
   city: string;
   country: string;
-  zipCode: string
+  postcode: string
 }
