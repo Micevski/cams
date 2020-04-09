@@ -1,0 +1,35 @@
+<mat-icon [matTooltip]='"Close"' (click)='onCancel()'>close</mat-icon>
+<div class='card'>
+  <form class="input-form" [formGroup]="personForm">
+    <h4>Add new user</h4>
+    <mat-form-field class="mat-input-element">
+      <input matInput formControlName="firstName" placeholder="First Name">
+    </mat-form-field>
+
+    <mat-form-field class="mat-input-element">
+      <input matInput formControlName="lastName" placeholder="Last Name">
+    </mat-form-field>
+
+    <mat-form-field class="mat-input-element">
+      <input matInput formControlName="dateOfBirth" [matDatepicker]="DOB" placeholder="Date of birth">
+      <mat-datepicker-toggle matSuffix [for]="DOB"></mat-datepicker-toggle>
+      <mat-datepicker #DOB></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="mat-input-element">
+      <input matInput formControlName="placeOfBirth" placeholder="Place of birth">
+    </mat-form-field>
+
+    <mat-form-field class="mat-input-element">
+      <input matInput formControlName="placeOfLiving" placeholder="Place of living">
+    </mat-form-field>
+  </form>
+
+  <form [formGroup]='passwordForm' (ngSubmit)='createUser($event)'>
+    <mat-form-field class="mat-input-element">
+      <input matInput type='password' placeholder='Password' formControlName="password">
+    </mat-form-field>
+    <button mat-button type='submit' class='mat-primary'>Save</button>
+  </form>
+
+</div>
