@@ -64,8 +64,7 @@ class SecurityConfiguration {
                     .disable()
 
             http.authorizeRequests()
-                    .antMatchers("/api/admin/**")
-                    .hasRole("ADMIN")
+                    .antMatchers("/api/admin/**").hasAuthority("ADMIN")
                     .anyRequest().authenticated()
 
         }

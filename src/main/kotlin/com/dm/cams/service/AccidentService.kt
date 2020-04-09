@@ -22,7 +22,7 @@ class AccidentService(val accidentRepository: AccidentRepository,
     fun save(locationRequest: LocationRequest, dateAccident: LocalDateTime?, reason: String?, description: String?): Accident {
         val location: Location =
                 locationRequest.let {
-                    locationService.save(it.lat, it.lng, it.streetName, it.area)
+                    locationService.save(it.lat, it.lng, it.streetName, it.streetNumber, it.city, it.country, it.postcode, it.area)
                 }
         return accidentRepository.save(Accident(location, dateAccident, reason, description))
 
