@@ -35,7 +35,7 @@ import { LoginComponent } from './pages/login/login.component';
 import {MatCardModule} from "@angular/material/card";
 import { AdminComponent } from './pages/admin/admin.component';
 import { AccidentDetails } from './pages/accident-details/accident-details.component';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { AddUserDialog } from './dialogs/add-user-dialog/add-user-dialog';
 import { ToastrModule } from 'ngx-toastr';
@@ -93,6 +93,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatSortModule,
     MatCardModule,
     FormsModule,
+    CommonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],

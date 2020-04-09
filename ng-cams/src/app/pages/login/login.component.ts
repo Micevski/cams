@@ -31,11 +31,11 @@ export class LoginComponent implements OnInit {
         if (res) {
           let url = this.getRedirectUrl();
           this._router.navigate([url]);
+        } else {
+          this._toast.error('Username or password is incorrect', 'Rejected');
+
         }
-      },
-        error => {
-        this._toast.error('Username or password is incorect', 'Rejected');
-        });
+      });
   }
 
   getRedirectUrl() {

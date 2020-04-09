@@ -25,7 +25,7 @@
     </mat-form-field>
   </form>
 
-  <form [formGroup]='passwordForm' (ngSubmit)='createUser($event)'>
+  <form [formGroup]='passwordForm' (ngSubmit)='createUser()'>
     <mat-form-field class="mat-input-element">
       <input matInput type='password' placeholder='Password' formControlName="password">
     </mat-form-field>
