@@ -11,7 +11,7 @@ import { AccidentService } from '../../service/accident.service';
 })
 export class AccidentCreateComponent implements OnInit {
 
-  @ViewChild('search', { static: false })
+  @ViewChild('search')
   public searchElementRef: ElementRef;
 
   @Input() set accident(accident: Accident) {
