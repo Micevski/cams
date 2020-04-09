@@ -1,19 +1,18 @@
-import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
-import {Participant} from "../interfaces/participant.interface";
-import {Option} from "../interfaces/option.interface";
-import {Passenger} from "../interfaces/passenger.interface";
-import {Page} from "../interfaces/page.interface";
-import {Accident} from "../interfaces/accident.interface";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Participant } from '../interfaces/participant.interface';
+import { Option } from '../interfaces/option.interface';
+import { Passenger } from '../interfaces/passenger.interface';
+import { Page } from '../interfaces/page.interface';
+import { Accident } from '../interfaces/accident.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccidentService {
 
-  constructor(private _http: HttpClient) {
-  }
+  constructor(private _http: HttpClient) {}
 
   findAllAccidents(page: number, pageSize: number): Observable<Page> {
     return this._http.get<Page>(`/api/accidents/filter?page=${page}&pageSize=${pageSize}`);
@@ -28,7 +27,11 @@ export class AccidentService {
   }
 
   saveParticipants(participants: Participant[], accidentId: number) {
-    return this._http.post<Participant[]>(`/api/accident-participant/add/${accidentId}`, participants)
+    return this._http.post<Participant[]>(`/api/accident-participant/add/${accidentId}`, participants);
+  }
+
+  findAllParticipantsForAccident(accidentId: number): Observable<Participant[]> {
+    return this._http.get<Participant[]>(`/api/accident-participant/${accidentId}`);
   }
 
   savePassengers(passengers: any): Observable<Passenger[]> {
@@ -41,6 +44,6 @@ export class AccidentService {
   }
 
   findAllGenders(): Observable<Option[]> {
-    return this._http.get<Option[]>('/api/passengers/genders')
+    return this._http.get<Option[]>('/api/passengers/genders');
   }
 }

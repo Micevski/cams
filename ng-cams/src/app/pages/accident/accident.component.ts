@@ -4,7 +4,7 @@ import { AccidentService } from '../../service/accident.service';
 import { Participant } from '../../interfaces/participant.interface';
 import { Accident } from '../../interfaces/accident.interface';
 import { Passenger } from '../../interfaces/passenger.interface';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'accident',
@@ -20,10 +20,14 @@ export class AccidentComponent implements OnInit {
 
   constructor(private _service: AccidentService,
               private _builder: FormBuilder,
-              private  _route: Router) {
+              private  _router: Router,
+              private _route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    if (this._route.snapshot.queryParamMap.has('step')) {
+      this.step = +this._route.snapshot.queryParamMap.get('step');
+    }
   }
 
   setStep(index: number) {
@@ -41,6 +45,7 @@ export class AccidentComponent implements OnInit {
   saveAccident($event: Accident) {
     console.log(this.step, $event);
     this.accident = $event;
+    this._router.navigateByUrl(`accident/${this.accident.id}?step=1`);
     this.step = 1;
   }
 
@@ -51,6 +56,6 @@ export class AccidentComponent implements OnInit {
 
   savePassengers($event: Passenger[]) {
     this.passengers = $event;
-    this._route.navigateByUrl('/home');
+    this._router.navigateByUrl('/home');
   }
 }

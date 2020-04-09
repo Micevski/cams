@@ -53,7 +53,7 @@ export class PassengersAddComponent implements OnInit {
     });
     passengerDialogRef.afterClosed().subscribe(passenger => {
       if (passenger)
-        console.log("Passenger updated");
+        console.log('Passenger updated');
     });
   }
 

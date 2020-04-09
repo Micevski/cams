@@ -22,8 +22,7 @@ export class UserListComponent implements OnInit {
   users: User[];
   dataSource: MatTableDataSource<any>;
 
-
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ngOnInit() {
     this._service.findAllUsers(this.page, this.pageSize)
@@ -36,15 +35,13 @@ export class UserListComponent implements OnInit {
   }
 
   pageChanged($event: PageEvent) {
-    console.log($event);
     this.pageSize = $event.pageSize;
     this._service.findAllUsers(this.page + $event.pageIndex, this.pageSize)
       .subscribe(res => {
         this.users = res.content;
         this.dataSource = new MatTableDataSource<any>(this.users);
 
-      })
+      });
   }
-
 
 }

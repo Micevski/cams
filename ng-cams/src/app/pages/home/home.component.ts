@@ -1,12 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {AccidentService} from "../../service/accident.service";
-import {MatTableDataSource} from "@angular/material/table";
-import {Accident} from "../../interfaces/accident.interface";
-import {MatSort} from "@angular/material/sort";
-import {PageEvent} from "@angular/material/paginator";
-import {Router} from "@angular/router";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AccidentService } from '../../service/accident.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { Accident } from '../../interfaces/accident.interface';
+import { MatSort } from '@angular/material/sort';
+import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-
 
 @Component({
   selector: 'home',
@@ -20,7 +19,7 @@ export class HomeComponent implements OnInit {
               private _datepipe: DatePipe) {
   }
 
-  displayedColumns: string[] = ['id', 'date', 'reason', 'description', 'streetName', 'city' , 'area'];
+  displayedColumns: string[] = ['id', 'date', 'reason', 'description', 'streetName', 'city', 'area'];
   page: number = 1;
   length: number;
   pageSize: number = 10;
@@ -28,8 +27,7 @@ export class HomeComponent implements OnInit {
   accidents: Accident[];
   dataSource: MatTableDataSource<any>;
 
-
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ngOnInit() {
     this._service.findAllAccidents(this.page, this.pageSize)
@@ -48,16 +46,15 @@ export class HomeComponent implements OnInit {
       .subscribe(res => {
         this.accidents = res.content;
         this.dataSource = new MatTableDataSource<any>(this.accidents);
-
-      })
+      });
   }
 
   openAccidentDetails(row: any) {
-    this._router.navigate([`/accident/${row.id}`])
+    this._router.navigate([`/accident/${row.id}`]);
   }
 
   dateFormatted(dateAccident: string) {
-    var date =  new Date(dateAccident)
-    return this._datepipe.transform(date, "dd MMM yyyy HH:mm")
+    let date = new Date(dateAccident);
+    return this._datepipe.transform(date, 'dd MMM yyyy HH:mm');
   }
 }

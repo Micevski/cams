@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
     let url;
     this._route.queryParamMap.subscribe(params => url = params.get('returnUrl'));
     if(url) {
-      console.log(url);
       return url;
     }else {
       return '/';

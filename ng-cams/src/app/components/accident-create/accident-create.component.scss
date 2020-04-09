@@ -1,10 +1,3 @@
-.page {
-  margin-top: 50px;
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
-
 .create-accident {
   display: flex;
   justify-content: space-evenly;
@@ -33,7 +26,6 @@ agm-map {
 .actions-button{
   display: flex;
   justify-content: flex-end;
-  margin-top: 125px;
 }
 
 .latLng {
