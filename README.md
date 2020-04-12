@@ -3,7 +3,6 @@
 
 
 ### CAMS
-
 Ovaa aplikacija e izrabotena za predmetot WEB PROGRAMIRANE od FINKI.
 Glavnata namena na aplikacijata e elektrosnko zaveduvanje i menadziranje na soobrakjani nezgodi. Ili da nareceme nesto kako elektronski zapisnik za soobrakajna nezgoda. 
 
