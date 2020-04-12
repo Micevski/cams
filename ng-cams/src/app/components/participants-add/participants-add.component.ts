@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ParticipantsAddComponent implements OnInit {
 
-  @Output() saveParticipantsEvent = new EventEmitter<Participant[]>();
+  @Output() saveParticipantsEvent = new EventEmitter();
   participantForm: FormGroup;
   ownerForm: FormGroup;
 
@@ -119,7 +119,7 @@ export class ParticipantsAddComponent implements OnInit {
     this._service.saveParticipants(this._participants, this._accidentId)
       .subscribe(response => {
           this._participants = response;
-          this.saveParticipantsEvent.emit(this._participants);
+          this.saveParticipantsEvent.emit();
         },
         () => console.log('Error occurred'));
   }

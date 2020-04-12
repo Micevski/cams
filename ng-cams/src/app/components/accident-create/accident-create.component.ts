@@ -1,9 +1,9 @@
-import { Component, ElementRef, EventEmitter, NgZone, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { GeocoderAddressComponent, MapsAPILoader, MouseEvent } from '@agm/core';
-import { Accident } from '../../interfaces/accident.interface';
-import { AccidentService } from '../../service/accident.service';
-import { ActivatedRoute } from '@angular/router';
+import {Component, ElementRef, EventEmitter, NgZone, OnInit, Output, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {GeocoderAddressComponent, MapsAPILoader, MouseEvent} from '@agm/core';
+import {Accident} from '../../interfaces/accident.interface';
+import {AccidentService} from '../../service/accident.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'accident-create',
@@ -14,7 +14,7 @@ export class AccidentCreateComponent implements OnInit {
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
-  @Output() saveAccidentEvent = new EventEmitter<any>();
+  @Output() saveAccidentEvent = new EventEmitter<number>();
 
   accidentForm: FormGroup;
   accident: Accident;
@@ -30,13 +30,16 @@ export class AccidentCreateComponent implements OnInit {
 
   get fullLocationInfo(): string {
     const location = this.accident.location;
-    let fullLocationInfo = `${location.streetName} ${location.streetNumber}, ${location.city}, ${location.country}, ${location.postcode}`;
-    return fullLocationInfo.replace(/null/g, '');
+    const streetName = location?.streetName || this._getPropertyFromFullLocation('route') || '';
+    const streetNumber = location?.streetNumber || this._getPropertyFromFullLocation('street_number') || '';
+    const city = location?.city || this._getPropertyFromFullLocation('locality') || '';
+    const country = location?.country || this._getPropertyFromFullLocation('country') || '';
+    const postcode = location?.postcode || this._getPropertyFromFullLocation('postal_code') || '';
+    return `${streetName} ${streetNumber}, ${city}, ${country}, ${postcode}`;
   }
 
   address: string;
-  zoom: number = 12;
-  private geoCoder;
+  zoom = 12;
 
   constructor(private _builder: FormBuilder,
               private mapsAPILoader: MapsAPILoader,
@@ -46,6 +49,7 @@ export class AccidentCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initForm();
     const accidentId = +this._route.snapshot.paramMap.get('id');
     if (accidentId) {
       this._service.findAccidentById(accidentId)
@@ -53,12 +57,10 @@ export class AccidentCreateComponent implements OnInit {
           this.accident = accident;
           this.populateForm(this.accident);
         });
+    } else {
+      this.setCurrentLocation();
     }
-
-    this.initForm();
     this.accident = {} as Accident;
-    this.setCurrentLocation();
-
     this.loadPlacesAutocomplete();
 
   }
@@ -77,6 +79,7 @@ export class AccidentCreateComponent implements OnInit {
 
   populateForm(accident: Accident) {
     this.patchValues(this.accidentForm, accident);
+    this.getAddress(accident.location.lat, accident.location.lng);
     this.accidentForm.patchValue({
       lat: accident.location.lat,
       lng: accident.location.lng,
@@ -91,17 +94,16 @@ export class AccidentCreateComponent implements OnInit {
 
   private loadPlacesAutocomplete() {
     this.mapsAPILoader.load().then(() => {
-      this.geoCoder = new google.maps.Geocoder;
+      const geoCoder = new google.maps.Geocoder;
 
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
         types: ['address']
       });
       autocomplete.addListener('place_changed', ($event) => {
-        console.log('event', $event);
         this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          //verify result
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          // verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
@@ -117,15 +119,18 @@ export class AccidentCreateComponent implements OnInit {
   }
 
   private setCurrentLocation() {
-    console.log('Set current Location');
     if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.accidentForm.patchValue({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        });
-        this.getAddress(this.latitude, this.longitude);
-      });
+      navigator.geolocation.getCurrentPosition(position => {
+          this.accidentForm.patchValue({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          });
+          this.getAddress(this.latitude, this.longitude);
+        },
+        error => {
+          console.log('Error Occured while locating you');
+        }, {enableHighAccuracy: true}
+      );
     }
   }
 
@@ -140,12 +145,14 @@ export class AccidentCreateComponent implements OnInit {
   }
 
   getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+    const geoCoder = new google.maps.Geocoder;
+    geoCoder.geocode({location: {lat: latitude, lng: longitude}}, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
           this.address = results[0].formatted_address;
           this.fullLocation = results[0].address_components;
-          this.accidentForm.patchValue({ fullLocationInfo: this.fullLocationInfo });
+          console.log(results[0]);
+          this.accidentForm.patchValue({fullLocationInfo: this.fullLocationInfo});
         } else {
           window.alert('No results found');
         }
@@ -172,14 +179,14 @@ export class AccidentCreateComponent implements OnInit {
     };
     console.log(location);
     const accidentRequest = {
-      location: location,
+      location,
       dateAccident: formValues.dateAccident,
       reason: formValues.reason,
       description: formValues.description
     };
     this._service.saveAccident(accidentRequest)
       .subscribe(res => {
-          this.saveAccidentEvent.emit(res);
+          this.saveAccidentEvent.emit(res.id);
         },
         () => console.log('Error occurred'));
   }
@@ -189,16 +196,12 @@ export class AccidentCreateComponent implements OnInit {
       return;
     }
     const keys = Object.keys(values);
-    keys.forEach(key => formGroup.contains(key) && formGroup.patchValue({ [key]: values[key] }));
+    keys.forEach(key => formGroup.contains(key) && formGroup.patchValue({[key]: values[key]}));
   }
 
-  private _getPropertyFromFullLocation(property: string): String {
+  private _getPropertyFromFullLocation(property: string): string {
     if (this.fullLocation) {
-      try {
-        return this.fullLocation.filter(it => it.types.includes(property))[0].long_name;
-      } catch (e) {
-        return null;
-      }
+      return this.fullLocation.filter(it => it.types.includes(property))[0]?.long_name;
     }
   }
 }

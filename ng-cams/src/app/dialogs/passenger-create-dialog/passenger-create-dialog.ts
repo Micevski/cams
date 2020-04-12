@@ -16,7 +16,7 @@ export class PassengerCreateDialog implements OnInit {
   constructor(private _dialogRef: MatDialogRef<PassengerCreateDialog>,
               private _builder: FormBuilder,
               private _service: AccidentService,
-              @Inject(MAT_DIALOG_DATA) public data: {owner: Person, passenger: Passenger, addOwner: boolean}) {
+              @Inject(MAT_DIALOG_DATA) public data: { owner: Person, passenger: Passenger, addOwner: boolean }) {
   }
 
   get ownerTooltip() {
@@ -41,19 +41,19 @@ export class PassengerCreateDialog implements OnInit {
       placeOfLiving: [],
       injuredLevel: [],
     });
-    if (this.data.passenger.person) {
-      this.patchValues(this.data.passenger.person);
+    if (this.data.passenger.passenger) {
+      this.patchValues(this.data.passenger.passenger);
     }
   }
 
   onSave() {
-    let formValues = this.passenger.getRawValue();
-    this.data.passenger.person.firstName = formValues.firstName;
-    this.data.passenger.person.lastName = formValues.lastName;
-    this.data.passenger.person.dateOfBirth = formValues.dateOfBirth;
-    this.data.passenger.person.genderId = formValues.genderId;
-    this.data.passenger.person.placeOfBirth = formValues.placeOfBirth;
-    this.data.passenger.person.placeOfLiving = formValues.placeOfLiving;
+    const formValues = this.passenger.getRawValue();
+    this.data.passenger.passenger.firstName = formValues.firstName;
+    this.data.passenger.passenger.lastName = formValues.lastName;
+    this.data.passenger.passenger.dateOfBirth = formValues.dateOfBirth;
+    this.data.passenger.passenger.genderId = formValues.genderId;
+    this.data.passenger.passenger.placeOfBirth = formValues.placeOfBirth;
+    this.data.passenger.passenger.placeOfLiving = formValues.placeOfLiving;
     this.data.passenger.injuredLevel = formValues.injuredLevel;
     this._dialogRef.close(this.data.passenger);
   }
@@ -63,7 +63,7 @@ export class PassengerCreateDialog implements OnInit {
   }
 
   addOwnerAsPassenger() {
-    let owner = this.data.owner;
+    const owner = this.data.owner;
     this.patchValues(owner);
   }
 
@@ -76,6 +76,6 @@ export class PassengerCreateDialog implements OnInit {
       genderId: person.genderId,
       placeOfBirth: person.placeOfBirth,
       placeOfLiving: person.placeOfLiving
-    })
+    });
   }
 }
