@@ -40,7 +40,6 @@ export class HomeComponent implements OnInit {
   }
 
   pageChanged($event: PageEvent) {
-    console.log($event);
     this.pageSize = $event.pageSize;
     this._service.findAllAccidents(this.page + $event.pageIndex, this.pageSize)
       .subscribe(res => {

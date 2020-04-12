@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Participant} from "../../interfaces/participant.interface";
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {PassengerCreateDialog} from "../../dialogs/passenger-create-dialog/passenger-create-dialog";
 import {Passenger} from "../../interfaces/passenger.interface";
 import {AccidentService} from "../../service/accident.service";
 import {Person} from "../../interfaces/person.interface";
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Participant} from "../../interfaces/participant.interface";
 
 @Component({
   selector: 'passengers-add',
@@ -15,34 +15,47 @@ import { Router } from '@angular/router';
 })
 export class PassengersAddComponent implements OnInit {
 
-  @Input() participants: Participant[];
-  @Input() passengers: Passenger[];
-  @Output() savePassengersEvent = new EventEmitter<Passenger[]>();
 
+  @Output() savePassengersEvent = new EventEmitter();
+
+  passengers: Passenger[];
+  participants: Participant[];
+  private accidentId: number;
   selected = new FormControl(0);
 
   constructor(private _builder: FormBuilder,
               private _dialog: MatDialog,
               private _service: AccidentService,
-              private _route: Router) {
+              private _router: Router,
+              private _route: ActivatedRoute) {
 
   }
 
   ngOnInit() {
+    const accidentId = +this._route.snapshot.paramMap.get('id');
+    if (accidentId) {
+      this._service.findAllPassengersForAccident(accidentId).subscribe(passengers => {
+        this.passengers = passengers;
+        this._service.findAllParticipantsForAccident(accidentId).subscribe(participants => {
+          this.participants = participants;
+        });
+      });
+      this.accidentId = accidentId;
+    }
   }
 
   openPassengerDialog(passenger: Passenger) {
     if (!passenger) {
       passenger = {
         participant: this.participants[this.selected.value],
-        person: {} as Person,
+        passenger: {} as Person,
         injuredLevel: null
       };
       this.passengers.push(passenger);
     }
 
-    let isOwnerAlreadyPassenger = this.passengersForSelectedParticipant().find(it => {
-      it.person.id = this.participants[this.selected.value].owner.id;
+    const isOwnerAlreadyPassenger = this.passengersForSelectedParticipant().find(it => {
+      it.passenger.id = this.participants[this.selected.value].owner.id;
     }) != null;
     const passengerDialogRef = this._dialog.open(PassengerCreateDialog, {
       data: {
@@ -52,8 +65,9 @@ export class PassengersAddComponent implements OnInit {
       }
     });
     passengerDialogRef.afterClosed().subscribe(passenger => {
-      if (passenger)
+      if (passenger) {
         console.log('Passenger updated');
+      }
     });
   }
 
@@ -63,25 +77,25 @@ export class PassengersAddComponent implements OnInit {
 
   savePassengers() {
 
-    let request = this.passengers.map(it => ({
+    const request = this.passengers.map(it => ({
       participantId: it.participant.id,
-      passenger: it.person,
+      passenger: it.passenger,
       injuredLevel: it.injuredLevel
     }));
     this._service.savePassengers(request)
       .subscribe(response => {
           this.passengers = response;
-          this.savePassengersEvent.emit(this.passengers);
+          this.savePassengersEvent.emit();
         },
         () => console.log('Error occurred'));
 
   }
 
   prevStep() {
-    //TODO not implemented
+    // TODO not implemented
   }
 
   passengersForSelectedParticipant() {
-    return this.passengers.filter(it => it.participant == this.participants[this.selected.value])
+    return this.passengers.filter(it => it.participant.id == this.participants[this.selected.value].id);
   }
 }

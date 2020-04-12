@@ -38,6 +38,7 @@ import { CommonModule, DatePipe, Location } from '@angular/common';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { AddUserDialog } from './dialogs/add-user-dialog/add-user-dialog';
 import { ToastrModule } from 'ngx-toastr';
+import {defer} from "rxjs";
 
 @NgModule({
   declarations: [
@@ -77,7 +78,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatPaginatorModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAIzG6TEQPJb38Me-SY8stxKnkv8aLOnNo',
-      libraries: ['places']
+      libraries: ['places'],
     }),
     ReactiveFormsModule,
     MatFormFieldModule,

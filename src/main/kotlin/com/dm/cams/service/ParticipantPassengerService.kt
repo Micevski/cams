@@ -12,6 +12,7 @@ import java.util.stream.Collectors
 @Service
 class ParticipantPassengerService(val repository: ParticipantPassengerRepository,
                                   val participantService: ParticipantService,
+                                  val accidentParticipantService: AccidentParticipantService,
                                   val personService: PersonService) {
 
     fun addPassenger(participant: Participant, passenger: Person, injuredLevel: InjuredLevel): ParticipantPassenger {
@@ -33,4 +34,11 @@ class ParticipantPassengerService(val repository: ParticipantPassengerRepository
         }
         return repository.saveAll(passengers);
     }
+
+    fun findAllForAccident(accidentId: Long): List<ParticipantPassenger> {
+        val participantIds = accidentParticipantService.findAllParticipantsForAccident(accidentId)
+                .map { it.id }
+        return repository.findAllByParticipantIdIn(participantIds);
+    }
+
 }
