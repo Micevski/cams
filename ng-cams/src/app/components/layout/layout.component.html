@@ -3,7 +3,7 @@
     <h1>CAMS</h1>
     <span class="menu-spacer"></span>
     <div class="layout-items">
-      <div>
+      <div *ngIf='isAdminLogged'>
         <a mat-button [routerLink]="'/admin'">Admin</a>
       </div>
       <div>

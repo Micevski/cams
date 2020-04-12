@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {UserService} from "../../service/user.service";
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'layout',
@@ -8,17 +8,25 @@ import {UserService} from "../../service/user.service";
 })
 export class LayoutComponent implements OnInit {
 
+  isAdminLogged: boolean = false;
   constructor(private _userService: UserService) {
   }
 
   ngOnInit() {
+    this.isAdminLoggedIn();
   }
 
-
   logout() {
-    this._userService.logout().subscribe(() =>{
+    this._userService.logout().subscribe(() => {
       window.location.reload();
     });
+  }
+
+  isAdminLoggedIn() {
+    this._userService.getAuthentication()
+      .subscribe(res => {
+       this.isAdminLogged = res.authorities[0].authority === 'ADMIN';
+      });
   }
 
 }

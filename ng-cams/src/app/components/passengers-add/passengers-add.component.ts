@@ -1,12 +1,12 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl} from "@angular/forms";
-import {MatDialog} from "@angular/material/dialog";
-import {PassengerCreateDialog} from "../../dialogs/passenger-create-dialog/passenger-create-dialog";
-import {Passenger} from "../../interfaces/passenger.interface";
-import {AccidentService} from "../../service/accident.service";
-import {Person} from "../../interfaces/person.interface";
-import {ActivatedRoute, Router} from '@angular/router';
-import {Participant} from "../../interfaces/participant.interface";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { PassengerCreateDialog } from '../../dialogs/passenger-create-dialog/passenger-create-dialog';
+import { Passenger } from '../../interfaces/passenger.interface';
+import { AccidentService } from '../../service/accident.service';
+import { Person } from '../../interfaces/person.interface';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Participant } from '../../interfaces/participant.interface';
 
 @Component({
   selector: 'passengers-add',
@@ -14,7 +14,6 @@ import {Participant} from "../../interfaces/participant.interface";
   styleUrls: ['./passengers-add.component.scss']
 })
 export class PassengersAddComponent implements OnInit {
-
 
   @Output() savePassengersEvent = new EventEmitter();
 
@@ -51,18 +50,20 @@ export class PassengersAddComponent implements OnInit {
         passenger: {} as Person,
         injuredLevel: null
       };
+      this.passengers.push(passenger);
     }
+    const isOwnerAlreadyAdded = this.passengersForSelectedParticipant()
+      .map(it => it.id)
+      .includes(this.participants[this.selected.value].owner.id);
     const passengerDialogRef = this._dialog.open(PassengerCreateDialog, {
       data: {
         owner: this.participants[this.selected.value].owner,
         passenger,
-        addOwner: false
+        addOwner: isOwnerAlreadyAdded
       }
     });
     passengerDialogRef.afterClosed().subscribe(res => {
       if (res) {
-        console.log('res', res);
-        console.log('passengers', this.passengers);
         console.log('Passenger updated');
       }
     });

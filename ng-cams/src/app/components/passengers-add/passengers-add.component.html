@@ -10,7 +10,6 @@
       <h4>{{passenger.passenger.firstName}} {{passenger.passenger.lastName}}</h4>
       <h4 *ngIf="passenger.passenger.dateOfBirth">{{passenger.passenger.dateOfBirth.toLocaleString()}}</h4>
       <h4>{{this.passenger.injuredLevel}}</h4>
-      <h4> <mat-icon>clear</mat-icon></h4>
     </div>
 
     <button mat-icon-button (click)="openPassengerDialog(null)" [matTooltip]="'Add passenger'">
