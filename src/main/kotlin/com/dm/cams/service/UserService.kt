@@ -23,7 +23,7 @@ class UserService(val userRepository: UserRepository,
 
     fun createUser(personRequest: PersonRequest, password: String) {
         val person = personService.findOrCreate(
-                personRequest.personId,
+                personRequest.id,
                 personRequest.firstName,
                 personRequest.lastName,
                 personRequest.dateOfBirth,

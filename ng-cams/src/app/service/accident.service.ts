@@ -6,6 +6,7 @@ import {Option} from '../interfaces/option.interface';
 import {Passenger} from '../interfaces/passenger.interface';
 import {Page} from '../interfaces/page.interface';
 import {Accident} from '../interfaces/accident.interface';
+import {AccidentParticipant} from "../interfaces/accident-participant.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -27,12 +28,12 @@ export class AccidentService {
     return this._http.post<any>('/api/accidents', accidentRequest);
   }
 
-  saveParticipants(participants: Participant[], accidentId: number) {
-    return this._http.post<Participant[]>(`/api/accident-participant/add/${accidentId}`, participants);
+  saveParticipants(participants: Participant[], accidentId: number): Observable<AccidentParticipant[]> {
+    return this._http.post<AccidentParticipant[]>(`/api/accident-participant/add/${accidentId}`, participants);
   }
 
-  findAllParticipantsForAccident(accidentId: number): Observable<Participant[]> {
-    return this._http.get<Participant[]>(`/api/accident-participant/${accidentId}`);
+  findAllParticipantsForAccident(accidentId: number): Observable<AccidentParticipant[]> {
+    return this._http.get<AccidentParticipant[]>(`/api/accident-participant/${accidentId}`);
   }
 
   savePassengers(passengers: any): Observable<Passenger[]> {

@@ -17,7 +17,7 @@ export class AddUserDialog implements OnInit {
   ngOnInit() {
 
     this.personForm = this._builder.group({
-      personId: [],
+      id: [],
       firstName: [],
       lastName: [],
       dateOfBirth: [],

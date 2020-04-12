@@ -6,16 +6,16 @@ import javax.persistence.*
 @Entity
 @Table(name = "locations")
 class Location(
-        val lat: BigDecimal,
-        val lng: BigDecimal,
+        var lat: BigDecimal,
+        var lng: BigDecimal,
         @Column(name = "street_name")
-        val streetName: String?,
+        var streetName: String?,
         @Column(name = "street_number")
-        val streetNumber: String?,
-        val city: String?,
-        val country: String?,
-        val area: String,
-        val postcode: String?
+        var streetNumber: String?,
+        var city: String?,
+        var country: String?,
+        var area: String,
+        var postcode: String?
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

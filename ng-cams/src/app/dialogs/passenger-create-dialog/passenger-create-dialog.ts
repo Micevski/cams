@@ -32,7 +32,7 @@ export class PassengerCreateDialog implements OnInit {
     this.injuredLevels$ = this._service.findAllInjuredLevels();
     this.genders$ = this._service.findAllGenders();
     this.passenger = this._builder.group({
-      personId: [],
+      id: [],
       firstName: [],
       lastName: [],
       dateOfBirth: [],
@@ -69,7 +69,7 @@ export class PassengerCreateDialog implements OnInit {
 
   patchValues(person: Person) {
     this.passenger.patchValue({
-      personId: person.id,
+      id: person.id,
       firstName: person.firstName,
       lastName: person.lastName,
       dateOfBirth: person.dateOfBirth,

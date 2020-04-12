@@ -8,12 +8,12 @@ import javax.persistence.*
 class Accident(
         @ManyToOne
         @JoinColumn(name = "location_id")
-        val location: Location,
+        var location: Location,
 
         @Column(name = "date_accident")
-        val dateAccident: LocalDateTime?,
-        val reason: String?,
-        val description: String?
+        var dateAccident: LocalDateTime?,
+        var reason: String?,
+        var description: String?
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

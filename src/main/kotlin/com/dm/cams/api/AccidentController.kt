@@ -27,6 +27,6 @@ class AccidentController(val accidentService: AccidentService) {
 
     @PostMapping
     fun saveAccident(@RequestBody request: AccidentRequest): Accident? {
-        return accidentService.save(request.location, request.dateAccident, request.reason, request.description)
+        return accidentService.save(request.location, request.id, request.dateAccident, request.reason, request.description)
     }
 }

@@ -19,13 +19,25 @@ class AccidentService(val accidentRepository: AccidentRepository,
     fun finAll(page: Int, pageSize: Int, sortProperty: String?, sortDirection: Sort.Direction?): Page<Accident> =
             accidentRepository.findAll(pageableUtils.getPageable(page, pageSize, sortProperty, sortDirection))
 
-    fun save(locationRequest: LocationRequest, dateAccident: LocalDateTime?, reason: String?, description: String?): Accident {
+    fun save(locationRequest: LocationRequest, id: Long?, dateAccident: LocalDateTime?, reason: String?, description: String?): Accident {
         val location: Location =
                 locationRequest.let {
-                    locationService.save(it.lat, it.lng, it.streetName, it.streetNumber, it.city, it.country, it.postcode, it.area)
+                    locationService.findOrCreate(it.id, it.lat, it.lng, it.streetName, it.streetNumber,
+                            it.city, it.country, it.postcode, it.area)
                 }
-        return accidentRepository.save(Accident(location, dateAccident, reason, description))
+        return if (id != null)
+            updateLocation(id, dateAccident, reason, description)
+        else
+            accidentRepository.save(Accident(location, dateAccident, reason, description))
 
+    }
+
+    private fun updateLocation(id: Long, dateAccident: LocalDateTime?, reason: String?, description: String?): Accident {
+        val accident = findById(id);
+        accident.dateAccident = dateAccident
+        accident.reason = reason
+        accident.description = description
+        return accidentRepository.save(accident);
     }
 
 

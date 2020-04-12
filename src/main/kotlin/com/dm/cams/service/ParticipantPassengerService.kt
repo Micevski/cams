@@ -28,17 +28,17 @@ class ParticipantPassengerService(val repository: ParticipantPassengerRepository
         val passengers = request.map {
             val participant: Participant = participantService.findById(it.participantId);
             val passengerPerson: Person = it.passenger.let { per ->
-                personService.findOrCreate(per.personId, per.firstName, per.lastName, per.dateOfBirth, per.genderId, per.placeOfBirth, per.placeOfLiving)
+                personService.findOrCreate(per.id, per.firstName, per.lastName, per.dateOfBirth, per.genderId, per.placeOfBirth, per.placeOfLiving)
             }
             ParticipantPassenger(participant, passengerPerson, InjuredLevel.values()[it.injuredLevel])
         }
-        return repository.saveAll(passengers);
+        return repository.saveAll(passengers)
     }
 
     fun findAllForAccident(accidentId: Long): List<ParticipantPassenger> {
         val participantIds = accidentParticipantService.findAllParticipantsForAccident(accidentId)
                 .map { it.id }
-        return repository.findAllByParticipantIdIn(participantIds);
+        return repository.findAllByParticipantIdIn(participantIds)
     }
 
 }

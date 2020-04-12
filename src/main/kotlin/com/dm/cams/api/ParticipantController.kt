@@ -1,7 +1,7 @@
 package com.dm.cams.api
 
-import com.dm.cams.domain.Participant
 import com.dm.cams.domain.requests.ParticipantRequest
+import com.dm.cams.domain.response.AccidentParticipantResponse
 import com.dm.cams.service.AccidentParticipantService
 import org.springframework.web.bind.annotation.*
 
@@ -10,15 +10,19 @@ import org.springframework.web.bind.annotation.*
 class ParticipantController(val accidentParticipantService: AccidentParticipantService) {
 
     @GetMapping("/{accidentId}")
-    fun getAllParticipantsForAccident(@PathVariable accidentId: Long): List<Participant> =
+    fun getAllParticipantsForAccident(@PathVariable accidentId: Long): List<AccidentParticipantResponse> =
             accidentParticipantService.findAllParticipantsForAccident(accidentId)
+                    .map {
+                        AccidentParticipantResponse.of(it)
+                    }
 
     @PostMapping("/add/{accidentId}")
     fun addParticipantToAccident(@PathVariable accidentId: Long,
-                                 @RequestBody participantsRequest: List<ParticipantRequest>): List<Participant> {
+                                 @RequestBody participantsRequest: List<ParticipantRequest>): List<AccidentParticipantResponse> {
         return accidentParticipantService.addParticipantsToAccident(participantsRequest, accidentId)
-                .map { it.participant }
-
+                .map {
+                    AccidentParticipantResponse.of(it)
+                }
     }
 
 

@@ -168,6 +168,7 @@ export class AccidentCreateComponent implements OnInit {
     }
     const formValues = this.accidentForm.getRawValue();
     const location = {
+      id: this.accident?.location?.id,
       lat: formValues.lat,
       lng: formValues.lng,
       streetName: this._getPropertyFromFullLocation('route'),
@@ -179,6 +180,7 @@ export class AccidentCreateComponent implements OnInit {
     };
     console.log(location);
     const accidentRequest = {
+      id: this.accident?.id,
       location,
       dateAccident: formValues.dateAccident,
       reason: formValues.reason,

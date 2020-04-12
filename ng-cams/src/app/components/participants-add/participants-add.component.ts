@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Participant } from '../../interfaces/participant.interface';
 import { AccidentService } from '../../service/accident.service';
 import { ActivatedRoute } from '@angular/router';
+import {AccidentParticipant} from "../../interfaces/accident-participant.interface";
 
 @Component({
   selector: 'participants-add',
@@ -23,7 +24,7 @@ export class ParticipantsAddComponent implements OnInit {
   }
 
   private _accidentId: number;
-  private _participants: Participant[] = [];
+  private _participants: AccidentParticipant[] = [];
 
   get participants() {
     return this._participants;
@@ -47,6 +48,8 @@ export class ParticipantsAddComponent implements OnInit {
 
   private initForms() {
     this.participantForm = this._builder.group({
+      id: [],
+      accidentParticipantId: [],
       type: [],
       model: [],
       make: [],
@@ -55,7 +58,7 @@ export class ParticipantsAddComponent implements OnInit {
     });
 
     this.ownerForm = this._builder.group({
-      personId: [],
+      id: [],
       firstName: [],
       lastName: [],
       dateOfBirth: [],
@@ -90,9 +93,12 @@ export class ParticipantsAddComponent implements OnInit {
     this.patchFormsValues(this._participants[$event]);
   }
 
-  private patchFormsValues(participant: any) {
+  private patchFormsValues(participant: AccidentParticipant) {
     const owner = participant.owner;
+    console.log(owner);
     this.participantForm.patchValue({
+      id: participant.id,
+      accidentParticipantId: participant.accidentParticipantId,
       type: participant.type,
       model: participant.model,
       make: participant.make,
@@ -101,6 +107,7 @@ export class ParticipantsAddComponent implements OnInit {
     });
 
     this.ownerForm.patchValue({
+      id: owner.id,
       firstName: owner.firstName,
       lastName: owner.lastName,
       dateOfBirth: owner.dateOfBirth,
@@ -115,7 +122,6 @@ export class ParticipantsAddComponent implements OnInit {
       ...this.participantForm.getRawValue(),
       owner: this.ownerForm.getRawValue()
     };
-
     this._service.saveParticipants(this._participants, this._accidentId)
       .subscribe(response => {
           this._participants = response;

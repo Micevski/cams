@@ -5,16 +5,16 @@ import javax.persistence.*
 @Entity
 @Table(name = "participants")
 class Participant(
-        val type: String,
-        val model: String?,
-        val make: String?,
+        var type: String,
+        var model: String?,
+        var make: String?,
         @Column(name = "production_year")
-        val productionYear: Int?,
+        var productionYear: Int?,
         @Column(name = "register_plate")
-        val registerPlate: String?,
+        var registerPlate: String?,
         @ManyToOne
         @JoinColumn(name = "owner_id", referencedColumnName = "id")
-        val owner: Person?
+        var owner: Person?
 ) {
 
     @Id
