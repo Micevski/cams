@@ -51,21 +51,18 @@ export class PassengersAddComponent implements OnInit {
         passenger: {} as Person,
         injuredLevel: null
       };
-      this.passengers.push(passenger);
     }
-
-    const isOwnerAlreadyPassenger = this.passengersForSelectedParticipant().find(it => {
-      it.passenger.id = this.participants[this.selected.value].owner.id;
-    }) != null;
     const passengerDialogRef = this._dialog.open(PassengerCreateDialog, {
       data: {
         owner: this.participants[this.selected.value].owner,
-        passenger: passenger,
-        addOwner: isOwnerAlreadyPassenger
+        passenger,
+        addOwner: false
       }
     });
-    passengerDialogRef.afterClosed().subscribe(passenger => {
-      if (passenger) {
+    passengerDialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        console.log('res', res);
+        console.log('passengers', this.passengers);
         console.log('Passenger updated');
       }
     });
@@ -76,8 +73,8 @@ export class PassengersAddComponent implements OnInit {
   }
 
   savePassengers() {
-
     const request = this.passengers.map(it => ({
+      participantPassengerId: it.id,
       participantId: it.participant.id,
       passenger: it.passenger,
       injuredLevel: it.injuredLevel

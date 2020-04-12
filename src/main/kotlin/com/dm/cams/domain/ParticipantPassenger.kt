@@ -8,13 +8,13 @@ import javax.persistence.*
 class ParticipantPassenger(
         @ManyToOne
         @JoinColumn(name = "participant_id")
-        val participant: Participant,
+        var participant: Participant,
         @ManyToOne
         @JoinColumn(name = "passenger_person_id")
-        val passenger: Person,
+        var passenger: Person,
         @Column(name = "injured_id")
         @Enumerated(EnumType.ORDINAL)
-        val injuredLevel: InjuredLevel
+        var injuredLevel: InjuredLevel
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

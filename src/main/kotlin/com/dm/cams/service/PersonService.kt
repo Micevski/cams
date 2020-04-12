@@ -2,6 +2,7 @@ package com.dm.cams.service
 
 import com.dm.cams.domain.Person
 import com.dm.cams.domain.enums.Gender
+import com.dm.cams.domain.requests.PersonRequest
 import com.dm.cams.repository.PersonRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -24,8 +25,8 @@ class PersonService(val personRepository: PersonRepository) {
         else save(firstName, lastName, dateOfBirth, genderId, placeOfBirth, placeOfLiving)
     }
 
-    private fun updateExistingPerson(id: Long, firstName: String, lastName: String, dateOfBirth: LocalDateTime?,
-                                     genderId: Int, placeOfBirth: String?, placeOfLiving: String?): Person {
+    fun updateExistingPerson(id: Long, firstName: String, lastName: String, dateOfBirth: LocalDateTime?,
+                             genderId: Int, placeOfBirth: String?, placeOfLiving: String?): Person {
         val person: Person = findById(id)
         person.firstName = firstName
         person.lastName = lastName
@@ -33,7 +34,10 @@ class PersonService(val personRepository: PersonRepository) {
         person.gender = Gender.values()[genderId]
         person.placeOfBirth = placeOfBirth
         person.placeOfLiving = placeOfLiving
-
         return personRepository.save(person)
     }
+
+    fun updateExistingPerson(personRequest: PersonRequest): Person =
+            updateExistingPerson(personRequest.id!!, personRequest.firstName, personRequest.lastName,
+                    personRequest.dateOfBirth, personRequest.genderId, personRequest.placeOfBirth, personRequest.placeOfLiving);
 }

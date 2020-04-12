@@ -20,7 +20,7 @@ export class PassengerCreateDialog implements OnInit {
   }
 
   get ownerTooltip() {
-    return `Add ${this.data.owner.firstName} ${this.data.owner.lastName} as passenger`
+    return `Add ${this.data.owner.firstName} ${this.data.owner.lastName} as passenger`;
   }
 
   passenger: FormGroup;
@@ -44,6 +44,7 @@ export class PassengerCreateDialog implements OnInit {
     if (this.data.passenger.passenger) {
       this.patchValues(this.data.passenger.passenger);
     }
+    console.log(this.passenger.getRawValue());
   }
 
   onSave() {
