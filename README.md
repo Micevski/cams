@@ -4,6 +4,7 @@
 
 ### CAMS
 Ovaa aplikacija e izrabotena za predmetot WEB PROGRAMIRANE od FINKI.
+1. David Micevski 153117
 Glavnata namena na aplikacijata e elektrosnko zaveduvanje i menadziranje na soobrakjani nezgodi. Ili da nareceme nesto kako elektronski zapisnik za soobrakajna nezgoda. 
 
 Ovaa aplikacija e izrabotena so slednive tehnologii: 
