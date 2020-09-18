@@ -95,7 +95,6 @@ export class ParticipantsAddComponent implements OnInit {
 
   private patchFormsValues(participant: AccidentParticipant) {
     const owner = participant.owner;
-    console.log(owner);
     this.participantForm.patchValue({
       id: participant.id,
       accidentParticipantId: participant.accidentParticipantId,

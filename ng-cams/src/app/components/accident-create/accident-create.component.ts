@@ -185,7 +185,6 @@ export class AccidentCreateComponent implements OnInit, AfterViewInit {
       postcode: this._getPropertyFromFullLocation('postal_code'),
       area: formValues.area
     };
-    console.log(location);
     const accidentRequest = {
       id: this.accident?.id,
       location,

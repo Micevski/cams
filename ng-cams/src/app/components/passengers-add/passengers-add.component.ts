@@ -35,9 +35,9 @@ export class PassengersAddComponent implements OnInit {
     if (accidentId) {
       this._service.findAllPassengersForAccident(accidentId).subscribe(passengers => {
         this.passengers = passengers;
-        this._service.findAllParticipantsForAccident(accidentId).subscribe(participants => {
-          this.participants = participants;
-        });
+      });
+      this._service.findAllParticipantsForAccident(accidentId).subscribe(participants => {
+        this.participants = participants;
       });
       this.accidentId = accidentId;
     }

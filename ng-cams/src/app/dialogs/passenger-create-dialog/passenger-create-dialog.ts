@@ -44,7 +44,6 @@ export class PassengerCreateDialog implements OnInit {
     if (this.data.passenger.passenger) {
       this.patchValues(this.data.passenger.passenger);
     }
-    console.log(this.passenger.getRawValue());
   }
 
   onSave() {

@@ -22,7 +22,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <participants-add (saveParticipantsEvent)="saveParticipants()"></participants-add>
+      <participants-add *ngIf="step == 1"  (saveParticipantsEvent)="saveParticipants()"></participants-add>
     </mat-expansion-panel>
 
     <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
@@ -32,7 +32,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <passengers-add (savePassengersEvent)="savePassengers()"></passengers-add>
+      <passengers-add *ngIf="step == 2" (savePassengersEvent)="savePassengers()"></passengers-add>
     </mat-expansion-panel>
   </mat-accordion>
 
