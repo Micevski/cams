@@ -92,9 +92,6 @@ class SecurityConfiguration {
             /**
              * Always returns a 401 error code to the client.
              */
-            /**
-             * Always returns a 401 error code to the client.
-             */
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied")
         }
     }

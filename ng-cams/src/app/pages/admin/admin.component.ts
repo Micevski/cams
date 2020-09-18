@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from '../../service/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserDialog } from '../../dialogs/add-user-dialog/add-user-dialog';

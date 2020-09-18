@@ -1,16 +1,16 @@
-import {Component, ElementRef, EventEmitter, NgZone, OnInit, Output, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {GeocoderAddressComponent, MapsAPILoader, MouseEvent} from '@agm/core';
-import {Accident} from '../../interfaces/accident.interface';
-import {AccidentService} from '../../service/accident.service';
-import {ActivatedRoute} from '@angular/router';
+import { AfterViewInit, Component, ElementRef, EventEmitter, NgZone, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { GeocoderAddressComponent, MapsAPILoader, MouseEvent } from '@agm/core';
+import { Accident } from '../../interfaces/accident.interface';
+import { AccidentService } from '../../service/accident.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'accident-create',
   templateUrl: './accident-create.component.html',
   styleUrls: ['./accident-create.component.scss']
 })
-export class AccidentCreateComponent implements OnInit {
+export class AccidentCreateComponent implements OnInit, AfterViewInit {
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -19,6 +19,8 @@ export class AccidentCreateComponent implements OnInit {
   accidentForm: FormGroup;
   accident: Accident;
   fullLocation: GeocoderAddressComponent[];
+
+  accidentId: number;
 
   get latitude(): number {
     return this.accidentForm.controls.lat.value;
@@ -50,19 +52,7 @@ export class AccidentCreateComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    const accidentId = +this._route.snapshot.paramMap.get('id');
-    if (accidentId) {
-      this._service.findAccidentById(accidentId)
-        .subscribe(accident => {
-          this.accident = accident;
-          this.populateForm(this.accident);
-        });
-    } else {
-      this.setCurrentLocation();
-    }
-    this.accident = {} as Accident;
-    this.loadPlacesAutocomplete();
-
+    this.accidentId = +this._route.snapshot.paramMap.get('id');
   }
 
   private initForm() {
@@ -75,6 +65,20 @@ export class AccidentCreateComponent implements OnInit {
       fullLocationInfo: [],
       area: []
     });
+  }
+
+  ngAfterViewInit() {
+    if (this.accidentId) {
+      this._service.findAccidentById(this.accidentId)
+        .subscribe(accident => {
+          this.accident = accident;
+          this.populateForm(this.accident);
+        });
+    } else {
+      this.setCurrentLocation();
+    }
+    this.accident = {} as Accident;
+    this.loadPlacesAutocomplete();
   }
 
   populateForm(accident: Accident) {
@@ -95,9 +99,11 @@ export class AccidentCreateComponent implements OnInit {
   private loadPlacesAutocomplete() {
     this.mapsAPILoader.load().then(() => {
       const geoCoder = new google.maps.Geocoder;
-
       const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
         types: ['address']
+      });
+      autocomplete.setComponentRestrictions({
+        country: ['mk']
       });
       autocomplete.addListener('place_changed', ($event) => {
         this.ngZone.run(() => {
@@ -111,7 +117,7 @@ export class AccidentCreateComponent implements OnInit {
           this.accidentForm.patchValue({
             lat: place.geometry.location.lat(),
             lng: place.geometry.location.lng(),
-            zoom: 5
+            zoom: 15
           });
         });
       });
@@ -129,7 +135,7 @@ export class AccidentCreateComponent implements OnInit {
         },
         error => {
           console.log('Error Occured while locating you');
-        }, {enableHighAccuracy: true}
+        }, { enableHighAccuracy: true }
       );
     }
   }
@@ -145,20 +151,21 @@ export class AccidentCreateComponent implements OnInit {
   }
 
   getAddress(latitude, longitude) {
-    const geoCoder = new google.maps.Geocoder;
-    geoCoder.geocode({location: {lat: latitude, lng: longitude}}, (results, status) => {
-      if (status === 'OK') {
-        if (results[0]) {
-          this.address = results[0].formatted_address;
-          this.fullLocation = results[0].address_components;
-          console.log(results[0]);
-          this.accidentForm.patchValue({fullLocationInfo: this.fullLocationInfo});
+    this.mapsAPILoader.load().then(() => {
+      const geoCoder = new google.maps.Geocoder();
+      geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
+        if (status === 'OK') {
+          if (results[0]) {
+            this.address = results[0].formatted_address;
+            this.fullLocation = results[0].address_components;
+            this.accidentForm.patchValue({ fullLocationInfo: this.fullLocationInfo });
+          } else {
+            window.alert('No results found');
+          }
         } else {
-          window.alert('No results found');
+          window.alert('Geocoder failed due to: ' + status);
         }
-      } else {
-        window.alert('Geocoder failed due to: ' + status);
-      }
+      });
     });
   }
 
@@ -198,7 +205,7 @@ export class AccidentCreateComponent implements OnInit {
       return;
     }
     const keys = Object.keys(values);
-    keys.forEach(key => formGroup.contains(key) && formGroup.patchValue({[key]: values[key]}));
+    keys.forEach(key => formGroup.contains(key) && formGroup.patchValue({ [key]: values[key] }));
   }
 
   private _getPropertyFromFullLocation(property: string): string {
