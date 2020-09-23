@@ -16,7 +16,10 @@ export class PassengerCreateDialog implements OnInit {
   constructor(private _dialogRef: MatDialogRef<PassengerCreateDialog>,
               private _builder: FormBuilder,
               private _service: AccidentService,
-              @Inject(MAT_DIALOG_DATA) public data: { owner: Person, passenger: Passenger, addOwner: boolean }) {
+              @Inject(MAT_DIALOG_DATA) public data: {
+                owner: Person, passenger: Passenger, addOwner: boolean,
+                injuredLevel: number
+              }) {
   }
 
   get ownerTooltip() {
@@ -74,6 +77,7 @@ export class PassengerCreateDialog implements OnInit {
       dateOfBirth: person.dateOfBirth,
       genderId: person.genderId,
       uniquePersonIdentifier: person.uniquePersonIdentifier,
+      injuredLevel: this.data.injuredLevel,
     });
   }
 }

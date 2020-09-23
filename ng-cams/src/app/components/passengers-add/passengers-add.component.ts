@@ -64,7 +64,8 @@ export class PassengersAddComponent implements OnInit {
       data: {
         owner: this.participants[this.selected.value].owner,
         passenger,
-        addOwner: isOwnerAlreadyAdded
+        addOwner: isOwnerAlreadyAdded,
+        injuredLevel: passenger.injuredLevel
       }
     });
     passengerDialogRef.afterClosed().subscribe(res => {
