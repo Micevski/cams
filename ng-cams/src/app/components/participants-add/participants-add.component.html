@@ -2,21 +2,22 @@
                (selectedIndexChange)="changeTab($event)">
   <mat-tab *ngFor="let participant of participants; let index = index" [label]="participant.type || 'New participant'">
     <div class="add-participant">
-      <participant-create class="input-form" [participantForm]="participantForm"></participant-create>
+      <participant-create class="input-form" [participantForm]="participantForm"
+                          (registerPateChanged)="onRegisterPlateChange()"></participant-create>
 
-     <person-create class="input-form" [person]="ownerForm"></person-create>
+      <person-create class="input-form" [person]="ownerForm"></person-create>
 
     </div>
 
     <div class="participants-actions">
-    <button mat-icon-button class="mat-warn"
-            (click)="removeTab(index)">
-      <mat-icon>delete_outline</mat-icon>
-    </button>
+      <button mat-icon-button class="mat-warn"
+              (click)="removeTab(index)">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
 
-    <button mat-icon-button (click)="addTab()" [matTooltip]="'Add p'">
-      <mat-icon>add_circle_outline</mat-icon>
-    </button>
+      <button mat-icon-button (click)="addTab()" [matTooltip]="'Add p'">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
     </div>
 
     <mat-action-row>

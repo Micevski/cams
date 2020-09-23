@@ -4,6 +4,7 @@ import com.dm.cams.domain.Participant
 import com.dm.cams.domain.Person
 import com.dm.cams.repository.ParticipantRepository
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class ParticipantService(val participantRepository: ParticipantRepository) {
@@ -24,5 +25,7 @@ class ParticipantService(val participantRepository: ParticipantRepository) {
         } ?: participantRepository.save(Participant(type, model, make, productionYear, registerPlate, owner))
 
     }
+
+    fun findByPlate(plate: String) : Optional<Participant> = participantRepository.findByRegisterPlate(plate);
 
 }

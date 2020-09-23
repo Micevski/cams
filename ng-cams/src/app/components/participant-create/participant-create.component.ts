@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormGroup} from "@angular/forms";
+import {ParticipantService} from "../../service/participant.service";
 
 @Component({
   selector: 'participant-create',
@@ -10,11 +11,15 @@ export class ParticipantCreateComponent implements OnInit {
 
   @Input() participantForm: FormGroup;
   @Input() label = 'Participant';
+  @Output() registerPateChanged = new EventEmitter<string>();
 
-  constructor() {
+  constructor(private _service: ParticipantService) {
   }
 
   ngOnInit(): void {
   }
 
+  onRegisterPlateChange() {
+    this.registerPateChanged.emit(this.participantForm.controls.registerPlate.value);
+  }
 }

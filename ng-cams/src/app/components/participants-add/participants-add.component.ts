@@ -4,6 +4,7 @@ import { Participant } from '../../interfaces/participant.interface';
 import { AccidentService } from '../../service/accident.service';
 import { ActivatedRoute } from '@angular/router';
 import {AccidentParticipant} from "../../interfaces/accident-participant.interface";
+import {ParticipantService} from "../../service/participant.service";
 
 @Component({
   selector: 'participants-add',
@@ -20,6 +21,7 @@ export class ParticipantsAddComponent implements OnInit {
 
   constructor(private _builder: FormBuilder,
               private _service: AccidentService,
+              private _participantService: ParticipantService,
               private _route: ActivatedRoute) {
   }
 
@@ -92,11 +94,12 @@ export class ParticipantsAddComponent implements OnInit {
     this.patchFormsValues(this._participants[$event]);
   }
 
-  private patchFormsValues(participant: AccidentParticipant) {
+  private patchFormsValues(participant: AccidentParticipant | Participant) {
     const owner = participant.owner;
+    const accidentParticipantIdOptional = 'accidentParticipantId' in participant ? participant.accidentParticipantId : null;
     this.participantForm.patchValue({
       id: participant.id,
-      accidentParticipantId: participant.accidentParticipantId,
+      accidentParticipantId: accidentParticipantIdOptional,
       type: participant.type,
       model: participant.model,
       make: participant.make,
@@ -129,5 +132,11 @@ export class ParticipantsAddComponent implements OnInit {
 
   prevStep() {
     // TODO Not implemented yet
+  }
+
+  onRegisterPlateChange() {
+    const plate = this.participantForm.controls.registerPlate.value;
+    this._participantService.findByRegisterPlate(plate).subscribe(
+      it => this.patchFormsValues(it), err => console.log('Not found'));
   }
 }

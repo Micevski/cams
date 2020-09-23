@@ -32,7 +32,7 @@ create table participants(
     model text,
     make text,
     production_year integer,
-    register_plate text,
+    register_plate text unique,
     owner_id bigint references persons(id)
 );
 

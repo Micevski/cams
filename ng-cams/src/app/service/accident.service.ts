@@ -7,6 +7,7 @@ import {Passenger} from '../interfaces/passenger.interface';
 import {Page} from '../interfaces/page.interface';
 import {Accident} from '../interfaces/accident.interface';
 import {AccidentParticipant} from "../interfaces/accident-participant.interface";
+import {Person} from "../interfaces/person.interface";
 
 @Injectable({
   providedIn: 'root'
