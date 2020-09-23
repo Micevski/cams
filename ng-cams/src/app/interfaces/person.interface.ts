@@ -3,7 +3,6 @@ export interface Person {
   firstName?: string;
   lastName?: string;
   dateOfBirth?: Date;
+  uniquePersonIdentifier?: string;
   genderId?: number;
-  placeOfBirth?: string;
-  placeOfLiving?: string;
 }

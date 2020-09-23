@@ -19,7 +19,9 @@ class Person(
         @Column(name = "place_of_birth")
         var placeOfBirth: String?,
         @Column(name = "place_of_living")
-        var placeOfLiving: String?
+        var placeOfLiving: String?,
+        @Column(name = "unique_person_identifier")
+        var uniquePersonIdentifier: String?
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

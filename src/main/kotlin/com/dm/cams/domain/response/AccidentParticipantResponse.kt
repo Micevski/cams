@@ -11,18 +11,21 @@ data class AccidentParticipantResponse(
         val make: String?,
         val productionYear: Int?,
         val registerPlate: String?,
-        val owner: Person?
+        val owner: PersonResponse?
 ) {
     companion object {
 
         fun of(accidentParticipant: AccidentParticipant): AccidentParticipantResponse {
+            val person: PersonResponse? = accidentParticipant.participant.owner?.let {
+                PersonResponse.of(it)
+            }
             return AccidentParticipantResponse(accidentParticipant.participant.id,
                     accidentParticipant.id, accidentParticipant.participant.type,
                     accidentParticipant.participant.model,
                     accidentParticipant.participant.make,
                     accidentParticipant.participant.productionYear,
                     accidentParticipant.participant.registerPlate,
-                    accidentParticipant.participant.owner
+                    person
             );
         }
     }

@@ -47,7 +47,7 @@ class ParticipantPassengerService(val repository: ParticipantPassengerRepository
     fun createParticipantPassenger(request: ParticipantPassengerRequest): ParticipantPassenger {
         val participant: Participant = participantService.findById(request.participantId);
         val passengerPerson: Person = request.passenger.let { per ->
-            personService.findOrCreate(per.id, per.firstName, per.lastName, per.dateOfBirth, per.genderId, per.placeOfBirth, per.placeOfLiving)
+            personService.findOrCreate(per.id, per.firstName, per.lastName, per.dateOfBirth, per.genderId, per.placeOfBirth, per.placeOfLiving, per.uniquePersonIdentifier)
         }
         return ParticipantPassenger(participant, passengerPerson, InjuredLevel.values()[request.injuredLevel])
     }

@@ -39,7 +39,8 @@ class AccidentParticipantService(val accidentParticipantRepository: AccidentPart
 
     fun createOrUpdateParticipant(request: ParticipantRequest): Participant {
         val owner: Person? = request.owner?.let {
-            personService.findOrCreate(it.id, it.firstName, it.lastName, it.dateOfBirth, it.genderId, it.placeOfBirth, it.placeOfLiving)
+            personService.findOrCreate(it.id, it.firstName, it.lastName, it.dateOfBirth,
+                    it.genderId, it.placeOfBirth, it.placeOfLiving, it.uniquePersonIdentifier)
         }
         return participantService.createOrUpdateParticipant(request.id,
                 request.type, request.model, request.make, request.productionYear, request.registerPlate, owner)

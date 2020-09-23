@@ -2,14 +2,12 @@
                (selectedIndexChange)="changeTab($event)">
   <mat-tab *ngFor="let p of participants; let index = index" [label]="p.model">
     <div *ngFor="let passenger of passengersForSelectedParticipant()" class="passengers">
-      <h4>
-        <button mat-icon-button (click)="openPassengerDialog(passenger)">
-          <mat-icon>person</mat-icon>
-        </button>
-      </h4>
-      <h4>{{passenger.passenger.firstName}} {{passenger.passenger.lastName}}</h4>
-      <h4 *ngIf="passenger.passenger.dateOfBirth">{{passenger.passenger.dateOfBirth.toLocaleString()}}</h4>
-      <h4>{{this.passenger.injuredLevel}}</h4>
+      <div class="row" (click)="openPassengerDialog(passenger)">
+        <h4>{{index+1}}</h4>
+        <h4>{{passenger.passenger.firstName}} {{passenger.passenger.lastName}}</h4>
+        <h4 *ngIf="passenger.passenger.dateOfBirth">{{passenger.passenger.dateOfBirth | date: 'dd/MM/yyyy'}}</h4>
+        <h4>{{getInjuredLevelName(this.passenger.injuredLevel)}}</h4>
+      </div>
     </div>
 
     <button mat-icon-button (click)="openPassengerDialog(null)" [matTooltip]="'Add passenger'">

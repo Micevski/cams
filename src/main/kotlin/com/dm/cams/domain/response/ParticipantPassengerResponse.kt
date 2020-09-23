@@ -5,13 +5,13 @@ import com.dm.cams.domain.ParticipantPassenger
 import com.dm.cams.domain.Person
 
 data class ParticipantPassengerResponse(val participant: Participant,
-                                        val passenger: Person,
+                                        val passenger: PersonResponse,
                                         val injuredLevel: Int,
                                         val id: Long) {
     companion object {
         fun of(participantPassenger: ParticipantPassenger): ParticipantPassengerResponse {
             return ParticipantPassengerResponse(participantPassenger.participant,
-                    participantPassenger.passenger,
+                    PersonResponse.of(participantPassenger.passenger),
                     participantPassenger.injuredLevel.ordinal,
                     participantPassenger.id)
         }

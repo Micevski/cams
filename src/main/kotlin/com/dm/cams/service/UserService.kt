@@ -29,7 +29,8 @@ class UserService(val userRepository: UserRepository,
                 personRequest.dateOfBirth,
                 personRequest.genderId,
                 personRequest.placeOfBirth,
-                personRequest.placeOfLiving
+                personRequest.placeOfLiving,
+                personRequest.uniquePersonIdentifier
         )
         val username = String.format("%s.%s", person.firstName, person.lastName);
         val passwordEncoded = passwordEncoder.encode(password);

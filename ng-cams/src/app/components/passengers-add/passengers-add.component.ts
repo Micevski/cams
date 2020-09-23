@@ -1,12 +1,12 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { PassengerCreateDialog } from '../../dialogs/passenger-create-dialog/passenger-create-dialog';
-import { Passenger } from '../../interfaces/passenger.interface';
-import { AccidentService } from '../../service/accident.service';
-import { Person } from '../../interfaces/person.interface';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Participant } from '../../interfaces/participant.interface';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import {PassengerCreateDialog} from '../../dialogs/passenger-create-dialog/passenger-create-dialog';
+import {Passenger} from '../../interfaces/passenger.interface';
+import {AccidentService} from '../../service/accident.service';
+import {Person} from '../../interfaces/person.interface';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Participant} from '../../interfaces/participant.interface';
 
 @Component({
   selector: 'passengers-add',
@@ -21,6 +21,8 @@ export class PassengersAddComponent implements OnInit {
   participants: Participant[];
   private accidentId: number;
   selected = new FormControl(0);
+
+  injuredLevels = {};
 
   constructor(private _builder: FormBuilder,
               private _dialog: MatDialog,
@@ -38,6 +40,9 @@ export class PassengersAddComponent implements OnInit {
       });
       this._service.findAllParticipantsForAccident(accidentId).subscribe(participants => {
         this.participants = participants;
+      });
+      this._service.findAllInjuredLevels().subscribe(it => {
+        it.forEach(el => this.injuredLevels[el.id] = el.name);
       });
       this.accidentId = accidentId;
     }
@@ -64,7 +69,7 @@ export class PassengersAddComponent implements OnInit {
     });
     passengerDialogRef.afterClosed().subscribe(res => {
       if (res) {
-        console.log('Passenger updated');
+        console.log('Passenger updated', res);
       }
     });
   }
@@ -95,5 +100,10 @@ export class PassengersAddComponent implements OnInit {
 
   passengersForSelectedParticipant() {
     return this.passengers.filter(it => it.participant.id == this.participants[this.selected.value].id);
+  }
+
+  getInjuredLevelName(injuredLevel: number): string {
+    if (injuredLevel == null) return 'N/A';
+    return this.injuredLevels[injuredLevel];
   }
 }

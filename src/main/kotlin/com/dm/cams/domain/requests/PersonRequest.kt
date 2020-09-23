@@ -9,4 +9,5 @@ data class PersonRequest @JsonCreator constructor(val id: Long?,
                                                   val dateOfBirth: LocalDateTime?,
                                                   val genderId: Int,
                                                   val placeOfBirth: String?,
-                                                  val placeOfLiving: String?)
+                                                  val placeOfLiving: String?,
+                                                  val uniquePersonIdentifier: String?)

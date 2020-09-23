@@ -22,7 +22,8 @@ create table persons (
     date_of_birth timestamp,
     gender_id int references genders(id),
     place_of_birth text,
-    place_of_living text
+    place_of_living text,
+    unique_person_identifier text unique
 );
 
 create table participants(

@@ -1,11 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {AccidentService} from "../../service/accident.service";
-import {Observable} from "rxjs";
-import {Option} from "../../interfaces/option.interface";
-import {Person} from "../../interfaces/person.interface";
-import {Passenger} from "../../interfaces/passenger.interface";
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {AccidentService} from '../../service/accident.service';
+import {Observable} from 'rxjs';
+import {Option} from '../../interfaces/option.interface';
+import {Person} from '../../interfaces/person.interface';
+import {Passenger} from '../../interfaces/passenger.interface';
 
 @Component({
   templateUrl: './passenger-create-dialog.html',
@@ -37,8 +37,7 @@ export class PassengerCreateDialog implements OnInit {
       lastName: [],
       dateOfBirth: [],
       genderId: [],
-      placeOfBirth: [],
-      placeOfLiving: [],
+      uniquePersonIdentifier: [],
       injuredLevel: [],
     });
     if (this.data.passenger.passenger) {
@@ -52,9 +51,9 @@ export class PassengerCreateDialog implements OnInit {
     this.data.passenger.passenger.lastName = formValues.lastName;
     this.data.passenger.passenger.dateOfBirth = formValues.dateOfBirth;
     this.data.passenger.passenger.genderId = formValues.genderId;
-    this.data.passenger.passenger.placeOfBirth = formValues.placeOfBirth;
-    this.data.passenger.passenger.placeOfLiving = formValues.placeOfLiving;
     this.data.passenger.injuredLevel = formValues.injuredLevel;
+    this.data.passenger.passenger.uniquePersonIdentifier = formValues.uniquePersonIdentifier;
+    this.data.passenger.passenger.id = formValues.id;
     this._dialogRef.close(this.data.passenger);
   }
 
@@ -74,8 +73,7 @@ export class PassengerCreateDialog implements OnInit {
       lastName: person.lastName,
       dateOfBirth: person.dateOfBirth,
       genderId: person.genderId,
-      placeOfBirth: person.placeOfBirth,
-      placeOfLiving: person.placeOfLiving
+      uniquePersonIdentifier: person.uniquePersonIdentifier,
     });
   }
 }

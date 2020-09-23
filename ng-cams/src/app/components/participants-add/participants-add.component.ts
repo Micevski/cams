@@ -63,8 +63,7 @@ export class ParticipantsAddComponent implements OnInit {
       lastName: [],
       dateOfBirth: [],
       genderId: [],
-      placeOfBirth: [],
-      placeOfLiving: []
+      uniquePersonIdentifier: [],
     });
   }
 
@@ -80,7 +79,7 @@ export class ParticipantsAddComponent implements OnInit {
   }
 
   removeTab(index: number) {
-    this.changeTab(index != 0 ? index - 1 : index + 1);
+    this.changeTab(index !== 0 ? index - 1 : index + 1);
     this._participants.splice(index, 1);
   }
 
@@ -111,8 +110,7 @@ export class ParticipantsAddComponent implements OnInit {
       lastName: owner.lastName,
       dateOfBirth: owner.dateOfBirth,
       genderId: owner.genderId,
-      placeOfBirth: owner.placeOfBirth,
-      placeOfLiving: owner.placeOfLiving
+      uniquePersonIdentifier: owner.uniquePersonIdentifier
     });
   }
 

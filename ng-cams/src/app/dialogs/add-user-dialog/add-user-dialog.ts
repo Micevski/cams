@@ -21,9 +21,8 @@ export class AddUserDialog implements OnInit {
       firstName: [],
       lastName: [],
       dateOfBirth: [],
+      uniquePersonIdentifier: [],
       genderId: [],
-      placeOfBirth: [],
-      placeOfLiving: []
     });
 
     this.passwordForm = this._builder.group({

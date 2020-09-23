@@ -1,5 +1,13 @@
 .passengers{
   display: flex;
   justify-content: space-between;
-  max-width: 500px;
+}
+
+.row {
+  min-width: 35%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 1%;
+  cursor: pointer;
 }
