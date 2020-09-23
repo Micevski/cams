@@ -39,6 +39,7 @@ import {UserListComponent} from './components/user-list/user-list.component';
 import {AddUserDialog} from './dialogs/add-user-dialog/add-user-dialog';
 import {ToastrModule} from 'ngx-toastr';
 import {PersonCreateComponent} from './components/person-create/person-create.component';
+import { ParticipantCreateComponent } from './components/participant-create/participant-create.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import {PersonCreateComponent} from './components/person-create/person-create.co
     AdminComponent,
     UserListComponent,
     AddUserDialog,
-    PersonCreateComponent
+    PersonCreateComponent,
+    ParticipantCreateComponent
   ],
   entryComponents: [
     PassengerCreateDialog,

@@ -1,0 +1,23 @@
+<form  [formGroup]="participantForm">
+  <h4>{{label}}</h4>
+
+  <mat-form-field class="mat-input-element">
+    <input matInput formControlName="registerPlate" placeholder="Register Plate">
+  </mat-form-field>
+
+  <mat-form-field class="mat-input-element">
+    <input matInput formControlName="type" placeholder="Type">
+  </mat-form-field>
+
+  <mat-form-field class="mat-input-element">
+    <input matInput formControlName="model" placeholder="Model">
+  </mat-form-field>
+
+  <mat-form-field class="mat-input-element">
+    <input matInput formControlName="make" placeholder="Make">
+  </mat-form-field>
+
+  <mat-form-field class="mat-input-element">
+    <input matInput formControlName="productionYear" placeholder="Production year">
+  </mat-form-field>
+</form>

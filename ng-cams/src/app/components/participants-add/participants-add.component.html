@@ -2,28 +2,7 @@
                (selectedIndexChange)="changeTab($event)">
   <mat-tab *ngFor="let participant of participants; let index = index" [label]="participant.type || 'New participant'">
     <div class="add-participant">
-      <form class="input-form" [formGroup]="participantForm">
-        <h4>Participant</h4>
-        <mat-form-field class="mat-input-element">
-          <input matInput formControlName="type" placeholder="Type">
-        </mat-form-field>
-
-        <mat-form-field class="mat-input-element">
-          <input matInput formControlName="model" placeholder="Model">
-        </mat-form-field>
-
-        <mat-form-field class="mat-input-element">
-          <input matInput formControlName="make" placeholder="Make">
-        </mat-form-field>
-
-        <mat-form-field class="mat-input-element">
-          <input matInput formControlName="productionYear" placeholder="Production year">
-        </mat-form-field>
-
-        <mat-form-field class="mat-input-element">
-          <input matInput formControlName="registerPlate" placeholder="Register Plate">
-        </mat-form-field>
-      </form>
+      <participant-create class="input-form" [participantForm]="participantForm"></participant-create>
 
      <person-create class="input-form" [person]="ownerForm"></person-create>
 
