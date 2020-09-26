@@ -41,6 +41,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {PersonCreateComponent} from './components/person-create/person-create.component';
 import { ParticipantCreateComponent } from './components/participant-create/participant-create.component';
 import { DocumentsComponent } from './components/documents/documents.component';
+import {GalleryDialog} from "./dialogs/gallery-dialog/gallery-dialog";
 
 @NgModule({
   declarations: [
@@ -58,11 +59,13 @@ import { DocumentsComponent } from './components/documents/documents.component';
     AddUserDialog,
     PersonCreateComponent,
     ParticipantCreateComponent,
-    DocumentsComponent
+    DocumentsComponent,
+    GalleryDialog
   ],
   entryComponents: [
     PassengerCreateDialog,
-    AddUserDialog
+    AddUserDialog,
+    GalleryDialog
   ],
   imports: [
     BrowserModule,

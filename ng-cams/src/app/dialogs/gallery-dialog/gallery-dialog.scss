@@ -1,0 +1,45 @@
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.thumbnail {
+  margin-bottom: 1%;
+  max-width: 125px;
+  max-height: 95px;
+
+}
+
+.thumbnail:hover {
+  border: 1px solid rgba(0, 0, 0, 0.39);
+  border-radius: 15px;
+}
+
+.preview {
+  border-right: 1px solid rgba(0, 0, 0, 0.39);
+  margin-right: 1%;
+  padding-right: 1%;
+}
+
+.full-size-image {
+  display: flex;
+  justify-content: center;
+  max-width: fit-content;
+  max-height: fit-content;
+}
+
+.over-document {
+  position: absolute;
+  left: 39%;
+  top: 50%;
+  color: white;
+}
+
+.container {
+  position: relative;
+}

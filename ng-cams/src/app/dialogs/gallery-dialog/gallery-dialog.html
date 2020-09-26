@@ -1,0 +1,18 @@
+<mat-icon [matTooltip]='"Close"' (click)='onCancel()'>close</mat-icon>
+<h4> All Photos and Documents</h4>
+<div class="row">
+  <div class="column preview">
+    <div class="container" *ngFor="let doc of documents; let i=index">
+      <img class="thumbnail"
+           [src]="getImagePath(doc)"
+           (click)="selectedIndex=i"
+           (error)="changeSource($event)">
+      <button class="row over-document" mat-icon-button (click)="deleteDocument(doc)">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="column">
+    <img class="full-size-image" [src]="getImagePathForSelectedIndex()" (error)="changeSource($event)">
+  </div>
+</div>

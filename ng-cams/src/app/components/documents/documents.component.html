@@ -1,26 +1,32 @@
 <div class="documents">
   <form [formGroup]="filesForm">
     <div class="form-group">
-      <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-      <input hidden (change)="onFileChange($event)" #fileInput
-             formControlName="file"
-             type="file"
-             id="file"
-             multiple>
-      <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
-        <div *ngIf="f.file.errors.required">File is required.</div>
+      <div class="row">
+        <button type="button" mat-raised-button (click)="fileInput.click()">Choose Files</button>
+        <input hidden (change)="onFileChange($event)" #fileInput
+               formControlName="file"
+               type="file"
+               id="file"
+               multiple>
+        <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+          <div *ngIf="f.file.errors.required">File is required.</div>
+        </div>
       </div>
     </div>
   </form>
 
-  <div *ngFor="let f of getFiles()">
-    <span>{{f.index}}</span>
-    <span>{{f.name}}</span>
-
+  <div class="card">
+    <div class="row">
+      <img *ngFor="let doc of getPreviewGallery() " class="thumbnail" [src]="getImagePath(doc)">
+    </div>
+    <div class="row">
+      <button mat-raised-button class="btn-default" (click)="onGalleryOpen()">Open Gallery ({{documents.length}})</button>
+    </div>
   </div>
-
 </div>
+
+
 <mat-action-row>
   <button mat-button color="warn">Previous</button>
-  <button mat-button color="primary" (click)="onSubmit()">Finish</button>
+  <button mat-button color="primary">Finish</button>
 </mat-action-row>

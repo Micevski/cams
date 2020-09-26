@@ -2,6 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DocumentService} from "../../service/document.service";
 import {ActivatedRoute} from "@angular/router";
+import {DomSanitizer} from "@angular/platform-browser";
+import {Document} from "../../interfaces/document-interface";
+import {MatDialog} from "@angular/material/dialog";
+import {GalleryDialog} from "../../dialogs/gallery-dialog/gallery-dialog";
 
 @Component({
   selector: 'documents',
@@ -13,18 +17,22 @@ export class DocumentsComponent implements OnInit {
   myFiles: FileList;
   filesForm: FormGroup;
   accidentId: number;
+  documents: Document[];
+
 
   constructor(private _builder: FormBuilder,
               private _service: DocumentService,
-              private _route: ActivatedRoute) {
-    this.filesForm = this._builder.group({
-      file: ['', Validators.required]
-    });
+              private _route: ActivatedRoute,
+              private _sanitizer: DomSanitizer,
+              private _dialog: MatDialog) {
   }
 
   ngOnInit(): void {
     this.accidentId = +this._route.snapshot.paramMap.get('id');
-
+    this._service.findAllDocumentsForAccident(this.accidentId).subscribe(docs => this.documents = docs);
+    this.filesForm = this._builder.group({
+      file: ['', Validators.required]
+    });
   }
 
   get f() {
@@ -33,12 +41,14 @@ export class DocumentsComponent implements OnInit {
 
   onFileChange(event) {
     this.myFiles = event.target.files;
+    this.onSubmit();
   }
 
   onSubmit() {
     for (let i = 0; i < this.myFiles.length; i++) {
       this._uploadFile(i, this.myFiles.item(i));
     }
+    this._service.findAllDocumentsForAccident(this.accidentId).subscribe(docs => this.documents = docs);
   }
 
   private _uploadFile(id: number, file: File) {
@@ -51,12 +61,17 @@ export class DocumentsComponent implements OnInit {
       });
   }
 
-  getFiles() {
-    const filesInfo = [];
-    for (let i = 0; i < this.myFiles?.length; i++) {
-      filesInfo.push({name: this.myFiles.item(i).name, index: i});
-    }
-    return filesInfo;
+  getImagePath(doc: Document) {
+    return this._sanitizer.bypassSecurityTrustResourceUrl(doc.document);
+  }
 
+  onGalleryOpen() {
+    this._dialog.open(GalleryDialog, {data: {documents: this.documents}, width: '50%', height: '70%'});
+  }
+
+  getPreviewGallery() {
+    if (this.documents.length > 5) {
+      return this.documents.slice(0, 5);
+    } else { return this.documents; }
   }
 }
