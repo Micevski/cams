@@ -34,6 +34,17 @@
 
       <passengers-add *ngIf="step == 2" (savePassengersEvent)="savePassengers()"></passengers-add>
     </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Accident documents
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <documents></documents>
+
+    </mat-expansion-panel>
   </mat-accordion>
 
 

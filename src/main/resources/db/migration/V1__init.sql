@@ -69,3 +69,17 @@ create table accident_participants(
     accident_id bigint references accidents(id),
     participant_id bigint references participants(id)
 );
+
+create table cams_documents(
+    id bigserial primary key,
+    document_bytes bytea not null,
+    name text,
+    type text,
+    size bigint
+);
+
+create table accident_documents(
+    id bigserial primary key,
+    accident_id bigint references accidents(id),
+    document_id bigint references cams_documents(id)
+)

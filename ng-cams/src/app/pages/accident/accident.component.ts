@@ -1,10 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { AccidentService } from '../../service/accident.service';
-import { Participant } from '../../interfaces/participant.interface';
-import { Accident } from '../../interfaces/accident.interface';
-import { Passenger } from '../../interfaces/passenger.interface';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
+import {AccidentService} from '../../service/accident.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'accident',
@@ -15,6 +12,7 @@ export class AccidentComponent implements OnInit {
 
   step = 0;
   accidentId: number;
+
   constructor(private _service: AccidentService,
               private _builder: FormBuilder,
               private  _router: Router,
@@ -52,6 +50,7 @@ export class AccidentComponent implements OnInit {
   }
 
   savePassengers() {
-    this._router.navigateByUrl('/home');
+    this._router.navigateByUrl(`accident/${this.accidentId}?step=3`);
+    this.step = 3;
   }
 }
