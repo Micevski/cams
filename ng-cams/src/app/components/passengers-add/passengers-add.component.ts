@@ -53,7 +53,8 @@ export class PassengersAddComponent implements OnInit {
       passenger = {
         participant: this.participants[this.selected.value],
         passenger: {} as Person,
-        injuredLevel: null
+        injuredLevel: null,
+        driver: false
       };
       this.passengers.push(passenger);
     }
@@ -65,7 +66,8 @@ export class PassengersAddComponent implements OnInit {
         owner: this.participants[this.selected.value].owner,
         passenger,
         addOwner: isOwnerAlreadyAdded,
-        injuredLevel: passenger.injuredLevel
+        injuredLevel: passenger.injuredLevel,
+        driver: passenger.driver
       }
     });
     passengerDialogRef.afterClosed().subscribe(res => {
@@ -84,8 +86,10 @@ export class PassengersAddComponent implements OnInit {
       participantPassengerId: it.id,
       participantId: it.participant.id,
       passenger: it.passenger,
-      injuredLevel: it.injuredLevel
+      injuredLevel: it.injuredLevel,
+      driver: it.driver
     }));
+    console.log(this.passengers, request);
     this._service.savePassengers(request)
       .subscribe(response => {
           this.passengers = response;

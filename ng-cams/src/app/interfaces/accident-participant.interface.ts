@@ -9,4 +9,5 @@ export interface AccidentParticipant {
   productionYear?: string;
   registerPlate?: string;
   owner?: Person;
+  guilty?: boolean;
 }

@@ -7,7 +7,6 @@ import com.dm.cams.domain.enums.InjuredLevel
 import com.dm.cams.domain.requests.ParticipantPassengerRequest
 import com.dm.cams.repository.ParticipantPassengerRepository
 import org.springframework.stereotype.Service
-import java.util.stream.Collectors
 
 @Service
 class ParticipantPassengerService(val repository: ParticipantPassengerRepository,
@@ -15,8 +14,8 @@ class ParticipantPassengerService(val repository: ParticipantPassengerRepository
                                   val accidentParticipantService: AccidentParticipantService,
                                   val personService: PersonService) {
 
-    fun addPassenger(participant: Participant, passenger: Person, injuredLevel: InjuredLevel): ParticipantPassenger {
-        return repository.save(ParticipantPassenger(participant, passenger, injuredLevel))
+    fun addPassenger(participant: Participant, passenger: Person, injuredLevel: InjuredLevel, driver: Boolean): ParticipantPassenger {
+        return repository.save(ParticipantPassenger(participant, passenger, injuredLevel, driver))
     }
 
     fun findById(id: Long): ParticipantPassenger = repository.getOne(id);
@@ -41,6 +40,8 @@ class ParticipantPassengerService(val repository: ParticipantPassengerRepository
         val participantPassenger = findById(request.participantPassengerId!!)
         participantPassenger.injuredLevel = InjuredLevel.values()[request.injuredLevel]
         participantPassenger.passenger = personService.updateExistingPerson(request.passenger)
+        participantPassenger.driver = request.driver
+        repository.save(participantPassenger)
         return participantPassenger;
     }
 
@@ -49,6 +50,6 @@ class ParticipantPassengerService(val repository: ParticipantPassengerRepository
         val passengerPerson: Person = request.passenger.let { per ->
             personService.findOrCreate(per.id, per.firstName, per.lastName, per.dateOfBirth, per.genderId, per.placeOfBirth, per.placeOfLiving, per.uniquePersonIdentifier)
         }
-        return ParticipantPassenger(participant, passengerPerson, InjuredLevel.values()[request.injuredLevel])
+        return ParticipantPassenger(participant, passengerPerson, InjuredLevel.values()[request.injuredLevel], request.driver)
     }
 }

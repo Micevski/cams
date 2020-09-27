@@ -1,8 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Participant } from '../../interfaces/participant.interface';
-import { AccidentService } from '../../service/accident.service';
-import { ActivatedRoute } from '@angular/router';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {Participant} from '../../interfaces/participant.interface';
+import {AccidentService} from '../../service/accident.service';
+import {ActivatedRoute} from '@angular/router';
 import {AccidentParticipant} from "../../interfaces/accident-participant.interface";
 import {ParticipantService} from "../../service/participant.service";
 
@@ -56,7 +56,8 @@ export class ParticipantsAddComponent implements OnInit {
       model: [],
       make: [],
       productionYear: [],
-      registerPlate: []
+      registerPlate: [],
+      guilty: []
     });
 
     this.ownerForm = this._builder.group({
@@ -75,7 +76,7 @@ export class ParticipantsAddComponent implements OnInit {
       owner: this.ownerForm.getRawValue()
     };
 
-    this._participants.push({ owner: {} });
+    this._participants.push({owner: {}});
     this.changeTab(this._participants.length - 1);
 
   }
@@ -97,6 +98,7 @@ export class ParticipantsAddComponent implements OnInit {
   private patchFormsValues(participant: AccidentParticipant | Participant) {
     const owner = participant.owner;
     const accidentParticipantIdOptional = 'accidentParticipantId' in participant ? participant.accidentParticipantId : null;
+    const guilty = 'guilty' in participant ? participant.guilty : null;
     this.participantForm.patchValue({
       id: participant.id,
       accidentParticipantId: accidentParticipantIdOptional,
@@ -104,7 +106,8 @@ export class ParticipantsAddComponent implements OnInit {
       model: participant.model,
       make: participant.make,
       productionYear: participant.productionYear,
-      registerPlate: participant.registerPlate
+      registerPlate: participant.registerPlate,
+      guilty
     });
 
     this.ownerForm.patchValue({

@@ -1,10 +1,9 @@
-<mat-tab-group [selectedIndex]="selected.value"
+  <mat-tab-group [selectedIndex]="selected.value"
                (selectedIndexChange)="changeTab($event)">
   <mat-tab *ngFor="let participant of participants; let index = index" [label]="participant.type || 'New participant'">
     <div class="add-participant">
       <participant-create class="input-form" [participantForm]="participantForm"
                           (registerPateChanged)="onRegisterPlateChange()"></participant-create>
-
       <person-create class="input-form" [person]="ownerForm"></person-create>
 
     </div>
@@ -15,7 +14,7 @@
         <mat-icon>delete_outline</mat-icon>
       </button>
 
-      <button mat-icon-button (click)="addTab()" [matTooltip]="'Add p'">
+      <button mat-icon-button (click)="addTab()" [matTooltip]="'Add participant'">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
     </div>

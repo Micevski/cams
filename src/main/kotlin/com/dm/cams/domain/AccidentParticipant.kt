@@ -10,7 +10,9 @@ class AccidentParticipant(
         val accident: Accident,
         @ManyToOne
         @JoinColumn(name = "participant_id")
-        val participant: Participant
+        val participant: Participant,
+        @Column(name = "is_guilty")
+        var guilty: Boolean
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

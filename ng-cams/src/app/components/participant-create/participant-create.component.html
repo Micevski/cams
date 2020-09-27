@@ -1,4 +1,4 @@
-<form  [formGroup]="participantForm">
+<form [formGroup]="participantForm">
   <h4>{{label}}</h4>
 
   <mat-form-field class="mat-input-element">
@@ -20,4 +20,6 @@
   <mat-form-field class="mat-input-element">
     <input matInput formControlName="productionYear" placeholder="Production year">
   </mat-form-field>
+
+  <mat-checkbox formControlName="guilty">Guilty</mat-checkbox>
 </form>

@@ -7,4 +7,5 @@ export interface Passenger {
   participant?: Participant;
   passenger?: Person;
   injuredLevel?: number;
+  driver?: boolean;
 }

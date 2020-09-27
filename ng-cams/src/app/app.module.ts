@@ -42,6 +42,7 @@ import {PersonCreateComponent} from './components/person-create/person-create.co
 import { ParticipantCreateComponent } from './components/participant-create/participant-create.component';
 import { DocumentsComponent } from './components/documents/documents.component';
 import {GalleryDialog} from "./dialogs/gallery-dialog/gallery-dialog";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import {GalleryDialog} from "./dialogs/gallery-dialog/gallery-dialog";
     CommonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    MatCheckboxModule,
   ],
   providers: [
     MatDatepickerModule,

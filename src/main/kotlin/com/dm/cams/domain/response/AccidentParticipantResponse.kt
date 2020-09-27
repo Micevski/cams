@@ -1,7 +1,6 @@
 package com.dm.cams.domain.response
 
 import com.dm.cams.domain.AccidentParticipant
-import com.dm.cams.domain.Person
 
 data class AccidentParticipantResponse(
         val id: Long,
@@ -11,7 +10,8 @@ data class AccidentParticipantResponse(
         val make: String?,
         val productionYear: Int?,
         val registerPlate: String?,
-        val owner: PersonResponse?
+        val owner: PersonResponse?,
+        val guilty: Boolean
 ) {
     companion object {
 
@@ -25,8 +25,8 @@ data class AccidentParticipantResponse(
                     accidentParticipant.participant.make,
                     accidentParticipant.participant.productionYear,
                     accidentParticipant.participant.registerPlate,
-                    person
-            );
+                    person, accidentParticipant.guilty
+            )
         }
     }
 }

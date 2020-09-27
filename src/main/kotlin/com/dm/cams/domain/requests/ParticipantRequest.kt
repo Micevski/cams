@@ -9,4 +9,5 @@ data class ParticipantRequest @JsonCreator constructor(val id: Long?,
                                                        val make: String?,
                                                        val productionYear: Int?,
                                                        val registerPlate: String?,
-                                                       val owner: PersonRequest?)
+                                                       val owner: PersonRequest?,
+                                                       val guilty: Boolean)

@@ -41,7 +41,8 @@ create table participant_passengers(
     participant_id bigint references participants(id),
     passenger_person_id bigint references persons(id),
     seat_position_id bigint references seat_positions(id),
-    injured_id int references injured_levels(id)
+    injured_id int references injured_levels(id),
+    is_driver boolean
 );
 
 create table locations(
@@ -67,7 +68,8 @@ create table accidents(
 create table accident_participants(
     id bigserial primary key,
     accident_id bigint references accidents(id),
-    participant_id bigint references participants(id)
+    participant_id bigint references participants(id),
+    is_guilty boolean
 );
 
 create table cams_documents(

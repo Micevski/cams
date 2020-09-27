@@ -14,7 +14,9 @@ class ParticipantPassenger(
         var passenger: Person,
         @Column(name = "injured_id")
         @Enumerated(EnumType.ORDINAL)
-        var injuredLevel: InjuredLevel
+        var injuredLevel: InjuredLevel,
+        @Column(name = "is_driver")
+        var driver:Boolean
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -18,7 +18,7 @@ export class PassengerCreateDialog implements OnInit {
               private _service: AccidentService,
               @Inject(MAT_DIALOG_DATA) public data: {
                 owner: Person, passenger: Passenger, addOwner: boolean,
-                injuredLevel: number
+                injuredLevel: number, driver: boolean
               }) {
   }
 
@@ -42,6 +42,7 @@ export class PassengerCreateDialog implements OnInit {
       genderId: [],
       uniquePersonIdentifier: [],
       injuredLevel: [],
+      driver: []
     });
     if (this.data.passenger.passenger) {
       this.patchValues(this.data.passenger.passenger);
@@ -57,6 +58,7 @@ export class PassengerCreateDialog implements OnInit {
     this.data.passenger.injuredLevel = formValues.injuredLevel;
     this.data.passenger.passenger.uniquePersonIdentifier = formValues.uniquePersonIdentifier;
     this.data.passenger.passenger.id = formValues.id;
+    this.data.passenger.driver = formValues.driver;
     this._dialogRef.close(this.data.passenger);
   }
 
@@ -78,6 +80,7 @@ export class PassengerCreateDialog implements OnInit {
       genderId: person.genderId,
       uniquePersonIdentifier: person.uniquePersonIdentifier,
       injuredLevel: this.data.injuredLevel,
+      driver: this.data.driver
     });
   }
 }

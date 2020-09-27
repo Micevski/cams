@@ -17,10 +17,10 @@ class AccidentParticipantService(val accidentParticipantRepository: AccidentPart
 
     fun findAllParticipantsForAccident(accidentId: Long): List<AccidentParticipant> = accidentParticipantRepository.findAllByAccident_Id(accidentId)
 
-    fun addParticipantToAccident(accident: Accident, participant: Participant) =
-            accidentParticipantRepository.save(AccidentParticipant(accident, participant))
+    fun addParticipantToAccident(accident: Accident, participant: Participant, guilty: Boolean) =
+            accidentParticipantRepository.save(AccidentParticipant(accident, participant, guilty))
 
-    fun addParticipantsToAccident(participantsRequest: List<ParticipantRequest>, accidentId: Long): List<AccidentParticipant> {
+    fun addParticipantsToAccident2(participantsRequest: List<ParticipantRequest>, accidentId: Long): List<AccidentParticipant> {
         val accident: Accident = accidentService.findById(accidentId)
         //List of new participants that need to be added to the accident.
         val newParticipantList: List<Participant> = participantsRequest
@@ -32,10 +32,34 @@ class AccidentParticipantService(val accidentParticipantRepository: AccidentPart
         participantsRequest.stream()
                 .filter { it.accidentParticipantId != null }
                 .forEach { createOrUpdateParticipant(it) }
-        val accidentParticipantList = newParticipantList.map { AccidentParticipant(accident, it) }
-        accidentParticipantRepository.saveAll(accidentParticipantList)
+//        val accidentParticipantList = newParticipantList.map { AccidentParticipant(accident, it) }
+//        accidentParticipantRepository.saveAll(accidentParticipantList)
         return findAllParticipantsForAccident(accidentId)
     }
+
+    fun addParticipantsToAccident(participantsRequest: List<ParticipantRequest>, accidentId: Long): List<AccidentParticipant> {
+        val accident: Accident = accidentService.findById(accidentId)
+        val accidentParticipants = participantsRequest.stream()
+                .map {
+                    val participant = createOrUpdateParticipant(it)
+                    return@map createOrUpdateAccidentParticipant(participant, accident, it.accidentParticipantId, it.guilty)
+                }
+                .toList()
+        accidentParticipantRepository.saveAll(accidentParticipants);
+        return findAllParticipantsForAccident(accidentId);
+
+    }
+
+    private fun createOrUpdateAccidentParticipant(participant: Participant, accident: Accident,
+                                                  accidentParticipantId: Long?, guilty: Boolean): AccidentParticipant {
+        return accidentParticipantId?.let {
+            val accidentParticipant = accidentParticipantRepository.getOne(it)
+            accidentParticipant.guilty = guilty
+            return accidentParticipant
+        } ?: AccidentParticipant(accident, participant, guilty)
+
+    }
+
 
     fun createOrUpdateParticipant(request: ParticipantRequest): Participant {
         val owner: Person? = request.owner?.let {
