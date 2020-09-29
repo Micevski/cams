@@ -10,19 +10,18 @@ import java.util.stream.Collectors
 @Service
 class AnalyticService(val accidentRepository: AccidentRepository) {
 
-    fun getAccidentsCountGroupByDate(from: ZonedDateTime, to: ZonedDateTime): Map<LocalDate, Long> {
-        return accidentRepository.findAllByDateAccidentLessThanEqualAndDateAccidentGreaterThanEqual(to, from)
-                .stream()
-                .map { AnalyticsCountDTO<LocalDate>(it.id, it.dateAccident.toLocalDate()) }
-                .collect(Collectors.groupingBy(AnalyticsCountDTO<LocalDate>::grouped, Collectors.counting()))
+    fun getAccidentsCountGroupByDate(from: ZonedDateTime, to: ZonedDateTime): Map<LocalDate, Long> =
+            accidentRepository.findAllByDateAccidentLessThanEqualAndDateAccidentGreaterThanEqual(to, from)
+                    .stream()
+                    .map { AnalyticsCountDTO<LocalDate>(it.id, it.dateAccident.toLocalDate()) }
+                    .collect(Collectors.groupingBy(AnalyticsCountDTO<LocalDate>::grouped, Collectors.counting()))
 
-    }
 
-    fun getAccidentsCountGroupByCity(from: ZonedDateTime, to: ZonedDateTime): Map<String, Long> {
-        return accidentRepository.findAllByDateAccidentLessThanEqualAndDateAccidentGreaterThanEqual(to, from)
-                .stream()
-                .map { AnalyticsCountDTO(it.id, it.location.city ?: "N/A") }
-                .collect(Collectors.groupingBy(AnalyticsCountDTO<String>::grouped, Collectors.counting()))
+    fun getAccidentsCountGroupByCity(from: ZonedDateTime, to: ZonedDateTime): Map<String, Long> =
+            accidentRepository.findAllByDateAccidentLessThanEqualAndDateAccidentGreaterThanEqual(to, from)
+                    .stream()
+                    .map { AnalyticsCountDTO(it.id, it.location.city ?: "N/A") }
+                    .collect(Collectors.groupingBy(AnalyticsCountDTO<String>::grouped, Collectors.counting()))
 
-    }
+
 }
