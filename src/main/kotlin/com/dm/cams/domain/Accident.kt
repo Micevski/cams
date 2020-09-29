@@ -11,7 +11,7 @@ class Accident(
         var location: Location,
 
         @Column(name = "date_accident")
-        var dateAccident: ZonedDateTime?,
+        var dateAccident: ZonedDateTime,
         var reason: String?,
         var description: String?
 ) {
