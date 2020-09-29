@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 @Service
 class AccidentService(val accidentRepository: AccidentRepository,
@@ -19,7 +20,7 @@ class AccidentService(val accidentRepository: AccidentRepository,
     fun finAll(page: Int, pageSize: Int, sortProperty: String?, sortDirection: Sort.Direction?): Page<Accident> =
             accidentRepository.findAll(pageableUtils.getPageable(page, pageSize, sortProperty, sortDirection))
 
-    fun save(locationRequest: LocationRequest, id: Long?, dateAccident: LocalDateTime?, reason: String?, description: String?): Accident {
+    fun save(locationRequest: LocationRequest, id: Long?, dateAccident: ZonedDateTime?, reason: String?, description: String?): Accident {
         val location: Location =
                 locationRequest.let {
                     locationService.findOrCreate(it.id, it.lat, it.lng, it.streetName, it.streetNumber,
@@ -32,8 +33,8 @@ class AccidentService(val accidentRepository: AccidentRepository,
 
     }
 
-    private fun updateLocation(id: Long, dateAccident: LocalDateTime?, reason: String?, description: String?): Accident {
-        val accident = findById(id);
+    private fun updateLocation(id: Long, dateAccident: ZonedDateTime?, reason: String?, description: String?): Accident {
+        val accident = findById(id)
         accident.dateAccident = dateAccident
         accident.reason = reason
         accident.description = description

@@ -43,6 +43,8 @@ import { ParticipantCreateComponent } from './components/participant-create/part
 import { DocumentsComponent } from './components/documents/documents.component';
 import {GalleryDialog} from "./dialogs/gallery-dialog/gallery-dialog";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,6 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     AppRoutingModule,
     MatToolbarModule,
     MatSidenavModule,
@@ -105,10 +106,17 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     MatCheckboxModule,
+    BrowserModule,
+    NgxMatTimepickerModule,
+    NgxMatDatetimePickerModule,
+    NgxMatMomentModule,
   ],
   providers: [
     MatDatepickerModule,
-    DatePipe
+    DatePipe,
+    NgxMatTimepickerModule,
+    NgxMatDatetimePickerModule,
+    NgxMatMomentModule,
   ],
   bootstrap: [AppComponent]
 })

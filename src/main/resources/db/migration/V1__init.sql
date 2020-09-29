@@ -60,7 +60,7 @@ create table locations(
 create table accidents(
     id bigserial primary key,
     location_id bigint references locations(id),
-    date_accident timestamp,
+    date_accident timestamp with time zone,
     reason text,
     description text
 );

@@ -1,6 +1,6 @@
 package com.dm.cams.domain
 
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import javax.persistence.*
 
 @Entity
@@ -11,7 +11,7 @@ class Accident(
         var location: Location,
 
         @Column(name = "date_accident")
-        var dateAccident: LocalDateTime?,
+        var dateAccident: ZonedDateTime?,
         var reason: String?,
         var description: String?
 ) {

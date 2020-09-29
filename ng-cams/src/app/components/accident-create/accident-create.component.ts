@@ -188,10 +188,11 @@ export class AccidentCreateComponent implements OnInit, AfterViewInit {
     const accidentRequest = {
       id: this.accident?.id,
       location,
-      dateAccident: formValues.dateAccident,
+      dateAccident: new Date(formValues.dateAccident),
       reason: formValues.reason,
       description: formValues.description
     };
+    console.log(accidentRequest);
     this._service.saveAccident(accidentRequest)
       .subscribe(res => {
           this.saveAccidentEvent.emit(res.id);
