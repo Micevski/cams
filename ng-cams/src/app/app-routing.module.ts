@@ -5,6 +5,7 @@ import {AccidentComponent} from "./pages/accident/accident.component";
 import {AuthenticationGuard} from "./guards/authentication-guard";
 import {LoginComponent} from "./pages/login/login.component";
 import { AdminComponent } from './pages/admin/admin.component';
+import { AnalyticPage } from './pages/analytic/analytic.page';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
       {path: 'admin', component: AdminComponent},
       {path: 'home', component: HomeComponent},
       {path: 'accident', component: AccidentComponent},
-      {path: 'accident/:id', component: AccidentComponent}
+      {path: 'accident/:id', component: AccidentComponent},
+      {path: 'analytic', component: AnalyticPage}
     ]
   },
   {path: 'login', component: LoginComponent}

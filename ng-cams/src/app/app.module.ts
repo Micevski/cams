@@ -45,6 +45,8 @@ import {GalleryDialog} from "./dialogs/gallery-dialog/gallery-dialog";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
+import { AnalyticPage } from './pages/analytic/analytic.page';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 @NgModule({
   declarations: [
@@ -63,54 +65,56 @@ import { NgxMatMomentModule } from '@angular-material-components/moment-adapter'
     PersonCreateComponent,
     ParticipantCreateComponent,
     DocumentsComponent,
-    GalleryDialog
+    GalleryDialog,
+    AnalyticPage
   ],
   entryComponents: [
     PassengerCreateDialog,
     AddUserDialog,
     GalleryDialog
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatMenuModule,
-    HttpClientModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatButtonModule,
-    MatIconModule,
-    MatTableModule,
-    MatPaginatorModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAIzG6TEQPJb38Me-SY8stxKnkv8aLOnNo',
-      libraries: ['places'],
-    }),
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatExpansionModule,
-    MatTabsModule,
-    MatTooltipModule,
-    MatSelectModule,
-    MatSortModule,
-    MatCardModule,
-    FormsModule,
-    CommonModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(),
-    MatCheckboxModule,
-    BrowserModule,
-    NgxMatTimepickerModule,
-    NgxMatDatetimePickerModule,
-    NgxMatMomentModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatMenuModule,
+        HttpClientModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatButtonModule,
+        MatIconModule,
+        MatTableModule,
+        MatPaginatorModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyAIzG6TEQPJb38Me-SY8stxKnkv8aLOnNo',
+            libraries: ['places']
+        }),
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatExpansionModule,
+        MatTabsModule,
+        MatTooltipModule,
+        MatSelectModule,
+        MatSortModule,
+        MatCardModule,
+        FormsModule,
+        CommonModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(),
+        MatCheckboxModule,
+        BrowserModule,
+        NgxMatTimepickerModule,
+        NgxMatDatetimePickerModule,
+        NgxMatMomentModule,
+        GoogleChartsModule
+    ],
   providers: [
     MatDatepickerModule,
     DatePipe,

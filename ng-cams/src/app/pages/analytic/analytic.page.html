@@ -1,0 +1,13 @@
+<layout></layout>
+<div class='page'>
+  <div class='row'>
+    <google-chart *ngIf='chartDataCityGrouped$ | async as chart'
+                  [type]='test'
+                  [data]='chart'
+                  [options]='options'></google-chart>
+    <google-chart *ngIf='chartDataDateGrouped$ | async as chart'
+                  [type]='test'
+                  [data]='chart'
+                  [options]='options'></google-chart>
+  </div>
+</div>
