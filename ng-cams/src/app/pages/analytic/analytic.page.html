@@ -2,11 +2,21 @@
 <div class='page'>
   <div class='row'>
     <google-chart *ngIf='chartDataCityGrouped$ | async as chart'
-                  [type]='test'
+                  [type]='barChart'
                   [data]='chart'
                   [options]='options'></google-chart>
     <google-chart *ngIf='chartDataDateGrouped$ | async as chart'
-                  [type]='test'
+                  [type]='barChart'
+                  [data]='chart'
+                  [options]='options'></google-chart>
+  </div>
+  <div class='row'>
+    <google-chart *ngIf='chartDataAccidentTimeSeries$ | async as chart'
+                  [type]='lineChart'
+                  [data]='chart'
+                  [options]='options'></google-chart>
+    <google-chart *ngIf='chartDataAccidentAgeSeries$ | async as chart'
+                  [type]='lineChart'
                   [data]='chart'
                   [options]='options'></google-chart>
   </div>

@@ -20,5 +20,13 @@ export class AnalyticService {
     return this._http.post<TwoDimensionAnalytic>(`${this.API_PATH}/accidents/city-grouped`, {});
   }
 
+  getAccidentsTimeSeries(request?: any): Observable<TwoDimensionAnalytic> {
+    return this._http.post<TwoDimensionAnalytic>(`${this.API_PATH}/accidents/time-series`, {});
+  }
+
+  getPassengersAgeSeries(request?: any): Observable<TwoDimensionAnalytic> {
+    return this._http.post<TwoDimensionAnalytic>(`${this.API_PATH}/passengers/age-series`, {});
+  }
+
 
 }
