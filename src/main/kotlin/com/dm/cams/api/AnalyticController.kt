@@ -27,5 +27,19 @@ class AnalyticController(val service: AnalyticService) {
         val from: ZonedDateTime = request?.from ?: to.minusMonths(1)
         return service.getAccidentsCountGroupByCity(from, to)
     }
+
+    @PostMapping("accidents/time-series")
+    fun getAccidentsTimeSeries(@RequestBody(required = false) request: AnalyticRequest?): TwoDimensionAnalyticResponse<String> {
+        val to = request?.to ?: ZonedDateTime.now()
+        val from: ZonedDateTime = request?.from ?: to.minusMonths(1)
+        return service.getAccidentsTimeSeries(from, to)
+    }
+
+    @PostMapping("passengers/age-series")
+    fun getPassengersAgeSeries(@RequestBody(required = false) request: AnalyticRequest?): TwoDimensionAnalyticResponse<String> {
+        val to = request?.to ?: ZonedDateTime.now()
+        val from: ZonedDateTime = request?.from ?: to.minusMonths(1)
+        return service.getAgeSeries(from, to)
+    }
 }
 

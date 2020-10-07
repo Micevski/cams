@@ -28,6 +28,7 @@ export class PersonCreateComponent implements OnInit {
     this.person.controls.uniquePersonIdentifier
       .setValidators([Validators.required,
         Validators.minLength(13),
+        Validators.maxLength(13),
         Validators.pattern('^[0-9]*$')]);
   }
 

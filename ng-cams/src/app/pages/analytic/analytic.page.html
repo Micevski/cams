@@ -1,13 +1,38 @@
 <layout></layout>
 <div class='page'>
+  <h3>Analytics</h3>
   <div class='row'>
-    <google-chart *ngIf='chartDataCityGrouped$ | async as chart'
-                  [type]='test'
-                  [data]='chart'
-                  [options]='options'></google-chart>
-    <google-chart *ngIf='chartDataDateGrouped$ | async as chart'
-                  [type]='test'
-                  [data]='chart'
-                  [options]='options'></google-chart>
+    <div class='column'>
+      <google-chart *ngIf='chartDataDateGrouped$ | async as chart'
+                    [type]='tableChart'
+                    [title]='"Accidents count by Date"'
+                    [data]='chart'
+                    [width]='400'
+                    [height]='500'
+                    [options]='options'></google-chart>
+    </div>
+    <div class='column'>
+      <div class='row' style='margin-left:100px;'>
+        <google-chart *ngIf='chartDataCityGrouped$ | async as chart'
+                      [type]='pieChart'
+                      [title]='"Accidents count by City"'
+                      [data]='chart'
+                      [options]='options'></google-chart>
+        <google-chart *ngIf='chartDataAccidentAgeSeries$ | async as chart'
+                      [type]='pieChart'
+                      [title]='"Passengers age series"'
+                      [data]='chart'
+                      [options]='options'></google-chart>
+      </div>
+      <div class='row'>
+        <google-chart *ngIf='chartDataAccidentTimeSeries$ | async as chart'
+                      [type]='lineChart'
+                      [title]='"Accidents Time series"'
+                      [data]='chart'
+                      [width]='1450'
+                      [options]='options'></google-chart>
+
+      </div>
+    </div>
   </div>
 </div>
