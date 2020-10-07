@@ -5,8 +5,9 @@ data class TwoDimensionAnalyticResponse<T>(
         val data: List<Long>
 ) {
     companion object {
-        fun <T> of(data: Map<T, Long>): TwoDimensionAnalyticResponse<T> {
-            return TwoDimensionAnalyticResponse(data.keys, data.values.toList());
+        fun <T : Comparable<T>> of(data: Map<T, Long>): TwoDimensionAnalyticResponse<T> {
+            val sortedData = data.toSortedMap()
+            return TwoDimensionAnalyticResponse(sortedData.keys, sortedData.values.toList());
         }
     }
 }

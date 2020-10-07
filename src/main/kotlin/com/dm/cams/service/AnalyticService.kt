@@ -39,7 +39,7 @@ class AnalyticService(val accidentRepository: AccidentRepository,
     }
 
 
-    private fun <T> objectListToAnalyticResponse(list: List<*>) : TwoDimensionAnalyticResponse<T>{
+    private fun <T : Comparable<T>> objectListToAnalyticResponse(list: List<*>) : TwoDimensionAnalyticResponse<T>{
         val map = HashMap<T, Long>()
         list.forEach {
             val tempList = it.toList()

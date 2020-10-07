@@ -18,9 +18,11 @@ export class AnalyticPage implements OnInit {
   chartDataAccidentAgeSeries$: Observable<any>;
   barChart = ChartType.BarChart;
   lineChart = ChartType.LineChart;
+  pieChart = ChartType.PieChart;
+  tableChart = ChartType.Table;
 
   options = {
-    legend: { position: 'none' }
+    legend: { position: 'left' },
   };
 
   constructor(private _service: AnalyticService) { }
