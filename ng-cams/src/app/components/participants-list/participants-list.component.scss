@@ -1,0 +1,24 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.participants{
+  margin: 15px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, .2), 0 0 2px rgba(0, 0, 0, .1);
+}
+
+.add-button {
+  display: flex;
+  justify-content: flex-end;
+  margin: 15px;
+}
+
+.mat-row:hover{
+  cursor: pointer;
+  box-shadow: 9px 11px 5px 10px rgba(207,188,207,1);
+  background-color: #edebeb;
+}

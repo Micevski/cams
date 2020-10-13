@@ -47,6 +47,8 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-mat
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { AnalyticPage } from './pages/analytic/analytic.page';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { ParticipantsListComponent } from './components/participants-list/participants-list.component';
+import { ParticipantsComponent } from './pages/participants/participants.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import { GoogleChartsModule } from 'angular-google-charts';
     ParticipantCreateComponent,
     DocumentsComponent,
     GalleryDialog,
-    AnalyticPage
+    AnalyticPage,
+    ParticipantsListComponent,
+    ParticipantsComponent
   ],
   entryComponents: [
     PassengerCreateDialog,

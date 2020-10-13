@@ -15,9 +15,9 @@ export class UserListComponent implements OnInit {
   constructor(private _service: UserService) { }
 
   displayedColumns: string[] = ['id', 'username', 'firstName', 'lastName', 'role'];
-  page: number = 1;
+  page = 1;
   length: number;
-  pageSize: number = 10;
+  pageSize = 10;
 
   users: User[];
   dataSource: MatTableDataSource<any>;

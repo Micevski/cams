@@ -1,10 +1,14 @@
 package com.dm.cams.api
 
+import com.dm.cams.domain.Accident
+import com.dm.cams.domain.Participant
 import com.dm.cams.domain.requests.ParticipantRequest
+import com.dm.cams.domain.requests.TableFilterRequest
 import com.dm.cams.domain.response.AccidentParticipantResponse
 import com.dm.cams.domain.response.ParticipantResponse
 import com.dm.cams.service.AccidentParticipantService
 import com.dm.cams.service.ParticipantService
+import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -13,6 +17,12 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("api/accident-participant")
 class ParticipantController(val accidentParticipantService: AccidentParticipantService,
                             val participantService: ParticipantService) {
+
+    @GetMapping("/filter")
+    fun getAll(accidentFilterRequest: TableFilterRequest): Page<Participant> {
+        return participantService.finAll(accidentFilterRequest.page, accidentFilterRequest.pageSize,
+                accidentFilterRequest.sortProperty, accidentFilterRequest.sortDirection)
+    }
 
     @GetMapping("/{accidentId}")
     fun getAllParticipantsForAccident(@PathVariable accidentId: Long): List<AccidentParticipantResponse> =

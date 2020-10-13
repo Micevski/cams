@@ -3,13 +3,19 @@ package com.dm.cams.service
 import com.dm.cams.domain.Participant
 import com.dm.cams.domain.Person
 import com.dm.cams.repository.ParticipantRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class ParticipantService(val participantRepository: ParticipantRepository) {
+class ParticipantService(val participantRepository: ParticipantRepository,
+                         val pageableUtils: PageableUtils) {
 
     fun findById(id: Long) = participantRepository.getOne(id);
+
+    fun finAll(page: Int, pageSize: Int, sortProperty: String?, sortDirection: Sort.Direction?): Page<Participant> =
+            participantRepository.findAll(pageableUtils.getPageable(page, pageSize, sortProperty, sortDirection))
 
     fun createOrUpdateParticipant(id: Long?, type: String, model: String?, make: String?, productionYear: Int?,
                                   registerPlate: String?, owner: Person?): Participant {
@@ -26,6 +32,7 @@ class ParticipantService(val participantRepository: ParticipantRepository) {
 
     }
 
-    fun findByPlate(plate: String) : Optional<Participant> = participantRepository.findByRegisterPlate(plate);
+    fun findByPlate(plate: String): Optional<Participant> = participantRepository.findByRegisterPlate(plate)
+
 
 }
