@@ -6,7 +6,7 @@ th.mat-sort-header-sorted {
   color: black;
 }
 
-.accidents{
+.accidents {
   margin: 15px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, .2), 0 0 2px rgba(0, 0, 0, .1);
 }
@@ -17,8 +17,21 @@ th.mat-sort-header-sorted {
   margin: 15px;
 }
 
-.mat-row:hover{
+.mat-row:hover {
   cursor: pointer;
-  box-shadow: 9px 11px 5px 10px rgba(207,188,207,1);
+  box-shadow: 9px 11px 5px 10px rgba(207, 188, 207, 1);
   background-color: #edebeb;
+}
+
+agm-map {
+  width: 100%;
+  height: 450px;
+}
+
+.map {
+  margin: 2% 1% 1%;
+}
+
+.marker-info{
+  cursor: pointer;
 }

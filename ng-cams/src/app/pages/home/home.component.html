@@ -1,59 +1,85 @@
+<script async defer
+        src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAIzG6TEQPJb38Me-SY8stxKnkv8aLOnNo&callback=initMap'>
+</script>
 <layout></layout>
+<div class='page'>
+  <div class='add-button'>
+    <button mat-stroked-button class='basic' matTooltip='Not implemented yet'> Download</button>
+    <a routerLink='/accident'>
+      <button mat-stroked-button class='mat-primary'> + Add Accident</button>
+    </a>
+  </div>
+  <div class='accidents'>
+    <table-filter [filters]='filteredColumns'></table-filter>
+    <table mat-table [dataSource]='dataSource' matSort class='mat-elevation-z8'>
 
-<div class="add-button">
-  <button mat-stroked-button class="basic" matTooltip='Not implemented yet'> Download</button>
-  <a routerLink="/accident">
-    <button mat-stroked-button class="mat-primary"> + Add Accident</button>
-  </a>
-</div>
-<div class="accidents">
-  <table-filter [filters]='filteredColumns'></table-filter>
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <!-- Position Column -->
+      <ng-container matColumnDef='id'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> #</th>
+        <td mat-cell *matCellDef='let element; let i = index;'> {{i + 1}} </td>
+      </ng-container>
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> #</th>
-      <td mat-cell *matCellDef="let element; let i = index;"> {{i + 1}} </td>
-    </ng-container>
+      <ng-container matColumnDef='date'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date</th>
+        <td mat-cell *matCellDef='let element'> {{dateFormatted(element.dateAccident)}} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date</th>
-      <td mat-cell *matCellDef="let element"> {{dateFormatted(element.dateAccident)}} </td>
-    </ng-container>
+      <ng-container matColumnDef='reason'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason</th>
+        <td mat-cell *matCellDef='let element'> {{element.reason}} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="reason">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason</th>
-      <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
-    </ng-container>
+      <ng-container matColumnDef='description'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+        <td mat-cell *matCellDef='let element' style='overflow: auto'> {{getDescription(element.description)}} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
-      <td mat-cell *matCellDef="let element" style="overflow: auto"> {{getDescription(element.description)}} </td>
-    </ng-container>
+      <ng-container matColumnDef='streetName'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Street</th>
+        <td mat-cell *matCellDef='let element'> {{element.location.streetName}} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="streetName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Street </th>
-      <td mat-cell *matCellDef="let element"> {{element.location.streetName}} </td>
-    </ng-container>
+      <ng-container matColumnDef='city'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> City</th>
+        <td mat-cell *matCellDef='let element'> {{element.location.city}} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
-      <td mat-cell *matCellDef="let element"> {{element.location.city}} </td>
-    </ng-container>
+      <ng-container matColumnDef='area'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Area</th>
+        <td mat-cell *matCellDef='let element'> {{element.location.area}} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="area">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Area </th>
-      <td mat-cell *matCellDef="let element"> {{element.location.area}} </td>
-    </ng-container>
+      <tr mat-header-row *matHeaderRowDef='displayedColumns'></tr>
+      <tr mat-row *matRowDef='let row; columns: displayedColumns' (click)='openAccidentDetails(row)'></tr>
+    </table>
+    <mat-paginator [length]=length
+                   [pageSize]=pageSize
+                   [pageSizeOptions]='[5,10,50,100]'
+                   (page)='pageChanged($event)'>
+    </mat-paginator>
+  </div>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="openAccidentDetails(row)" ></tr>
-  </table>
-  <mat-paginator [length]=length
-                 [pageSize]=pageSize
-                 [pageSizeOptions]="[5,10,50,100]"
-                 (page)="pageChanged($event)">
-  </mat-paginator>
+    <div class='map'>
+      <agm-map
+        [longitude]='21.769427'
+        [latitude]='41.713242'
+        [zoom]='9'>
+        <div *ngFor='let acc of accidents'>
+          <agm-marker [latitude]=acc.location.lat
+                      [longitude]=acc.location.lng
+                      [markerDraggable]='false'
+                      (markerClick)='onMarkerClick(acc)'
+                      (mouseOver)="onMouseOver(infoWindow)"
+                      (mouseOut)="onMouseOut(infoWindow)">
+            <agm-info-window [disableAutoPan]="false" #infoWindow>
 
+              <div >
+                {{acc.location.streetName}}
+              </div>
+            </agm-info-window>
+          </agm-marker>
+        </div>
 
+      </agm-map>
+    </div>
 </div>

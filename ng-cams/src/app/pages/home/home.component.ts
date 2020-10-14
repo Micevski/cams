@@ -74,4 +74,16 @@ export class HomeComponent implements OnInit {
     } else { return description; }
 
   }
+
+  onMarkerClick(acc: Accident) {
+    this._router.navigate([`/accident/${acc.id}`]);
+  }
+
+  onMouseOut(infoWindow) {
+    infoWindow.close();
+  }
+
+  onMouseOver(infoWindow) {
+    infoWindow.open();
+  }
 }
