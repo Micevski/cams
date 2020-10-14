@@ -7,6 +7,7 @@
   </a>
 </div>
 <div class="accidents">
+  <table-filter [filters]='filteredColumns'></table-filter>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
     <!-- Position Column -->
@@ -27,7 +28,7 @@
 
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
-      <td mat-cell *matCellDef="let element" style="overflow: auto"> {{element.description}} </td>
+      <td mat-cell *matCellDef="let element" style="overflow: auto"> {{getDescription(element.description)}} </td>
     </ng-container>
 
     <ng-container matColumnDef="streetName">

@@ -1,0 +1,15 @@
+<div class='filters'>
+    <ng-container *ngFor='let f of filters'>
+      <ng-template class='filter' [ngTemplateOutlet]='filter'
+                   [ngTemplateOutletContext]='{name:f.name, placeholder: f.placeholder}'>
+      </ng-template>
+    </ng-container>
+</div>
+
+<ng-template #filter let-name='name' let-placeholder='placeholder'>
+  <form [formGroup]='filterFrom'>
+    <mat-form-field>
+      <input [formControlName]='name' class='filter' matInput [placeholder]='placeholder'>
+    </mat-form-field>
+  </form>
+</ng-template>

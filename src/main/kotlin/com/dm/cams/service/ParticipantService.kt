@@ -2,6 +2,7 @@ package com.dm.cams.service
 
 import com.dm.cams.domain.Participant
 import com.dm.cams.domain.Person
+import com.dm.cams.domain.requests.ParticipantTableRequest
 import com.dm.cams.repository.ParticipantRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Sort
@@ -16,6 +17,10 @@ class ParticipantService(val participantRepository: ParticipantRepository,
 
     fun finAll(page: Int, pageSize: Int, sortProperty: String?, sortDirection: Sort.Direction?): Page<Participant> =
             participantRepository.findAll(pageableUtils.getPageable(page, pageSize, sortProperty, sortDirection))
+
+//    fun findAll(filterRequest: ParticipantTableRequest):Page<Participant> {
+//
+//    }
 
     fun createOrUpdateParticipant(id: Long?, type: String, model: String?, make: String?, productionYear: Int?,
                                   registerPlate: String?, owner: Person?): Participant {

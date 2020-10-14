@@ -1,4 +1,6 @@
 <div class="users">
+  <table-filter [filters]='filteredColumns'
+                (applyFilter)='filterChanged($event)'></table-filter>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
     <!-- Position Column -->

@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { Filter } from '../../interfaces/filter.interface';
 
 @Component({
   selector: 'home',
@@ -20,9 +21,16 @@ export class HomeComponent implements OnInit {
   }
 
   displayedColumns: string[] = ['id', 'date', 'reason', 'description', 'streetName', 'city', 'area'];
-  page: number = 1;
+  filteredColumns: Filter[] = [
+    { name: 'reason', placeholder: 'Reason', type: 'STRING' },
+    { name: 'streetName', placeholder: 'Street Name', type: 'STRING' },
+    { name: 'city', placeholder: 'City', type: 'STRING' },
+    { name: 'area', placeholder: 'Area', type: 'STRING' }
+  ];
+
+  page = 1;
   length: number;
-  pageSize: number = 10;
+  pageSize = 10;
 
   accidents: Accident[];
   dataSource: MatTableDataSource<any>;
@@ -53,7 +61,17 @@ export class HomeComponent implements OnInit {
   }
 
   dateFormatted(dateAccident: string) {
-    let date = new Date(dateAccident);
+    const date = new Date(dateAccident);
     return this._datepipe.transform(date, 'dd MMM yyyy HH:mm');
+  }
+
+  getDescription(description: string) {
+    if (!description) {
+      return;
+    }
+    if (description.length > 100) {
+      return description.substring(0, 100) + '... See more';
+    } else { return description; }
+
   }
 }

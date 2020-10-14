@@ -3,6 +3,7 @@ package com.dm.cams.api
 import com.dm.cams.domain.Accident
 import com.dm.cams.domain.Participant
 import com.dm.cams.domain.requests.ParticipantRequest
+import com.dm.cams.domain.requests.ParticipantTableRequest
 import com.dm.cams.domain.requests.TableFilterRequest
 import com.dm.cams.domain.response.AccidentParticipantResponse
 import com.dm.cams.domain.response.ParticipantResponse
@@ -19,7 +20,7 @@ class ParticipantController(val accidentParticipantService: AccidentParticipantS
                             val participantService: ParticipantService) {
 
     @GetMapping("/filter")
-    fun getAll(accidentFilterRequest: TableFilterRequest): Page<Participant> {
+    fun getAll(accidentFilterRequest: ParticipantTableRequest): Page<Participant> {
         return participantService.finAll(accidentFilterRequest.page, accidentFilterRequest.pageSize,
                 accidentFilterRequest.sortProperty, accidentFilterRequest.sortDirection)
     }

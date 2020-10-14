@@ -17,6 +17,9 @@ export class ParticipantService {
 
   findAllParticipants(page: number, pageSize: number) {
     return this._http.get<Page>(`/api/accident-participant/filter?page=${page}&pageSize=${pageSize}`);
+  }
 
+  findAllParticipantsFiltered(page: number, pageSize: number, query: string) {
+    return this._http.get<Page>(`/api/accident-participant/filter?page=${page}&pageSize=${pageSize}&${query}`);
   }
 }

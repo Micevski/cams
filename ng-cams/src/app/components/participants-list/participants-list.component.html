@@ -1,54 +1,56 @@
-<div class="participants">
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+<div class='participants'>
+  <table-filter [filters]='filteredColumns'
+                (applyFilter)='filterChanged($event)'></table-filter>
+  <table mat-table [dataSource]='dataSource' matSort class='mat-elevation-z8'>
 
     <!-- Position Column -->
-    <ng-container matColumnDef="id">
+    <ng-container matColumnDef='id'>
       <th mat-header-cell *matHeaderCellDef mat-sort-header> #</th>
-      <td mat-cell *matCellDef="let element; let i = index;"> {{i + 1}} </td>
+      <td mat-cell *matCellDef='let element; let i = index;'> {{i + 1}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
-      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    <ng-container matColumnDef='type'>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Type</th>
+      <td mat-cell *matCellDef='let element'> {{element.type}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="make">
+    <ng-container matColumnDef='make'>
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Make</th>
-      <td mat-cell *matCellDef="let element"> {{element.make}} </td>
+      <td mat-cell *matCellDef='let element'> {{element.make}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="model">
+    <ng-container matColumnDef='model'>
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Model</th>
-      <td mat-cell *matCellDef="let element" style="overflow: auto"> {{element.model}} </td>
+      <td mat-cell *matCellDef='let element' style='overflow: auto'> {{element.model}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="registerPlate">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Register Plate </th>
-      <td mat-cell *matCellDef="let element"> {{element.registerPlate}} </td>
+    <ng-container matColumnDef='registerPlate'>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Register Plate</th>
+      <td mat-cell *matCellDef='let element'> {{element.registerPlate}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="ownerFirstName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.owner.firstName}} </td>
+    <ng-container matColumnDef='ownerFirstName'>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name</th>
+      <td mat-cell *matCellDef='let element'> {{element.owner.firstName}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="ownerLastName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+    <ng-container matColumnDef='ownerLastName'>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name</th>
+      <td mat-cell *matCellDef='let element'> {{element.role}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="ownerUnique">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Unique Identifier </th>
-      <td mat-cell *matCellDef="let element"> {{element.owner.uniquePersonIdentifier}} </td>
+    <ng-container matColumnDef='ownerUnique'>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Unique Identifier</th>
+      <td mat-cell *matCellDef='let element'> {{element.owner.uniquePersonIdentifier}} </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef='displayedColumns'></tr>
+    <tr mat-row *matRowDef='let row; columns: displayedColumns'></tr>
   </table>
   <mat-paginator [length]=length
                  [pageSize]=pageSize
-                 [pageSizeOptions]="[5,10,50,100]"
-                 (page)="pageChanged($event)">
+                 [pageSizeOptions]='[5,10,50,100]'
+                 (page)='pageChanged($event)'>
   </mat-paginator>
 
 

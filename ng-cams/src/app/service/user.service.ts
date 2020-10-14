@@ -39,4 +39,8 @@ export class UserService {
     return this._http.get<Page>(`/api/admin/users/filter?page=${page}&pageSize=${pageSize}`);
   }
 
+  findAllUsersFiltered(page: number, pageSize: number, $event: string) {
+    return this._http.get<Page>(`/api/admin/users/filter?page=${page}&pageSize=${pageSize}&${$event}`);
+
+  }
 }

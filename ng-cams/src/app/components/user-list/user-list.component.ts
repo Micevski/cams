@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { PageEvent } from '@angular/material/paginator';
 import { UserService } from '../../service/user.service';
 import { User } from '../../interfaces/user-interface';
+import { Filter } from '../../interfaces/filter.interface';
 
 @Component({
   selector: 'user-list',
@@ -15,6 +16,11 @@ export class UserListComponent implements OnInit {
   constructor(private _service: UserService) { }
 
   displayedColumns: string[] = ['id', 'username', 'firstName', 'lastName', 'role'];
+  filteredColumns: Filter[] = [
+    { name: 'username', placeholder: 'Username', type: 'STRING' },
+    { name: 'firstName', placeholder: 'First name', type: 'STRING' },
+    { name: 'lastName', placeholder: 'Last Name', type: 'STRING' }
+  ];
   page = 1;
   length: number;
   pageSize = 10;
@@ -41,6 +47,14 @@ export class UserListComponent implements OnInit {
         this.users = res.content;
         this.dataSource = new MatTableDataSource<any>(this.users);
 
+      });
+  }
+
+  filterChanged($event: string) {
+    this._service.findAllUsersFiltered(this.page, this.pageSize, $event)
+      .subscribe(res => {
+        this.users = res.content;
+        this.dataSource = new MatTableDataSource<any>(this.users);
       });
   }
 

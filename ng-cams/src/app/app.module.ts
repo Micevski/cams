@@ -49,6 +49,7 @@ import { AnalyticPage } from './pages/analytic/analytic.page';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { ParticipantsListComponent } from './components/participants-list/participants-list.component';
 import { ParticipantsComponent } from './pages/participants/participants.component';
+import { TableFilterComponent } from './components/table-filter/table-filter.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { ParticipantsComponent } from './pages/participants/participants.compone
     GalleryDialog,
     AnalyticPage,
     ParticipantsListComponent,
-    ParticipantsComponent
+    ParticipantsComponent,
+    TableFilterComponent
   ],
   entryComponents: [
     PassengerCreateDialog,
