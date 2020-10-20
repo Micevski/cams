@@ -1,21 +1,21 @@
 version: "3.3"
 
 services:
-  cams-db:
-    restart: always
-    build: db
-    image: cams-db
-    ports:
-      - "55433:5432"
-    volumes:
-      - cams-db:/var/lib/postgresql/data/pgdata
-    networks:
-      - backend_alpha
-    environment:
-      - POSTGRES_DB=cams
-      - POSTGRES_USER=cams
-      - POSTGRES_PASSWORD=cams
-      - PGDATA=/var/lib/postgresql/data/pgdata
+        #  cams-db:
+        #restart: always
+        #build: db
+        #image: cams-db
+        #    ports:
+        #      - "55433:5432"
+        #    volumes:
+        #      - cams-db:/var/lib/postgresql/data/pgdata
+        #    networks:
+        #      - backend_alpha
+        #    environment:
+        #      - POSTGRES_DB=cams
+        #      - POSTGRES_USER=cams
+        #      - POSTGRES_PASSWORD=cams
+        #      - PGDATA=/var/lib/postgresql/data/pgdata
 
   cams-api:
     build:
@@ -25,12 +25,11 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=alpha
+      - SPRING_PROFILES_ACTIVE=azure
     networks:
-      - frontend_alpha
-      - backend_alpha
-    depends_on:
-      - cams-db
+      - cams-network
+        #    depends_on:
+        #- cams-db
 
   cams-client:
     build:
@@ -38,7 +37,7 @@ services:
       dockerfile: cams-docker/client/Dockerfile
     image: cams-client
     networks:
-      - frontend_alpha
+      - cams-network
     ports:
       - "80:80"
       - "443:443"
@@ -46,10 +45,7 @@ services:
       - cams-api
 
 networks:
-  frontend_alpha:
-    driver: bridge
-  backend_alpha:
-    driver: bridge
-
-volumes:
-  cams-db:
+  cams-network:
+     driver: bridge
+      # volumes:
+      #cams-db:

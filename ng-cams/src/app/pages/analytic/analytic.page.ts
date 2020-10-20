@@ -4,6 +4,8 @@ import { TwoDimensionAnalytic } from '../../interfaces/two-dimension-analytic.in
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ChartType } from 'angular-google-charts';
+import { MapsAPILoader } from '@agm/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'analytic',
@@ -20,23 +22,38 @@ export class AnalyticPage implements OnInit {
   lineChart = ChartType.LineChart;
   pieChart = ChartType.PieChart;
   tableChart = ChartType.Table;
+  geoChart = ChartType.GeoChart;
+  showFiller = false;
+  filters: FormGroup;
 
   options = {
-    legend: { position: 'left' },
+    legend: { position: 'left' }
+  };
+  geoOptions = {
+    region: 'MK',
+    displayMode: 'markers',
+    colorAxis: { minValue: 0, colors: ['#8BC34A', '#3F51B5'] }
   };
 
-  constructor(private _service: AnalyticService) { }
+  constructor(private _service: AnalyticService,
+              private _mapsApiLoader: MapsAPILoader,
+              private _builder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.chartDataCityGrouped$ = this._service.getAccidentsCountByCity()
-      .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
-    this.chartDataDateGrouped$ = this._service.getAccidentsCountsByDate()
-      .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
-    this.chartDataAccidentTimeSeries$ = this._service.getAccidentsTimeSeries()
-      .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
-    this.chartDataAccidentAgeSeries$ = this._service.getPassengersAgeSeries()
-      .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
-
+    this.filters = this._builder.group({
+      from: [],
+      to: []
+    });
+    this._mapsApiLoader.load().then(() => {
+      this.chartDataCityGrouped$ = this._service.getAccidentsCountByCity()
+        .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
+      this.chartDataDateGrouped$ = this._service.getAccidentsCountsByDate()
+        .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
+      this.chartDataAccidentTimeSeries$ = this._service.getAccidentsTimeSeries()
+        .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
+      this.chartDataAccidentAgeSeries$ = this._service.getPassengersAgeSeries()
+        .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
+    });
   }
 
   private _mapToGoogleAnalyticsChartData(chart: TwoDimensionAnalytic) {

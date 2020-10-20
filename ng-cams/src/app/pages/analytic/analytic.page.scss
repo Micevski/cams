@@ -1,0 +1,17 @@
+mat-drawer-content {
+  overflow: hidden;
+  background-color: white;
+}
+mat-drawer {
+  width: 20%;
+  opacity: 90%;
+}
+.date-filter {
+  margin-right: 5%;
+  margin-left: 5%;
+}
+.apply-button {
+  display: flex;
+  justify-content: flex-end;
+  margin: 5%;
+}

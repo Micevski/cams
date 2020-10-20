@@ -1,13 +1,16 @@
 <script async defer
         src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAIzG6TEQPJb38Me-SY8stxKnkv8aLOnNo&callback=initMap'>
 </script>
-<layout></layout>
+
 <div class='page'>
   <div class='add-button'>
-    <button mat-stroked-button class='basic' matTooltip='Not implemented yet'> Download</button>
-    <a routerLink='/accident'>
-      <button mat-stroked-button class='mat-primary'> + Add Accident</button>
-    </a>
+    <span class='name'>Accidents</span>
+    <div>
+      <button mat-stroked-button class='basic' matTooltip='Not implemented yet'> Download</button>
+      <a routerLink='/accident'>
+        <button mat-stroked-button class='mat-primary'> + Add Accident</button>
+      </a>
+    </div>
   </div>
   <div class='accidents'>
     <table-filter [filters]='filteredColumns'></table-filter>
@@ -59,27 +62,27 @@
     </mat-paginator>
   </div>
 
-    <div class='map'>
-      <agm-map
-        [longitude]='21.769427'
-        [latitude]='41.713242'
-        [zoom]='8'>
-        <div *ngFor='let acc of accidents'>
-          <agm-marker [latitude]=acc.location.lat
-                      [longitude]=acc.location.lng
-                      [markerDraggable]='false'
-                      (markerClick)='onMarkerClick(acc)'
-                      (mouseOver)="onMouseOver(infoWindow)"
-                      (mouseOut)="onMouseOut(infoWindow)">
-            <agm-info-window [disableAutoPan]="false" #infoWindow>
+  <div class='map'>
+    <agm-map
+      [longitude]='21.769427'
+      [latitude]='41.713242'
+      [zoom]='8'>
+      <div *ngFor='let acc of accidents'>
+        <agm-marker [latitude]=acc.location.lat
+                    [longitude]=acc.location.lng
+                    [markerDraggable]='false'
+                    (markerClick)='onMarkerClick(acc)'
+                    (mouseOver)='onMouseOver(infoWindow)'
+                    (mouseOut)='onMouseOut(infoWindow)'>
+          <agm-info-window [disableAutoPan]='false' #infoWindow>
 
-              <div >
-                {{acc.location.streetName}}
-              </div>
-            </agm-info-window>
-          </agm-marker>
-        </div>
+            <div>
+              {{acc.location.streetName}}
+            </div>
+          </agm-info-window>
+        </agm-marker>
+      </div>
 
-      </agm-map>
-    </div>
+    </agm-map>
+  </div>
 </div>
