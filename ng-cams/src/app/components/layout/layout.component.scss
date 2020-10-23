@@ -4,11 +4,18 @@
 }
 
 .layout-items {
+  margin-left: 10px;
   display: flex;
   justify-content: flex-start;
 }
- .layout {
-   min-width: 97%;
-   display: flex;
-   justify-content: space-between;
- }
+
+.layout {
+  min-width: 97%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.active {
+  border-bottom: 1px solid white;
+  border-radius: 0;
+}
