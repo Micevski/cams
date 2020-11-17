@@ -1,0 +1,29 @@
+version: "3.3"
+
+services:
+
+  cams-api:
+    build: .
+    image: camsdocker.azurecr.io/camsapi
+    ports:
+      - "8181:8181"
+    environment:
+      - SPRING_PROFILES_ACTIVE=azure
+    networks:
+      - cams-network
+
+  cams-client:
+    build: .
+    image: camsdocker.azurecr.io/camsclient
+    networks:
+      - cams-network
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - cams-api
+
+networks:
+  cams-network:
+     driver: bridge
+

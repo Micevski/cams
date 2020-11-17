@@ -23,7 +23,7 @@ services:
         dockerfile: cams-docker/server/Dockerfile
     image: cams-api
     ports:
-      - "8080:8080"
+      - "8181:8181"
     environment:
       - SPRING_PROFILES_ACTIVE=azure
     networks:
