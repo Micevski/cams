@@ -41,19 +41,10 @@ export class AnalyticPage implements OnInit {
 
   ngOnInit(): void {
     this.filters = this._builder.group({
-      from: [],
-      to: []
+      from: [null],
+      to: [null]
     });
-    this._mapsApiLoader.load().then(() => {
-      this.chartDataCityGrouped$ = this._service.getAccidentsCountByCity()
-        .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
-      this.chartDataDateGrouped$ = this._service.getAccidentsCountsByDate()
-        .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
-      this.chartDataAccidentTimeSeries$ = this._service.getAccidentsTimeSeries()
-        .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
-      this.chartDataAccidentAgeSeries$ = this._service.getPassengersAgeSeries()
-        .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
-    });
+    this.loadChartData();
   }
 
   private _mapToGoogleAnalyticsChartData(chart: TwoDimensionAnalytic) {
@@ -62,5 +53,22 @@ export class AnalyticPage implements OnInit {
       result.push([chart.columns[i], chart.data[i]]);
     }
     return result;
+  }
+
+  private loadChartData() {
+    this._mapsApiLoader.load().then(() => {
+      this.chartDataCityGrouped$ = this._service.getAccidentsCountByCity(this.filters.getRawValue())
+        .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
+      this.chartDataDateGrouped$ = this._service.getAccidentsCountsByDate(this.filters.getRawValue())
+        .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
+      this.chartDataAccidentTimeSeries$ = this._service.getAccidentsTimeSeries(this.filters.getRawValue())
+        .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
+      this.chartDataAccidentAgeSeries$ = this._service.getPassengersAgeSeries(this.filters.getRawValue())
+        .pipe(map(it => this._mapToGoogleAnalyticsChartData(it)));
+    });
+  }
+
+  applyFilters() {
+    this.loadChartData();
   }
 }

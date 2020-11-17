@@ -13,19 +13,19 @@ export class AnalyticService {
   constructor(private _http: HttpClient) { }
 
   getAccidentsCountsByDate(request?: any): Observable<TwoDimensionAnalytic> {
-    return this._http.post<TwoDimensionAnalytic>(`${this.API_PATH}/accidents/date-grouped`, {});
+    return this._http.post<TwoDimensionAnalytic>(`${this.API_PATH}/accidents/date-grouped`, request);
   }
 
   getAccidentsCountByCity(request?: any): Observable<TwoDimensionAnalytic> {
-    return this._http.post<TwoDimensionAnalytic>(`${this.API_PATH}/accidents/city-grouped`, {});
+    return this._http.post<TwoDimensionAnalytic>(`${this.API_PATH}/accidents/city-grouped`, request);
   }
 
   getAccidentsTimeSeries(request?: any): Observable<TwoDimensionAnalytic> {
-    return this._http.post<TwoDimensionAnalytic>(`${this.API_PATH}/accidents/time-series`, {});
+    return this._http.post<TwoDimensionAnalytic>(`${this.API_PATH}/accidents/time-series`, request);
   }
 
   getPassengersAgeSeries(request?: any): Observable<TwoDimensionAnalytic> {
-    return this._http.post<TwoDimensionAnalytic>(`${this.API_PATH}/passengers/age-series`, {});
+    return this._http.post<TwoDimensionAnalytic>(`${this.API_PATH}/passengers/age-series`, request);
   }
 
 

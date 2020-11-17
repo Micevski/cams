@@ -3,7 +3,7 @@
 <mat-drawer-container autosize [hasBackdrop]='true'>
   <mat-drawer #drawer [mode]='"over"'>
     <h3>Filters</h3>
-    <form [formGroup]='filters'>
+    <form [formGroup]='filters' (ngSubmit)='applyFilters()'>
       <div class='column'>
         <mat-form-field class='date-filter'>
           <input matInput [ngxMatDatetimePicker]='from' placeholder='From date' formControlName='from'>
@@ -22,7 +22,7 @@
         </mat-form-field>
       </div>
       <div class='apply-button'>
-        <button mat-stroked-button class='mat-primary'>Apply</button>
+        <button mat-stroked-button class='mat-primary' type='submit'>Apply</button>
       </div>
     </form>
   </mat-drawer>
