@@ -89,8 +89,7 @@ export class PassengersAddComponent implements OnInit {
       injuredLevel: it.injuredLevel,
       driver: it.driver
     }));
-    console.log(this.passengers, request);
-    this._service.savePassengers(request)
+    this._service.savePassengers(request, this.accidentId)
       .subscribe(response => {
           this.passengers = response;
           this.savePassengersEvent.emit();

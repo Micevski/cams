@@ -1,6 +1,5 @@
 package com.dm.cams.service
 
-import com.dm.cams.domain.Participant
 import com.dm.cams.domain.ParticipantPassenger
 import com.dm.cams.domain.Person
 import com.dm.cams.domain.enums.InjuredLevel
@@ -10,13 +9,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class ParticipantPassengerService(val repository: ParticipantPassengerRepository,
-                                  val participantService: ParticipantService,
                                   val accidentParticipantService: AccidentParticipantService,
                                   val personService: PersonService) {
-
-    fun addPassenger(participant: Participant, passenger: Person, injuredLevel: InjuredLevel, driver: Boolean): ParticipantPassenger {
-        return repository.save(ParticipantPassenger(participant, passenger, injuredLevel, driver))
-    }
 
     fun findById(id: Long): ParticipantPassenger = repository.getOne(id);
 
@@ -27,11 +21,11 @@ class ParticipantPassengerService(val repository: ParticipantPassengerRepository
         return repository.findAllByParticipantIdIn(participantIds)
     }
 
-    fun createOrUpdate(request: List<ParticipantPassengerRequest>): List<ParticipantPassenger> {
+    fun createOrUpdate(request: List<ParticipantPassengerRequest>, accidentId: Long): List<ParticipantPassenger> {
         val passengers = request.map {
             it.participantPassengerId?.let { _ ->
                 updateParticipantPassenger(it)
-            } ?: createParticipantPassenger(it)
+            } ?: createParticipantPassenger(it, accidentId)
         }
         return repository.saveAll(passengers)
     }
@@ -45,11 +39,11 @@ class ParticipantPassengerService(val repository: ParticipantPassengerRepository
         return participantPassenger;
     }
 
-    fun createParticipantPassenger(request: ParticipantPassengerRequest): ParticipantPassenger {
-        val participant: Participant = participantService.findById(request.participantId);
+    fun createParticipantPassenger(request: ParticipantPassengerRequest, accidentId: Long): ParticipantPassenger {
+        val accidentParticipant = accidentParticipantService.findByAccidentIdAndParticipantId(accidentId, request.participantId)
         val passengerPerson: Person = request.passenger.let { per ->
             personService.findOrCreate(per.id, per.firstName, per.lastName, per.dateOfBirth, per.genderId, per.placeOfBirth, per.placeOfLiving, per.uniquePersonIdentifier)
         }
-        return ParticipantPassenger(participant, passengerPerson, InjuredLevel.values()[request.injuredLevel], request.driver)
+        return ParticipantPassenger(accidentParticipant, passengerPerson, InjuredLevel.values()[request.injuredLevel], request.driver)
     }
 }

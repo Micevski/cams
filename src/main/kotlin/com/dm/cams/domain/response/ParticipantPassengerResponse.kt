@@ -11,7 +11,7 @@ data class ParticipantPassengerResponse(val participant: Participant,
                                         val id: Long) {
     companion object {
         fun of(participantPassenger: ParticipantPassenger): ParticipantPassengerResponse {
-            return ParticipantPassengerResponse(participantPassenger.participant,
+            return ParticipantPassengerResponse(participantPassenger.participant.participant,
                     PersonResponse.of(participantPassenger.passenger),
                     participantPassenger.injuredLevel.ordinal,
                     participantPassenger.driver,

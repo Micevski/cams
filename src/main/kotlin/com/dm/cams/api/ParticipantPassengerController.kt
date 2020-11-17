@@ -34,8 +34,9 @@ class ParticipantPassengerController(val participantPassengerService: Participan
         return Gender.values().map { OptionResponse(it.ordinal.toLong(), it.label) }
     }
 
-    @PostMapping("/add")
-    fun addPassengerToParticipant(@RequestBody request: List<ParticipantPassengerRequest>): List<ParticipantPassenger> {
-        return participantPassengerService.createOrUpdate(request)
+    @PostMapping("/add/{accidentId}")
+    fun addPassengerToParticipant(@RequestBody request: List<ParticipantPassengerRequest>,
+                                  @PathVariable accidentId: Long): List<ParticipantPassenger> {
+        return participantPassengerService.createOrUpdate(request, accidentId)
     }
 }

@@ -9,11 +9,13 @@ import { UserService } from '../../service/user.service';
 export class LayoutComponent implements OnInit {
 
   isAdminLogged: boolean = false;
+  loggedUser: any = null;
+
   constructor(private _userService: UserService) {
   }
 
   ngOnInit() {
-    this.isAdminLoggedIn();
+    this.getLoggedUser();
   }
 
   logout() {
@@ -22,10 +24,11 @@ export class LayoutComponent implements OnInit {
     });
   }
 
-  isAdminLoggedIn() {
+  getLoggedUser() {
     this._userService.getAuthentication()
       .subscribe(res => {
-       this.isAdminLogged = res.authorities[0].authority === 'ADMIN';
+        this.loggedUser = res;
+        this.isAdminLogged = res.authorities[0].authority === 'ADMIN';
       });
   }
 

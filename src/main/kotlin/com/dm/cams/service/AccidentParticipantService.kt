@@ -37,6 +37,9 @@ class AccidentParticipantService(val accidentParticipantRepository: AccidentPart
         return findAllParticipantsForAccident(accidentId)
     }
 
+    fun findByAccidentIdAndParticipantId(accidentId: Long, participantId: Long): AccidentParticipant =
+            accidentParticipantRepository.findByAccidentIdAndParticipantId(accidentId, participantId);
+
     fun addParticipantsToAccident(participantsRequest: List<ParticipantRequest>, accidentId: Long): List<AccidentParticipant> {
         val accident: Accident = accidentService.findById(accidentId)
         val accidentParticipants = participantsRequest.stream()

@@ -7,8 +7,8 @@ import javax.persistence.*
 @Table(name = "participant_passengers")
 class ParticipantPassenger(
         @ManyToOne
-        @JoinColumn(name = "participant_id")
-        var participant: Participant,
+        @JoinColumn(name = "accident_participant_id")
+        var participant: AccidentParticipant,
         @ManyToOne
         @JoinColumn(name = "passenger_person_id")
         var passenger: Person,

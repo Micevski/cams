@@ -37,8 +37,8 @@ export class AccidentService {
     return this._http.get<AccidentParticipant[]>(`/api/accident-participant/${accidentId}`);
   }
 
-  savePassengers(passengers: any): Observable<Passenger[]> {
-    return this._http.post<Passenger[]>('/api/passengers/add', passengers);
+  savePassengers(passengers: any, accidentId: number): Observable<Passenger[]> {
+    return this._http.post<Passenger[]>(`/api/passengers/add/${accidentId}`, passengers);
   }
 
   findAllInjuredLevels(): Observable<Option[]> {
